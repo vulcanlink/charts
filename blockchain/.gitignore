@@ -1,0 +1,9 @@
+values.yaml
+*.values.yaml
+*.tgz
+
+charts/bitcoind
+charts/geth
+charts/ipfs
+charts/lnd
+charts/parity

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "chainlink-gas-updater.fullname" . }}-test-connection"
+  labels:
+    {{- include "chainlink-gas-updater.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "chainlink-gas-updater.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

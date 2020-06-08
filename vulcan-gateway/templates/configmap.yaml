@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "vulcan-gateway.fullname" . }}-configmap
+data:
+  {{- toYaml .Values.config | nindent 2 }}
+  

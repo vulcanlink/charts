@@ -1,0 +1,46 @@
+# Default values for geth.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: ethereum/client-go
+  pullPolicy: IfNotPresent
+selectorLabels:
+  - app: geth
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+storage: 100Gi
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name:
+
+podSecurityContext: {}
+securityContext: {}
+service:
+  type: ClusterIP
+  port: 80
+  wss: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+
+resources: {}
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

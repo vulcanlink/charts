@@ -1,0 +1,27 @@
+apiVersion: v2
+name: blockchain
+description: Blockchain Charts.
+
+type: application
+version: 0.1.0
+appVersion: 0.1.0
+
+dependencies:
+    - name: eth-failover
+      version: 0.1.0
+      condition: eth-failover.enabled
+    - name: geth
+      version: 0.1.0
+      condition: geth.enabled
+    - name: parity
+      version: 0.1.0
+      condition: parity.enabled
+    - name: bitcoind
+      version: 0.1.0
+      condition: bitcoind.enabled
+    - name: lnd
+      version: 0.1.0
+      condition: lnd.enabled
+    - name: ipfs
+      version: 0.1.0
+      condition: ipfs.enabled

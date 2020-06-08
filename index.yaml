@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  chainlink:
+  - apiVersion: v2
+    appVersion: 0.8.3
+    created: "2020-06-08T15:20:26.633187639+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 890d360acee5a1199183371cebe3ff2053e5a1b2d2eb81475fbb47deae24661f
+    name: chainlink
+    type: application
+    urls:
+    - chainlink-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-06-08T15:20:26.632684722+02:00"

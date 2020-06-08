@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "chainlink-gas-updater.fullname" . }}
+  labels:
+    {{- include "chainlink-gas-updater.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "chainlink-gas-updater.selectorLabels" . | nindent 4 }}
