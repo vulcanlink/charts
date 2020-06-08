@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "config": {
+            "type": "object",
+            "title": "Chainlink Node Details",
+            "form": true,
+            "properties": {
+                "API_EMAIL": {
+                    "type": "string",
+                    "title": "Login Email",
+                    "form": true
+                },
+                "API_PASSWORD": {
+                    "type": "string",
+                    "title": "Login Password",
+                    "form": true
+                },
+                "WALLET_PASSWORD": {
+                    "type": "string",
+                    "title": "Wallet Password",
+                    "form": true
+                },
+                "LINK_CONTRACT_ADDRESS": {
+                    "type": "string",
+                    "title": "Link Token Contract Address",
+                    "form": true
+                },
+                "ETH_URL": {
+                    "type": "string",
+                    "title": "Ethereum Node URL",
+                    "form": true
+                },
+                "LOG_LEVEL": {
+                    "type": "string",
+                    "title": "Chainlink node log level.",
+                    "form": true
+                },
+                "ETH_CHAIN_ID": {
+                    "type": "string",
+                    "title": "Ethereum chain ID",
+                    "form": true
+                },
+                "MIN_OUTGOING_CONFIRMATIONS": {
+                    "type": "string",
+                    "title": "Min Outgoing Transactions",
+                    "form": true
+                }
+            }
+        }
+    }
+}
