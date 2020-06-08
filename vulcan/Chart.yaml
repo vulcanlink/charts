@@ -1,0 +1,26 @@
+apiVersion: v2
+name: vulcan-chart
+description: Vulcan Link Chainlink and API Charts
+type: application
+version: 0.1.1
+appVersion: 0.1.0
+dependencies:
+    - name: bot-discord
+      version: 0.1.0
+      condition: bot-discord.enabled
+    - name: vulcan-api-wss
+      version: 0.1.0
+      condition: vulcan-api-wss.enabled
+    - name: chainlink
+      version: 0.1.0
+      condition: chainlink.enabled
+    - name: chainlink-gas-updater
+      version: 0.1.0
+      condition: chainlink-gas-updater.enabled
+    - name: vulcan-gateway
+      version: 0.1.0
+      condition: vulcan-gateway.enabled
+    - name: nginx-ingress
+      version: 1.30.1
+      repository: "@stable"
+      condition: nginx-ingress.enabled
