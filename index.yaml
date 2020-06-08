@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-06-08T22:35:14.333749514+02:00"
+    created: "2020-06-08T23:00:48.003301097+02:00"
     description: A Helm chart for Kubernetes
-    digest: 6c9ca4aa8b221bd6f9acaf9fd35b8c5286d6d106b71265f92e1fe49b3c479706
+    digest: 526ee4b6ea1b3960f598bf6009d61dcc6e125d25b66362b39562d069f7b3c0a5
     name: bitcoind
     type: application
     urls:
@@ -14,9 +14,9 @@ entries:
   chainlink:
   - apiVersion: v2
     appVersion: 0.8.3
-    created: "2020-06-08T22:35:14.334273293+02:00"
+    created: "2020-06-08T23:00:48.003803167+02:00"
     description: A Helm chart for Chainlink
-    digest: e028d963163606736554820c7d9c9581e646c115b06092552ecc4e8514dbfa00
+    digest: 162d99ad55ed05a465bd1bfc30dcc95d677f894fe2b0ac15bd01eb1ed1fb2dbd
     home: https://chain.link
     icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
     keywords:
@@ -36,7 +36,7 @@ entries:
   chainlink-api:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T22:35:14.334717177+02:00"
+    created: "2020-06-08T23:00:48.004220914+02:00"
     description: A Helm chart for Chainlink GraphQL API
     digest: 72493102c92322471a7e7167684b73c5c7909f59b9be6242291c1c915ee5b23c
     home: https://github.com/vulcanlink/chainlink-graphql
@@ -58,9 +58,9 @@ entries:
   chainlink-gas-updater:
   - apiVersion: v2
     appVersion: v0.1.3
-    created: "2020-06-08T22:35:14.335181531+02:00"
+    created: "2020-06-08T23:00:48.004657276+02:00"
     description: A Helm chart for Chainlink Gas Updater
-    digest: e74543823da218a44c96d36a1113061fe2dc03f8aca9a59e0355cd98b2e44382
+    digest: d70264c046d135a3784862eba2159d2afb78addb08413f3208b1a45fbb9e5750
     home: https://github.com/thodges-gh/cl-gas-updater
     icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
     keywords:
@@ -80,9 +80,9 @@ entries:
   chainlink-graphql:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T22:35:14.335646683+02:00"
+    created: "2020-06-08T23:00:48.005121012+02:00"
     description: A Helm chart for Chainlink GraphQL API
-    digest: 15923fc533c3bd37bc179fe9db31c9b30a405489b96fb897caaefc9978ee77e7
+    digest: 7a9017b45b5770ebf76ba2c606ac95a261b0984b58c9d49bbe0931be68d7e85c
     home: https://github.com/vulcanlink/chainlink-graphql
     icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
     keywords:
@@ -102,9 +102,9 @@ entries:
   eth-failover:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T22:35:14.336080433+02:00"
+    created: "2020-06-08T23:00:48.005545383+02:00"
     description: A Helm chart for Ethereum failover proxy
-    digest: 698b876383fa8ae84b0e3a530c45a3a2b1f09d1bcd9af7be86b3cf4453828a7f
+    digest: f16273440995e0b6dbda84bd82596db91ebf4692025397fcf5f59526b1edac11
     home: https://github.com/OracleFinder/ChainlinkEthFailover
     icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
     keywords:
@@ -122,9 +122,9 @@ entries:
   geth:
   - apiVersion: v2
     appVersion: v1.9.10
-    created: "2020-06-08T22:35:14.336917151+02:00"
+    created: "2020-06-08T23:00:48.005898666+02:00"
     description: A Helm chart for ethereum
-    digest: 47cd3eaf892e20e5b1739e7a8049adfd99fb2b4768e091a820509d58e7f7e844
+    digest: f2ed68c3266b8b7df09dee6f34f0eb8aaa6e2dc313a9030654aca8dd92a5c715
     name: geth
     type: application
     urls:
@@ -133,9 +133,9 @@ entries:
   ipfs:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-06-08T22:35:14.33726109+02:00"
+    created: "2020-06-08T23:00:48.006230495+02:00"
     description: A Helm chart for Kubernetes
-    digest: e1edf8d1f370aa6762906f61e7a4da419a20ed9c2f141f2c20dcd60a92b15183
+    digest: 9da418c0aa6e0dc5af2f38661cc0010bc9b9e226ced7a26420cf6986a9692fcc
     name: ipfs
     type: application
     urls:
@@ -144,9 +144,9 @@ entries:
   lnd:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-06-08T22:35:14.337590896+02:00"
+    created: "2020-06-08T23:00:48.007005673+02:00"
     description: A Helm chart for Kubernetes
-    digest: f57d9ba0e41bc470261efdd280ec0716cff3249683ebab22db941dac4085d019
+    digest: a7ce9a0eee819eca868d8ad88f084a158d8c11a9d4717262d7e3a42345748ed8
     name: lnd
     type: application
     urls:
@@ -155,9 +155,9 @@ entries:
   parity:
   - apiVersion: v2
     appVersion: v2.7.2-stable
-    created: "2020-06-08T22:35:14.337935019+02:00"
+    created: "2020-06-08T23:00:48.007376922+02:00"
     description: A Helm chart for Kubernetes
-    digest: d4c2d88ae8f7d1c539f96b9af3dee5e3e661d1133f229580b10273fef71aaae6
+    digest: c56e6ea9a0f53e3765921769bbcca678da7eac811f7a4f9ae0b21176705b44e6
     name: parity
     type: application
     urls:
@@ -166,9 +166,9 @@ entries:
   vulcan-api:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T22:35:14.338423612+02:00"
+    created: "2020-06-08T23:00:48.007816792+02:00"
     description: A Helm chart for Vulcan GraphQL API
-    digest: 0b071350a6c759e373380204829647444ad4bde81ae1963931145c35989b6ec9
+    digest: 5a3408327d8d3853c381b57f84b1f23e9109d304fc9100a3550c8670df7202f8
     home: https://vulcan.link
     icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
     keywords:
@@ -189,7 +189,7 @@ entries:
   vulcan-api-wss:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T22:35:14.338758974+02:00"
+    created: "2020-06-08T23:00:48.008174961+02:00"
     description: A Helm chart for Kubernetes
     digest: 879ce53426d3d3d2d6a7bcc76611c84b966c9f9cad7262debf1d079af7cb3afc
     name: vulcan-api-wss
@@ -200,7 +200,7 @@ entries:
   vulcan-chart:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T22:35:14.347487262+02:00"
+    created: "2020-06-08T23:00:48.015014989+02:00"
     dependencies:
     - condition: chainlink.enabled
       name: chainlink
@@ -256,9 +256,9 @@ entries:
   vulcan-gateway:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T22:35:14.348260148+02:00"
+    created: "2020-06-08T23:00:48.015462612+02:00"
     description: A Helm chart for Vulcan GraphQL Gateway
-    digest: a07378a573efc03b5f1960146e83be6d9a2f04eb16d81f25cc7400ea845dd85c
+    digest: d79be0eea929cf6d0cb093fc0a9ec7735a011cbf01e337e5687dae4c288e57ce
     home: https://vulcan.link
     icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
     keywords:
@@ -276,4 +276,4 @@ entries:
     urls:
     - vulcan-gateway-0.1.0.tgz
     version: 0.1.0
-generated: "2020-06-08T22:35:14.333174812+02:00"
+generated: "2020-06-08T23:00:48.002805928+02:00"

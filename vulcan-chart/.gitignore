@@ -1,0 +1,8 @@
+*.values.yaml
+
+*.tgz
+
+medici-bot
+twitch-bot
+geth-config.toml
+ropsten-config.toml
