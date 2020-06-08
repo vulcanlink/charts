@@ -20,3 +20,4 @@ helm package vulcan-gateway
 
 # helm repo index
 helm repo index . 
+git add .
