@@ -3,7 +3,7 @@ name: chainlink
 description: A Helm chart for Chainlink
 type: application
 version: 0.1.0
-icon: https://vulcanlink.github.io/assets/img/chainlink.svg
+icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
 keywords:
   - chainlink
   - ethereum

@@ -22,6 +22,16 @@
                     "title": "Wallet Password",
                     "form": true
                 },
+                "DATABASE_URL": {
+                    "type": "string",
+                    "title": "Postgres database uri",
+                    "form": true
+                },
+                "DATABASE_TIMEOUT": {
+                    "type": "string",
+                    "title": "Database timeout tolerance",
+                    "form": true
+                },
                 "LINK_CONTRACT_ADDRESS": {
                     "type": "string",
                     "title": "Link Token Contract Address",
@@ -45,6 +55,32 @@
                 "MIN_OUTGOING_CONFIRMATIONS": {
                     "type": "string",
                     "title": "Min Outgoing Transactions",
+                    "form": true
+                },
+                "EXPLORER_URL": {
+                    "type": "string",
+                    "title": "Chainlink explorer url",
+                    "form": true
+                },
+                "EXPLORER_ACCESS_KEY": {
+                    "type": "string",
+                    "title": "Chainlink explorer access key",
+                    "form": true
+                },
+                "EXPLORER_SECRET": {
+                    "type": "string",
+                    "title": "Chainlink explorer secret",
+                    "form": true
+                },
+                "ORACLE_CONTRACT_ADDRESS": {
+                    "type": "string",
+                    "title": "Explorer Oracle Contract Address",
+                    "description": "Default oracle contract address for Chainlink explorer. The Chainlink node can respond to requests from multiple oracle contracts but this will be the main oracle contract reported to the Chainlink Explorer.",
+                    "form": true
+                },
+                "FEATURE_EXTERNAL_INITIATORS": {
+                    "type": "string",
+                    "title": "Enable external initiators",
                     "form": true
                 }
             }

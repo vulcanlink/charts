@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-06-08T17:43:07.422833608+02:00"
+    created: "2020-06-08T19:19:30.541393571+02:00"
     description: A Helm chart for Kubernetes
-    digest: d551bcf59c70d71ba7bf3a8cef73eb80b92348d53245f61be6e6cfe8f636a3e2
+    digest: b318e06e904c0e4a3cba40da8a51f5f67178015c2a6c97fc760420ed000dbf61
     name: bitcoind
     type: application
     urls:
@@ -14,11 +14,11 @@ entries:
   chainlink:
   - apiVersion: v2
     appVersion: 0.8.3
-    created: "2020-06-08T17:43:07.423302174+02:00"
+    created: "2020-06-08T19:19:30.541954127+02:00"
     description: A Helm chart for Chainlink
-    digest: 6bed1c258108daa1e0eccbf259692516f24d2be10d8e22975d3444934c14393c
+    digest: ecb02059c3a63f2528f469395a0fb4639928be4792c119d90564a335f594b6f3
     home: https://chain.link
-    icon: https://vulcanlink.github.io/assets/img/chainlink.svg
+    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
     keywords:
     - chainlink
     - ethereum
@@ -36,9 +36,9 @@ entries:
   chainlink-api:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T17:43:07.423664839+02:00"
+    created: "2020-06-08T19:19:30.542317508+02:00"
     description: A Helm chart for Kubernetes
-    digest: 952fe69c9cf473d2e902203bccf2a66cf69e9bfac4f4e24794713be30072adc0
+    digest: c1e55cfc248047132d589609eb7eee803e9a9996e9c5c98fabe24557675305c1
     name: chainlink-api
     type: application
     urls:
@@ -47,9 +47,9 @@ entries:
   chainlink-gas-updater:
   - apiVersion: v2
     appVersion: v0.1.3
-    created: "2020-06-08T17:43:07.424027648+02:00"
+    created: "2020-06-08T19:19:30.542705659+02:00"
     description: A Helm chart for Kubernetes
-    digest: 8778ef2288324647e1e3132cda69df251098a14ea265f4fbc9d89c78774897c4
+    digest: 1172e753dcf7376aba5832c08d7876986bf7c2f7c239265188a9265c594dfb3a
     name: chainlink-gas-updater
     type: application
     urls:
@@ -58,9 +58,9 @@ entries:
   eth-failover:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T17:43:07.424749571+02:00"
+    created: "2020-06-08T19:19:30.543069799+02:00"
     description: A Helm chart for Ethereum failover proxy
-    digest: 63cacd28b8e87133a88c4ceff2f2caf2124aae4c284bb9575b2fd02c831cca13
+    digest: 0b54665bc139a8b53a49c25f7a9ff7e668bcf236104c3243d38a5682800eeb2b
     name: eth-failover
     type: application
     urls:
@@ -69,9 +69,9 @@ entries:
   geth:
   - apiVersion: v2
     appVersion: v1.9.10
-    created: "2020-06-08T17:43:07.425093771+02:00"
+    created: "2020-06-08T19:19:30.543412279+02:00"
     description: A Helm chart for ethereum
-    digest: 5638689527ab6461a3218ef85b3435a0ed21782b1a370d83f7eedb1b3f025b2d
+    digest: 258834492936499fbe81a39e9b02ad68e2d46aef3e471640690e8e18c9fbbecf
     name: geth
     type: application
     urls:
@@ -80,9 +80,9 @@ entries:
   ipfs:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-06-08T17:43:07.425417141+02:00"
+    created: "2020-06-08T19:19:30.543768139+02:00"
     description: A Helm chart for Kubernetes
-    digest: 12ca7074d6f8a0e34a692c30f439187c88e7311b435f25339850395052b38646
+    digest: 596b77e691ca938130177265d3b1348f767511fc7771ed6fe48415205b5dcd12
     name: ipfs
     type: application
     urls:
@@ -91,9 +91,9 @@ entries:
   lnd:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-06-08T17:43:07.425742471+02:00"
+    created: "2020-06-08T19:19:30.544612081+02:00"
     description: A Helm chart for Kubernetes
-    digest: 2582d9f4616561b28fcaa6517152b7f57a4bb5191c211b3fd05a6fe096302a80
+    digest: 924ef1635c73c4dac6b9f984ad6af9c5e54a533918d3ff39efc1a42b6fe3d242
     name: lnd
     type: application
     urls:
@@ -102,9 +102,9 @@ entries:
   parity:
   - apiVersion: v2
     appVersion: v2.7.2-stable
-    created: "2020-06-08T17:43:07.426078808+02:00"
+    created: "2020-06-08T19:19:30.545007072+02:00"
     description: A Helm chart for Kubernetes
-    digest: 7cda5537374e242edbe6959d1aa8876f2d08b2b3b4d69e29c25b7d1bc6316b9c
+    digest: 23472f282dba5e050efd8e3c5be3099b241703a500253d8d2cb0d7c75318e1b9
     name: parity
     type: application
     urls:
@@ -113,9 +113,9 @@ entries:
   vulcan-api:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T17:43:07.426448518+02:00"
+    created: "2020-06-08T19:19:30.545376249+02:00"
     description: A Helm chart for Kubernetes
-    digest: c324b859183e128ff3ada81fc705db6d00c8612d546321ab085b1d83ba90e046
+    digest: 4394d62214126fa34398f5ad8b416a99e2d96ec088222885a63db3c55a1286fb
     name: vulcan-api
     type: application
     urls:
@@ -124,12 +124,12 @@ entries:
   vulcan-api-wss:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-06-08T17:43:07.426789192+02:00"
+    created: "2020-06-08T19:19:30.545740423+02:00"
     description: A Helm chart for Kubernetes
-    digest: e0b78c35f3215f975d48e290ef8c9a7a5f911192503193903dffd0759fb2273e
+    digest: 879ce53426d3d3d2d6a7bcc76611c84b966c9f9cad7262debf1d079af7cb3afc
     name: vulcan-api-wss
     type: application
     urls:
     - vulcan-api-wss-0.1.0.tgz
     version: 0.1.0
-generated: "2020-06-08T17:43:07.42232862+02:00"
+generated: "2020-06-08T19:19:30.540893254+02:00"
