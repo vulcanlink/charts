@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chainlink-api.fullname" . }}
+  name: {{ include "chainlink-graphql.fullname" . }}
   labels:
-    {{- include "chainlink-api.labels" . | nindent 4 }}
+    {{- include "chainlink-graphql.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "chainlink-api.selectorLabels" . | nindent 6 }}
+      {{- include "chainlink-graphql.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "chainlink-api.selectorLabels" . | nindent 8 }}
+        {{- include "chainlink-graphql.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "chainlink-api.serviceAccountName" . }}
+      serviceAccountName: {{ include "chainlink-graphql.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -50,7 +50,7 @@ spec:
                   fieldPath: metadata.namespace
           envFrom:
             - configMapRef:
-                name: {{ include "chainlink-api.fullname" . }}-configmap
+                name: {{ include "chainlink-graphql.fullname" . }}-configmap
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

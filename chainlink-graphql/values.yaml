@@ -1,11 +1,11 @@
-# Default values for chainlink-api.
+# Default values for chainlink-graphql.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: vulcanlink/chainlink-api
+  repository: vulcanlink/chainlink-graphql
   pullPolicy: IfNotPresent
 config:
   DATABASE_URL: "postgresql://postgres@localhost:5432/chainlink"
