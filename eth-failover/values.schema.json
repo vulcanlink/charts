@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "image": {
+            "type": "object",
+            "title": "Docker Image Options",
+            "form": true,
+            "properties": {
+                "args": {
+                    "type": "string",
+                    "title": "args",
+                    "description": "List Ethereum nodes for failover in order of priority.",
+                    "form": true
+                }
+            }
+        }
+    }
+}

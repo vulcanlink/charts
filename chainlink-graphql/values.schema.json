@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "config": {
+            "type": "object",
+            "title": "ConfigMap",
+            "form": true,
+            "properties": {
+                "DATABASE_URL": {
+                    "type": "string",
+                    "title": "Chainlink Postgres database uri",
+                    "form": true
+                }
+            }
+        }
+    }
+}

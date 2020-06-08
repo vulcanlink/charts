@@ -1,7 +1,20 @@
 apiVersion: v2
 name: vulcan-api
-description: A Helm chart for Kubernetes
-
+description: A Helm chart for Vulcan GraphQL API
 type: application
 version: 0.1.0
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+keywords:
+  - vulcanlink
+  - ethereum
+  - chainlink
+  - blockchain
+
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/vulcan-api
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
 appVersion: 0.1.0

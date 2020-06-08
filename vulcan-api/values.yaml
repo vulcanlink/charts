@@ -7,6 +7,12 @@ replicaCount: 1
 image:
   repository: vulcanlink/vulcan-api
   pullPolicy: IfNotPresent
+config:
+  DATABASE_URL: "postgresql://postgres@localhost:5432/vulcan"
+  INFURA_MAINNET: ""
+  INFURA_MAINNET_WSS: ""
+  INFURA_ROPSTEN: ""
+  INFURA_ROPSTEN_WSS: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -39,7 +45,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 4002
 
 ingress:
   enabled: false

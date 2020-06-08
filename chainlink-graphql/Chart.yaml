@@ -1,7 +1,19 @@
 apiVersion: v2
 name: chainlink-api
-description: A Helm chart for Kubernetes
-
+description: A Helm chart for Chainlink GraphQL API
 type: application
 version: 0.1.0
+icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+keywords:
+  - chainlink
+  - ethereum
+  - oracle
+
+home: https://github.com/vulcanlink/chainlink-graphql
+sources:
+  - https://github.com/vulcanlink/chainlink-graphql
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
 appVersion: 0.1.0

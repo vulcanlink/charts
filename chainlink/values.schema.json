@@ -59,7 +59,7 @@
                 },
                 "EXPLORER_URL": {
                     "type": "string",
-                    "title": "Chainlink explorer url",
+                    "title": "Chainlink explorer url (wss://explorer.chain.link)",
                     "form": true
                 },
                 "EXPLORER_ACCESS_KEY": {

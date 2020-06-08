@@ -1,4 +1,4 @@
-# Helm Chart Vulcan
+# Vulcan Helm Chart
 Define Vulcan Kubernetes Cluster.
 
 ## About Vulcan Link
@@ -10,5 +10,5 @@ If you'd like to contribute, join us on [Telegram](https://t.me/vulcanlink) and 
 
 
 ## License
-2020 Leo Vigna
+2020 Vulcan Link
 MIT License.

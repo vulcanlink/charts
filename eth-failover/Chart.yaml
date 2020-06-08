@@ -3,4 +3,15 @@ name: eth-failover
 description: A Helm chart for Ethereum failover proxy
 type: application
 version: 0.1.0
+icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+keywords:
+  - ethereum
+
+home: https://github.com/OracleFinder/ChainlinkEthFailover
+sources:
+  - https://github.com/OracleFinder/ChainlinkEthFailover
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
 appVersion: 0.1.0
