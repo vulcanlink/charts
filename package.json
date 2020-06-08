@@ -5,7 +5,7 @@
     "main": "index.yaml",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "pre-commit": "./package.sh"
+        "pre-commit": "sh package.sh"
     },
     "repository": {
         "type": "git",
