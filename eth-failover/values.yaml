@@ -7,8 +7,8 @@ replicaCount: 1
 image:
   repository: vulcanlink/cl-eth-failover
   pullPolicy: IfNotPresent
-  command: ""
-  args: "ws://localhost:8546"
+  args: 
+    - "ws://localhost:8546"
 
 imagePullSecrets: []
 nameOverride: ""

@@ -8,7 +8,7 @@
             "form": true,
             "properties": {
                 "args": {
-                    "type": "string",
+                    "type": "array",
                     "title": "args",
                     "description": "List Ethereum nodes for failover in order of priority.",
                     "form": true

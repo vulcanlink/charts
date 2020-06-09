@@ -41,6 +41,11 @@ chainlink:
     port: 6688
 chainlink-gas-updater:
   enabled: true
+eth-failover:
+  enabled: true
+  image:
+    args: 
+      - "ws://localhost:8546"
 chainlink-graphql:
   enabled: true
   service:

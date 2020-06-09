@@ -16,6 +16,7 @@ helm package chainlink-graphql
 helm package vulcan-api
 helm package vulcan-gateway
 
+helm dependency update vulcan-chart
 helm package vulcan-chart
 
 # helm repo index
