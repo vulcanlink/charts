@@ -27,16 +27,39 @@ nginx-ingress:
 postgresql:
   enabled: true
 chainlink:
+  enabled: true
   ingress:
     enabled: true
     annotations:
-        kubernetes.io/ingress.class: nginx
-        #nginx.ingress.kubernetes.io/add-base-url: "true"
-        #nginx.ingress.kubernetes.io/rewrite-target: /
+      kubernetes.io/ingress.class: nginx
+      #nginx.ingress.kubernetes.io/add-base-url: "true"
+      #nginx.ingress.kubernetes.io/rewrite-target: /
     hosts:
-      - paths: ["/"]
+      - host: "admin.vulcan.link"
+        paths: ["/"]
   service:
     port: 6688
+chainlink-gas-updater:
+  enabled: true
+chainlink-graphql:
+  enabled: true
+  service:
+    port: 4001
+vulcan-api:
+  enabled: true
+  service:
+    port: 4002
+vulcan-gateway:
+  enabled: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: "api.vulcan.link"
+        paths: ["/"]
+  service:
+    port: 4000
 
 serviceAccount:
   # Specifies whether a service account should be created
