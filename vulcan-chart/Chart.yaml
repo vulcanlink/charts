@@ -3,7 +3,7 @@ name: vulcan-chart
 description: Vulcan Link Chainlink and API Charts
 type: application
 version: 0.1.1
-icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
 keywords:
   - vulcanlink
   - ethereum

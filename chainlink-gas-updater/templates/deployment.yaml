@@ -12,6 +12,7 @@ spec:
   template:
     metadata:
       annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         ad.datadoghq.com/chainlink-gas-updater.logs: '[{"source":"chainlink-gas-updater","service":"gas-updater"}]'
       labels:
         {{- include "chainlink-gas-updater.selectorLabels" . | nindent 8 }}
