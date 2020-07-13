@@ -78,9 +78,24 @@
                     "description": "Default oracle contract address for Chainlink explorer. The Chainlink node can respond to requests from multiple oracle contracts but this will be the main oracle contract reported to the Chainlink Explorer.",
                     "form": true
                 },
+                "GAS_UPDATER_ENABLED": {
+                    "type": "string",
+                    "title": "Enable built-in gas updater",
+                    "form": true
+                },
+                "FEATURE_FLUX_MONITOR": {
+                    "type": "string",
+                    "title": "Enable flux monitor",
+                    "form": true
+                },
                 "FEATURE_EXTERNAL_INITIATORS": {
                     "type": "string",
                     "title": "Enable external initiators",
+                    "form": true
+                },
+                "JSON_CONSOLE": {
+                    "type": "string",
+                    "title": "Set logger to JSON format",
                     "form": true
                 }
             }

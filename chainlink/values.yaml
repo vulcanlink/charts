@@ -29,12 +29,15 @@ config:
   WALLET_PASSWORD: ""
   DATABASE_TIMEOUT: "500ms"
   DATABASE_URL: postgresql://postgres@localhost:5432/chainlink
-  FEATURE_EXTERNAL_INITIATORS: "false"
   EXPLORER_URL: ""
   EXPLORER_ACCESS_KEY: ""
   EXPLORER_SECRET: ""
   MINIMUM_CONTRACT_PAYMENT: "50000000000000000"
   ORACLE_CONTRACT_ADDRESS: ""
+  GAS_UPDATER_ENABLED: "false"
+  FEATURE_FLUX_MONITOR: "false"
+  FEATURE_EXTERNAL_INITIATORS: "false"
+  JSON_CONSOLE: "false"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

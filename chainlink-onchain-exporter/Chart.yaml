@@ -1,0 +1,20 @@
+apiVersion: v2
+name: chainlink-onchain-exporter
+description: A Helm chart for Chainlink Onchain Metrics Exporter by CertusOne
+type: application
+version: 0.1.0
+icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+keywords:
+  - chainlink
+  - ethereum
+  - oracle
+  - metrics
+
+home: https://github.com/certusone/chainlink_exporter
+sources:
+  - https://github.com/certusone/chainlink_exporter
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: version-1.0.5

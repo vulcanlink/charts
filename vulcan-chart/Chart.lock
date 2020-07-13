@@ -1,7 +1,7 @@
 dependencies:
 - name: chainlink
   repository: file://../chainlink
-  version: 0.1.0
+  version: 0.1.4
 - name: chainlink-gas-updater
   repository: file://../chainlink-gas-updater
   version: 0.1.0
@@ -23,5 +23,5 @@ dependencies:
 - name: nginx-ingress
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 1.30.1
-digest: sha256:7a39818cb687d2514ac87f62752f2f8ac676ceaf79e6e8b23b5938cc1d23095f
-generated: "2020-06-08T22:29:41.822045821+02:00"
+digest: sha256:c972a44b0fa95d79e7772c2a6f3483f6556431b0ea73bab0884c4fe73288248c
+generated: "2020-07-13T16:12:04.532005+02:00"

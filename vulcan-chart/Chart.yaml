@@ -2,7 +2,7 @@ apiVersion: v2
 name: vulcan-chart
 description: Vulcan Link Chainlink and API Charts
 type: application
-version: 0.1.1
+version: 0.1.2
 icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
 keywords:
   - vulcanlink
@@ -20,7 +20,7 @@ maintainers:
 appVersion: 0.1.0
 dependencies:
     - name: chainlink
-      version: 0.1.0
+      version: 0.1.4
       condition: chainlink.enabled
       repository: file://../chainlink
     - name: chainlink-gas-updater

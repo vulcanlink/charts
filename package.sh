@@ -10,6 +10,7 @@
 
 helm package chainlink
 helm package chainlink-gas-updater
+helm package chainlink-onchain-exporter
 helm package eth-failover
 
 helm package chainlink-graphql
