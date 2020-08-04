@@ -13,6 +13,9 @@ helm package chainlink-gas-updater
 helm package chainlink-onchain-exporter
 helm package eth-failover
 
+helm package rsk-initiator
+helm package rsktx-adapter
+
 helm package chainlink-graphql
 helm package vulcan-api
 helm package vulcan-gateway

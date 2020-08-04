@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "config": {
+            "type": "object",
+            "title": "RSK Initiator Details",
+            "form": true,
+            "properties": {
+                "API_EMAIL": {
+                    "type": "string",
+                    "title": "Chainlink API email",
+                    "form": true
+                },
+                "API_PASSWORD": {
+                    "type": "string",
+                    "title": "Chainlink API password",
+                    "form": true
+                },
+                "CHAINLINK_BASE_URL": {
+                    "type": "string",
+                    "title": "Chainlink node url",
+                    "form": true
+                },
+                "DATABASE_URL": {
+                    "type": "string",
+                    "title": "Postgres database connection string",
+                    "form": true
+                },
+                "RSK_HOST": {
+                    "type": "string",
+                    "title": "RSK Websocket host",
+                    "form": true
+                },
+                "RSK_WS_PROTOCOL": {
+                    "type": "string",
+                    "title": "RSK Websocket protocol (ws/wss)",
+                    "form": true
+                },
+                "RSK_WS_PORT": {
+                    "type": "string",
+                    "title": "RSK Websocket port",
+                    "form": true
+                },
+                "RSK_WS_URL": {
+                    "type": "string",
+                    "title": "RSK Websocket url",
+                    "form": true
+                },
+                "INITIATOR_HOST": {
+                    "type": "string",
+                    "title": "Initiator host",
+                    "form": true
+                },
+                "INITIATOR_NAME": {
+                    "type": "string",
+                    "title": "External initiator name",
+                    "form": true
+                },
+                "INITIATOR_PORT": {
+                    "type": "string",
+                    "title": "Initiator port",
+                    "form": true
+                }
+            }
+        }
+    }
+}
