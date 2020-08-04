@@ -1,18 +1,19 @@
-# Default values for rsk-initiator.
+# Default values for rsktx-adapter.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: vulcanlink/rsk-initiator
-  pullPolicy: Always # develop version
+  repository: vulcanlink/rsktx-adapter
+  pullPolicy: Always # develop versiont
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   command: ["/bin/sh"]
   args: ["-c",
         "echo $API_EMAIL > ./.api;
         echo $API_PASSWORD >> ./.api;
+        echo $ADAPTER_PRIVATE_KEY > ./.adapterKey;
         npm start;
         while true; do sleep 10;done;"]
 
@@ -25,9 +26,9 @@ config:
     RSK_WS_PROTOCOL: wss
     RSK_WS_PORT: "443"
     RSK_WS_URL: /websocket
-    INITIATOR_HOST: rsk-initiator.default.svc.cluster.local
-    INITIATOR_NAME: rskinitiator
-    INITIATOR_PORT: "30055"
+    ADAPTER_HOST: rsktx-adapter.default.svc.cluster.local
+    ADAPTER_NAME: rsktxadapter
+    ADAPTER_PORT: "30056"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -57,7 +58,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 30055
+  port: 30056
 
 ingress:
   enabled: false

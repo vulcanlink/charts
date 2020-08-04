@@ -19,9 +19,5 @@
     "devDependencies": {
         "husky": "^4.2.5"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "sh package.sh"
-        }
-    }
+    "husky": {}
 }
