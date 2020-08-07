@@ -51,7 +51,7 @@ To delete the PVC's associated with `my-release`:
 $ kubectl delete pvc -l release=my-release
 ```
 
-> **Note**: Deleting the PVC's will delete postgresql data as well. Please be cautious before doing it.
+> **Note**: Deleting the PVC's will delete blockchain data as well. Please be cautious before doing it.
 
 ## Parameters
 
