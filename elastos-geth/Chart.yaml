@@ -1,0 +1,18 @@
+apiVersion: v2
+name: elastos-geth
+description: A Helm chart for ELASTOS Ethereum Sidechain
+type: application
+version: 0.1.0
+keywords:
+  - elastos
+  - ethereum
+  - oracle
+
+home: https://elaeth.io/
+sources:
+  - https://github.com/elastos/Elastos.ELA.SideChain.ETH
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: latest
