@@ -7,17 +7,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.tcp }}
-      targetPort: tcp
-      protocol: TCP
-      name: tcp
     - port: {{ .Values.service.http }}
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ .Values.service.wss }}
-      targetPort: wss
+    - port: {{ .Values.service.ws }}
+      targetPort: ws
       protocol: TCP
-      name: wss
+      name: ws
   selector:
     {{- include "geth.selectorLabels" . | nindent 4 }}
