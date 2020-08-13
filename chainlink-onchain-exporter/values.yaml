@@ -10,7 +10,7 @@ image:
 
 config:
   LADDR: ":8080"
-  RPC: ws://localhost:8546
+  RPC: ws://geth.default.svc.cluster.local:8546
   ADDRESS: ""
   NODE_ADDRESS: ""
   LINK_ADDRESS: "0x514910771af9ca656af840dff83e8264ecf986ca"

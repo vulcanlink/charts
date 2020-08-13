@@ -8,8 +8,8 @@ image:
   repository: vulcanlink/vulcan-gateway
   pullPolicy: IfNotPresent
 config:
-    CHAINLINK_SERVICE: "http://localhost:4001"
-    VULCAN_SERVICE: "http://localhost:4002"
+    CHAINLINK_SERVICE: "http://chainlink.default.svc.cluster.local:4001"
+    VULCAN_SERVICE: "http://vulcan.default.svc.cluster.local:4002"
   
 imagePullSecrets: []
 nameOverride: ""
