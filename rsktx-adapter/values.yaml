@@ -21,7 +21,7 @@ config:
     API_EMAIL: admin@example.com
     API_PASSWORD: password
     CHAINLINK_BASE_URL: http://chainlink.default.svc.cluster.local:6688/
-    DATABASE_URL: postgresql://postgres@localhost:5432/rsk_initiator?sslmode=disable
+    DATABASE_URL: postgresql://postgres@postgresql.default.svc.cluster.local:5432/rsktx_adapter?sslmode=disable
     RSK_HOST: rsk.qubistry.co
     RSK_WS_PROTOCOL: wss
     RSK_WS_PORT: "443"
