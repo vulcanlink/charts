@@ -45,7 +45,7 @@ eth-failover:
   enabled: true
   image:
     args: 
-      - "ws://localhost:8546"
+      - "ws://geth.default.svc.cluster.local:8546"
 chainlink-graphql:
   enabled: true
   service:

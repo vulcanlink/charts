@@ -23,12 +23,12 @@ config:
   CHAINLINK_TLS_PORT: "0"
   SECURE_COOKIES: "false"
   ALLOW_ORIGINS: "*"
-  ETH_URL: ws://localhost:8546
+  ETH_URL: ws://geth.default.svc.cluster.local:8546
   API_EMAIL: ""
   API_PASSWORD: ""
   WALLET_PASSWORD: ""
   DATABASE_TIMEOUT: "500ms"
-  DATABASE_URL: postgresql://postgres@localhost:5432/chainlink
+  DATABASE_URL: postgresql://postgres@postgresql.default.svc.cluster.local:5432/chainlink
   EXPLORER_URL: ""
   EXPLORER_ACCESS_KEY: ""
   EXPLORER_SECRET: ""
