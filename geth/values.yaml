@@ -19,6 +19,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+volumes:
+  data:
+    mountPath: /root/.ethereum
+
 persistence:
   enabled: true
   annotations: {}
@@ -72,10 +76,10 @@ ingress:
   hosts:
     - host: chart-example.local
       paths:
-       - path: /ws
+       - path: /
          servicePort: 8545
          serviceName: geth
-       - path: /
+       - path: /ws
          servicePort: 8546
          serviceName: geth
   tls: []

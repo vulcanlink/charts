@@ -40,14 +40,14 @@ spec:
             {{- toYaml .Values.image.args | nindent 12 }}
           ports:
             - name: http
-              containerPort: 20636
+              containerPort: {{ .Values.container.ports.http }}
               protocol: TCP
             - name: ws
-              containerPort: 20635
+              containerPort: {{ .Values.container.ports.ws }}
               protocol: TCP
           volumeMounts:
             - name: data
-              mountPath: /root/.ela_ethereum
+              mountPath: {{ .Values.volumes.data.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

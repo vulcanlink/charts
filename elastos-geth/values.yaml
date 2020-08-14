@@ -19,6 +19,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+volumes:
+  data:
+    mountPath: /root/.ela_ethereum
+
 persistence:
   enabled: true
   annotations: {}
@@ -54,6 +58,11 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+container:
+  ports:
+    http: 8545
+    ws: 8546
+
 service:
   type: ClusterIP
   http: 20636
@@ -67,11 +76,11 @@ ingress:
   hosts:
     - host: chart-example.local
       paths:
-       - path: /ws
-         servicePort: 20635
-         serviceName: elastos-geth
        - path: /
          servicePort: 20636
+         serviceName: elastos-geth
+       - path: /ws
+         servicePort: 20635
          serviceName: elastos-geth
   tls: []
   #  - secretName: chart-example-tls

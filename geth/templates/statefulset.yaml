@@ -47,7 +47,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: data
-              mountPath: /root/.ela_ethereum
+              mountPath: {{ .Values.volumes.data.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
