@@ -2,7 +2,7 @@ apiVersion: v2
 name: elastos-geth
 description: A Helm chart for ELASTOS Ethereum Sidechain
 type: application
-version: 0.1.0
+version: 0.2.0
 icon: https://vulcanlink.github.io/charts/assets/img/elastos.svg
 keywords:
   - elastos
