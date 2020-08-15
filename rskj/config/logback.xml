@@ -35,21 +35,21 @@
     </rollingPolicy>
   </appender>
 
-  <logger name="execute" level="DEBUG"/>
-  <logger name="blockvalidator" level="DEBUG"/>
+  <logger name="execute" level="INFO"/>
+  <logger name="blockvalidator" level="INFO"/>
   <logger name="blocksyncservice" level="TRACE"/>
-  <logger name="blockexecutor" level="DEBUG"/>
+  <logger name="blockexecutor" level="INFO"/>
   <logger name="general" level="DEBUG"/>
   <logger name="gaspricetracker" level="ERROR"/>
-  <logger name="web3" level="DEBUG"/>
+  <logger name="web3" level="INFO"/>
   <logger name="repository" level="ERROR"/>
   <logger name="VM" level="ERROR"/>
   <logger name="blockqueue" level="ERROR"/>
   <logger name="io.netty" level="ERROR"/>
   <logger name="block" level="ERROR"/>
-  <logger name="minerserver" level="DEBUG"/>
+  <logger name="minerserver" level="INFO"/>
   <logger name="txbuilderex" level="ERROR"/>
-  <logger name="pendingstate" level="DEBUG"/>
+  <logger name="pendingstate" level="INFO"/>
   <logger name="hsqldb.db" level="ERROR"/>
   <logger name="TCK-Test" level="ERROR"/>
   <logger name="db" level="ERROR"/>
@@ -76,9 +76,9 @@
   <logger name="BridgeSupport" level="ERROR"/>
   <logger name="jsonrpc" level="ERROR"/>
   <logger name="wallet" level="ERROR"/>
-  <logger name="blockchain" level="DEBUG"/>
+  <logger name="blockchain" level="INFO"/>
   <logger name="blockprocessor" level="ERROR"/>
-  <logger name="state" level="DEBUG"/>
+  <logger name="state" level="INFO"/>
 
   <root level="DEBUG">
     <appender-ref ref="stdout"/>

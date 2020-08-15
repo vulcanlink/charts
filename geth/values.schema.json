@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "image": {
+      "type": "object",
+      "title": "Docker Image Config",
+      "form": true,
+      "properties": {
+        "repository": {
+          "type": "string",
+          "form": true
+        },
+        "tag": {
+          "type": "string",
+          "form": true
+        },
+        "pullPolicy": {
+          "type": "string",
+          "form": true
+        },
+        "command": {
+          "type": "array",
+          "form": false
+        },
+        "args": {
+          "type": "array",
+          "form": false
+        }
+      }
+    },
+    "nameOverride": {
+      "type": "string",
+      "form": true
+    },
+    "fullnameOverride": {
+      "type": "string",
+      "form": true
+    },
+    "volumes": {
+      "type": "object",
+      "title": "Volumes",
+      "form": true,
+      "properties": {
+        "data": {
+          "type": "object",
+          "form": true,
+          "properties": {
+            "mountPath": {
+              "type": "string",
+              "form": true
+            }
+          }
+        }
+      }
+    },
+    "persistence": {
+      "type": "object",
+      "title": "Persistence",
+      "form": true,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable persistent storage",
+          "form": true
+        },
+        "existingClaim": {
+          "type": "string",
+          "title": "Existing PersistentVolumeClaim",
+          "form": true
+        },
+        "storageClass": {
+          "type": "string",
+          "title": "Custom PVC Storage Class",
+          "form": true
+        },
+        "accessModes": {
+          "type": "array",
+          "form": false
+        },
+        "size": {
+          "type": "string",
+          "title": "Persistent Volume Size",
+          "form": true,
+          "render": "slider",
+          "sliderMin": 50,
+          "sliderMax": 1000,
+          "sliderUnit": "Gi"
+        },
+        "annotations": {
+          "type": "object",
+          "title": "Annotations",
+          "form": false
+        }
+      },
+      "container": {
+        "type": "object",
+        "title": "Container",
+        "form": true,
+        "properties": {
+          "ports": {
+            "type": "object",
+            "properties": {
+              "http": {
+                "type": "integer",
+                "title": "http",
+                "form": true
+              },
+              "ws": {
+                "type": "integer",
+                "title": "ws",
+                "form": true
+              }
+            }
+          }
+        }
+      },
+      "service": {
+        "type": "object",
+        "title": "Service",
+        "form": true,
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Service type",
+            "form": true
+          },
+          "http": {
+            "type": "integer",
+            "title": "http",
+            "form": true
+          },
+          "ws": {
+            "type": "integer",
+            "title": "ws",
+            "form": true
+          }
+        }
+      }
+    },
+    "ingress": {
+      "type": "object",
+      "title": "Ingress",
+      "form": true,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable Kubernetes Ingress",
+          "form": true
+        },
+        "hosts": {
+          "type": "array",
+          "title": "Ingress hosts",
+          "form": false
+        }
+      }
+    }
+  }
+}

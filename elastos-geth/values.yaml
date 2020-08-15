@@ -60,8 +60,8 @@ securityContext: {}
 
 container:
   ports:
-    http: 8545
-    ws: 8546
+    http: 20636
+    ws: 20635
 
 service:
   type: ClusterIP

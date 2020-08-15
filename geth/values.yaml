@@ -10,10 +10,10 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   command: ["geth"]
-  args: ["--rpc",
-        "--rpcaddr", "0.0.0.0", "--rpcvhosts=*",
+  args: ["--http",
+        "--http.addr", "0.0.0.0", "--http.vhosts=*",
         "--ws", 
-        "--wsaddr", "0.0.0.0", "--wsorigins=*"]
+        "--ws.addr", "0.0.0.0", "--ws.origins=*"]
 
 imagePullSecrets: []
 nameOverride: ""
