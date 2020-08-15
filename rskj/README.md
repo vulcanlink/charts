@@ -1,20 +1,16 @@
-# ELASTOS ETH Sidechain
-Helm chart deploying a ELASTOS Ethereum Sidechain node.
-
-[ELASTOS](https://www.elastos.org/) is Delegated Proof-Of-Stake (DPOS) blockchain with an Ethereum sidechain.
-
-Checkout out [elaeth.io](https://elaeth.io/) to learn how to build smart contracts on the ELASTOS Ethereum sidechain.
+# RSKJ
+Helm chart deploying RSK Java client.
 
 ## TL;DR
 
 ```console
 $ helm repo add vulcanlink https://vulcanlink.github.io/charts/
-$ helm install my-release vulcanlink/elastos-geth
+$ helm install my-release vulcanlink/rskj
 ```
 
 ## Introduction
 
-This chart bootstraps a [ELASTOS Sidechain](https://github.com/elastos/Elastos.ELA.SideChain.ETH) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [rskj](https://github.com/ethereum/go-ethereum) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters. This chart has been tested to work with NGINX Ingress on top of AWS EKS.
 
@@ -28,10 +24,10 @@ Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deploy
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install my-release vulcanlink/elastos-geth
+$ helm install my-release vulcanlink/rskj
 ```
 
-The command deploys ELASTOS Geth on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys rskj on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -55,7 +51,7 @@ $ kubectl delete pvc -l release=my-release
 
 ## Parameters
 
-The following tables lists the configurable parameters of the ELASTOS Ethereum chart and their default values.
+The following tables lists the configurable parameters of the rskj chart and their default values.
 
 |                   Parameter                   |                                                                                Description                                                                                |                            Default                            |
 |-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
@@ -63,27 +59,27 @@ The following tables lists the configurable parameters of the ELASTOS Ethereum c
 | `global.imagePullSecrets`                     | Global Docker registry secret names as an array                                                                                                                           | `[]` (does not add image pull secrets to deployed pods)       |
 | `global.storageClass`                         | Global storage class for dynamic provisioning                                                                                                                             | `nil`                                                         |
 | `image.registry`                              | Image registry                                                                                                                                                            | `docker.io`                                                   |
-| `image.repository`                            | Image name                                                                                                                                                                | `vulcanlink/elastos-geth`                                          |
+| `image.repository`                            | Image name                                                                                                                                                                | `vulcanlink/rskj`                                          |
 | `image.tag`                                   | Image tag                                                                                                                                                                 | `{TAG_NAME}`                                                  |
 | `image.pullPolicy`                            | Image pull policy                                                                                                                                                         | `IfNotPresent`                                                |
 | `image.pullSecrets`                           | Specify Image pull secrets                                                                                                                                                | `nil` (does not add image pull secrets to deployed pods)      |
-| `image.command`                               | Specify Image run command                                                                                                                                       | `["geth"]`                                                    |
-| `image.args`                                  | Specify Image run command args                                                                                                                                  | `["--rpc", "--rpcaddr", "0.0.0.0", "--rpcvhosts=*", "--ws", "--wsaddr", "0.0.0.0", "--wsorigins=*"]` |                                                      |
+| `image.command`                               | Specify Image run command                                                                                                                                                 | `nil`                                                         |
+| `image.args`                                  | Specify Image run command args                                                                                                                                            | `nil`                                                         |
 | `nameOverride`                                | String to partially override postgresql.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
 | `fullnameOverride`                            | String to fully override postgresql.fullname template with a string                                                                                                       | `nil`                                                         |
-| `volumes.data.mountPath`                      | Blockchain data mountpath                                                                                                                                                 | `/root/.ela_ethereum`                                             |
-| `container.http`                              | Geth Container http JSON-RPC port                                                                                                                                         | `20636`                                                        |
-| `container.ws`                                | Geth Container websocket JSON-RPC port                                                                                                                                    | `20635`                                                        |
+| `volumes.data.mountPath`                      | Blockchain data mountpath                                                                                                                                                 | `/var/lib/rsk`                                                |
+| `container.http`                              | rskj Container http JSON-RPC port                                                                                                                                         | `4444`                                                        |
+| `container.ws`                                | rskj Container websocket JSON-RPC port                                                                                                                                    | `4445`                                                        |
 | `service.type`                                | Kubernetes Service type                                                                                                                                                   | `ClusterIP`                                                   |
-| `service.http`                                | Geth Service http JSON-RPC port                                                                                                                                           | `20636`                                                        |
-| `service.ws`                                  | Geth Service websocket JSON-RPC port                                                                                                                                      | `20635`                                                        |
+| `service.http`                                | rskj Service http JSON-RPC port                                                                                                                                           | `4444`                                                        |
+| `service.ws`                                  | rskj Service websocket JSON-RPC port                                                                                                                                      | `4445`                                                        |
 | `service.nodePort`                            | Kubernetes Service nodePort                                                                                                                                               | `nil`                                                         |
-| `service.annotations`                         | Annotations for Geth service                                                                                                                                              | `{}` (evaluated as a template)                                |
+| `service.annotations`                         | Annotations for rskj service                                                                                                                                              | `{}` (evaluated as a template)                                |
 | `persistence.enabled`                         | Enable persistence using PVC                                                                                                                                              | `true`                                                        |
 | `persistence.existingClaim`                   | Provide an existing `PersistentVolumeClaim`, the value is evaluated as a template.                                                                                        | `nil`                                                         |
-| `persistence.storageClass`                    | PVC Storage Class for Geth volume                                                                                                                                   | `nil`                                                         |
-| `persistence.accessModes`                     | PVC Access Mode for Geth volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
-| `persistence.size`                            | PVC Storage Request for Geth volume                                                                                                                                 | `100Gi`                                                       |
+| `persistence.storageClass`                    | PVC Storage Class for rskj volume                                                                                                                                   | `nil`                                                         |
+| `persistence.accessModes`                     | PVC Access Mode for rskj volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
+| `persistence.size`                            | PVC Storage Request for rskj volume                                                                                                                                 | `100Gi`                                                       |
 | `persistence.annotations`                     | Annotations for the PVC                                                                                                                                                   | `{}`                                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
@@ -91,7 +87,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install my-release \
   --set persistence.enabled=false \
-    vulcanlink/elastos-geth
+    vulcanlink/rskj
 ```
 
 The above command disables persistent storage, meaning the node will have to resync after every Pod restart/deletion.
@@ -99,7 +95,7 @@ The above command disables persistent storage, meaning the node will have to res
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install my-release -f values.yaml vulcanlink/geth
+$ helm install my-release -f values.yaml vulcanlink/rskj
 ```
 
-> **Tip**: You can use the default [values.yaml](values.yaml)                               |
+> **Tip**: You can use the default [values.yaml](values.yaml)

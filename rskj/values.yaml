@@ -1,19 +1,14 @@
-# Default values for elastos-geth.
+# Default values for rskj.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: vulcanlink/elastos-geth
+  repository: vulcanlink/rskj
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-  command: ["geth"]
-  args: ["--rpc",
-        "--rpcaddr", "0.0.0.0", "--rpcvhosts=*",
-        "--ws", 
-        "--wsaddr", "0.0.0.0", "--wsorigins=*"]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -21,7 +16,7 @@ fullnameOverride: ""
 
 volumes:
   data:
-    mountPath: /root/.ela_ethereum
+    mountPath: /var/lib/rsk
 
 persistence:
   enabled: true
@@ -60,13 +55,13 @@ securityContext: {}
 
 container:
   ports:
-    http: 20636
-    ws: 20635
+    http: 4444
+    ws: 4445
 
 service:
   type: ClusterIP
-  http: 20636
-  ws: 20635
+  http: 4444
+  ws: 4445
 
 ingress:
   enabled: false
@@ -77,11 +72,11 @@ ingress:
     - host: chart-example.local
       paths:
        - path: /
-         servicePort: 20636
-         serviceName: elastos-geth
+         servicePort: 4444
+         serviceName: rskj
        - path: /ws
-         servicePort: 20635
-         serviceName: elastos-geth
+         servicePort: 4445
+         serviceName: rskj
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

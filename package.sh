@@ -13,6 +13,8 @@ helm package chainlink-gas-updater
 helm package chainlink-onchain-exporter
 helm package eth-failover
 helm package elastos-geth
+helm package geth
+helm package rskj
 
 helm package rsk-initiator
 helm package rsktx-adapter

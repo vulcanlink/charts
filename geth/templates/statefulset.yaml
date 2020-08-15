@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "elastos-geth.fullname" . }}
+  name: {{ include "geth.fullname" . }}
   labels:
-    {{- include "elastos-geth.labels" . | nindent 4 }}
+    {{- include "geth.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "elastos-geth.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "elastos-geth.fullname" . }}
+      {{- include "geth.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "geth.fullname" . }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -19,13 +19,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "elastos-geth.selectorLabels" . | nindent 8 }}
+        {{- include "geth.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "elastos-geth.serviceAccountName" . }}
+      serviceAccountName: {{ include "geth.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -90,5 +90,5 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }}
-        {{ include "elastos-geth.storageClass" . }}
+        {{ include "geth.storageClass" . }}
 {{- end }}
