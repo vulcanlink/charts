@@ -1,0 +1,20 @@
+apiVersion: v2
+name: rskj
+description: A Helm chart for RSK client
+type: application
+version: 0.2.0
+icon: https://vulcanlink.github.io/charts/assets/img/rsk.svg
+keywords:
+  - RSK
+  - rooststock
+  - bitcoin
+  - ethereum
+
+home: https://rsk.co
+sources:
+  - https://github.com/rsksmart/artifacts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: latest
