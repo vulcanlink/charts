@@ -1,549 +1,549 @@
 apiVersion: v1
 entries:
   bitcoind:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2020-08-13T23:34:29.168791878+02:00"
-    description: A Helm chart for Kubernetes
-    digest: 5af8c3e87c0b5e6f3a553254bc61008549b0b3294686642c0eccacd8e68cee22
-    name: bitcoind
-    type: application
-    urls:
-    - bitcoind-0.1.0.tgz
-    version: 0.1.0
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2020-08-13T23:34:29.168791878+02:00"
+      description: A Helm chart for Kubernetes
+      digest: 5af8c3e87c0b5e6f3a553254bc61008549b0b3294686642c0eccacd8e68cee22
+      name: bitcoind
+      type: application
+      urls:
+        - bitcoind-0.1.0.tgz
+      version: 0.1.0
   chainlink:
-  - apiVersion: v2
-    appVersion: 0.8.12
-    created: "2020-08-13T23:34:29.284894823+02:00"
-    description: A Helm chart for Chainlink
-    digest: a5330b2bc6d4cc48ecb94e4e3803371498e8d20f1301481c79e1de8c54b062c2
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink
-    sources:
-    - https://github.com/smartcontractkit/chainlink
-    type: application
-    urls:
-    - chainlink-0.1.5.tgz
-    version: 0.1.5
-  - apiVersion: v2
-    appVersion: 0.8.9
-    created: "2020-08-13T23:34:29.284412787+02:00"
-    description: A Helm chart for Chainlink
-    digest: 3e205b78abadfe166f5fd0d9823e2bfd99f4a7ac48bc6521fd37acbf2fdcebf4
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink
-    sources:
-    - https://github.com/smartcontractkit/chainlink
-    type: application
-    urls:
-    - chainlink-0.1.4.tgz
-    version: 0.1.4
-  - apiVersion: v2
-    appVersion: 0.8.8
-    created: "2020-08-13T23:34:29.283699552+02:00"
-    description: A Helm chart for Chainlink
-    digest: 2be12ea702ad6e9794b17ccafaff494d0a9f1d502d6a66e0b69bbe2dcc9f094f
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink
-    sources:
-    - https://github.com/smartcontractkit/chainlink
-    type: application
-    urls:
-    - chainlink-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v2
-    appVersion: 0.8.7
-    created: "2020-08-13T23:34:29.282941782+02:00"
-    description: A Helm chart for Chainlink
-    digest: ab39d29f565f612bcf45ee4d6e29257ea8cd55d9af38b9fb9491293101628ec0
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink
-    sources:
-    - https://github.com/smartcontractkit/chainlink
-    type: application
-    urls:
-    - chainlink-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v2
-    appVersion: 0.8.6
-    created: "2020-08-13T23:34:29.282228904+02:00"
-    description: A Helm chart for Chainlink
-    digest: fc9786801e472dac5fa9cabcc25949b75fede466e23246c7d0130d9ac58ea4de
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink
-    sources:
-    - https://github.com/smartcontractkit/chainlink
-    type: application
-    urls:
-    - chainlink-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v2
-    appVersion: 0.8.3
-    created: "2020-08-13T23:34:29.281297472+02:00"
-    description: A Helm chart for Chainlink
-    digest: d4b5193ef95cb5cc4d9de80dc47fbb17b49f008e6bbe40078c4161f4a90b3b88
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink
-    sources:
-    - https://github.com/smartcontractkit/chainlink
-    type: application
-    urls:
-    - chainlink-0.1.0.tgz
-    version: 0.1.0
-  chainlink-api:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.285435728+02:00"
-    description: A Helm chart for Chainlink GraphQL API
-    digest: 72493102c92322471a7e7167684b73c5c7909f59b9be6242291c1c915ee5b23c
-    home: https://github.com/vulcanlink/chainlink-graphql
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink-api
-    sources:
-    - https://github.com/vulcanlink/chainlink-graphql
-    type: application
-    urls:
-    - chainlink-api-0.1.0.tgz
-    version: 0.1.0
-  chainlink-gas-updater:
-  - apiVersion: v2
-    appVersion: v0.1.3
-    created: "2020-08-13T23:34:29.286148354+02:00"
-    description: A Helm chart for Chainlink Gas Updater
-    digest: 3d8c8b415d4ebdd1859e84f942d2ca674d7db4e9c9459f9d02637652461b2542
-    home: https://github.com/thodges-gh/cl-gas-updater
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink-gas-updater
-    sources:
-    - https://github.com/thodges-gh/cl-gas-updater
-    type: application
-    urls:
-    - chainlink-gas-updater-0.1.0.tgz
-    version: 0.1.0
-  chainlink-graphql:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.28686254+02:00"
-    description: A Helm chart for Chainlink GraphQL API
-    digest: a1667ea1d73b77c33fbf6c8a31af81b73c87595d8e39afa2bead39a87bb5d601
-    home: https://github.com/vulcanlink/chainlink-graphql
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink-graphql
-    sources:
-    - https://github.com/vulcanlink/chainlink-graphql
-    type: application
-    urls:
-    - chainlink-graphql-0.1.0.tgz
-    version: 0.1.0
-  chainlink-onchain-exporter:
-  - apiVersion: v2
-    appVersion: version-1.0.5
-    created: "2020-08-13T23:34:29.287596096+02:00"
-    description: A Helm chart for Chainlink Onchain Metrics Exporter by CertusOne
-    digest: f4a601f96f428a4d51e7b02ee20aca578e62817553091846bff70d4232037d9b
-    home: https://github.com/certusone/chainlink_exporter
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - chainlink
-    - ethereum
-    - oracle
-    - metrics
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: chainlink-onchain-exporter
-    sources:
-    - https://github.com/certusone/chainlink_exporter
-    type: application
-    urls:
-    - chainlink-onchain-exporter-0.1.0.tgz
-    version: 0.1.0
-  elastos-geth:
-  - apiVersion: v2
-    appVersion: latest
-    created: "2020-08-13T23:34:29.288339926+02:00"
-    description: A Helm chart for ELASTOS Ethereum Sidechain
-    digest: 0db4ea20a1e599b54bdd817d554abdbf918ff53b541c3700b8dc7868a5e06b0f
-    home: https://elaeth.io/
-    icon: https://vulcanlink.github.io/charts/assets/img/elastos.svg
-    keywords:
-    - elastos
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: elastos-geth
-    sources:
-    - https://github.com/elastos/Elastos.ELA.SideChain.ETH
-    type: application
-    urls:
-    - elastos-geth-0.1.0.tgz
-    version: 0.1.0
-  eth-failover:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.289018511+02:00"
-    description: A Helm chart for Ethereum failover proxy
-    digest: 26f1dc015456bdd36ad69d7865f51e675d10e5e6a5320d0b5da4ff7531353a02
-    home: https://github.com/OracleFinder/ChainlinkEthFailover
-    icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
-    keywords:
-    - ethereum
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: eth-failover
-    sources:
-    - https://github.com/OracleFinder/ChainlinkEthFailover
-    type: application
-    urls:
-    - eth-failover-0.1.0.tgz
-    version: 0.1.0
-  geth:
-  - apiVersion: v2
-    appVersion: v1.9.10
-    created: "2020-08-13T23:34:29.289361654+02:00"
-    description: A Helm chart for ethereum
-    digest: 0bb926715eea832e50feb36dc287f8ffb7ff41f4dd8a5cbb7689f0a35e75e8d8
-    name: geth
-    type: application
-    urls:
-    - geth-0.1.0.tgz
-    version: 0.1.0
-  ipfs:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2020-08-13T23:34:29.28984031+02:00"
-    description: A Helm chart for Kubernetes
-    digest: 9690a15525f53b57f538b4056d1d68b13b70d9db90991536d50865348d211fe9
-    name: ipfs
-    type: application
-    urls:
-    - ipfs-0.1.0.tgz
-    version: 0.1.0
-  lnd:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2020-08-13T23:34:29.290344352+02:00"
-    description: A Helm chart for Kubernetes
-    digest: 0229b95c0a3460da77089f134b451c7e6552fd0801b5ddb8419bbfc8848c3bae
-    name: lnd
-    type: application
-    urls:
-    - lnd-0.1.0.tgz
-    version: 0.1.0
-  openwhisk:
-  - apiVersion: v2
-    created: "2020-08-13T23:34:29.293702057+02:00"
-    description: Apache OpenWhisk is an open source serverless cloud platform
-    digest: 0b517cbb5810522a8b67270799b4938a22ffa438e838dff84016a3a6baef3117
-    home: https://openwhisk.apache.org
-    icon: https://raw.githubusercontent.com/apache/openwhisk/682eb5b62ee6ba8017ab54226c2ace3637f4f1ec/docs/images/whisk_icon_full-color_with_tm_64x64-300dpi.png
-    keywords:
-    - Apache OpenWhisk
-    - amd64
-    kubeVersion: '>=v1.10.0-r0'
-    maintainers:
-    - email: dev@openwhisk.apache.org
-      name: Apache OpenWhisk Community
-    name: openwhisk
-    type: application
-    urls:
-    - openwhisk-0.2.2.tgz
-    version: 0.2.2
-  parity:
-  - apiVersion: v2
-    appVersion: v2.7.2-stable
-    created: "2020-08-13T23:34:29.294200858+02:00"
-    description: A Helm chart for Kubernetes
-    digest: abc4231c4a118ecc00aaada6bb0996304daaf779d5e5a1578cc450993042b6d6
-    name: parity
-    type: application
-    urls:
-    - parity-0.1.0.tgz
-    version: 0.1.0
-  rsk-initiator:
-  - apiVersion: v2
-    appVersion: develop
-    created: "2020-08-13T23:34:29.294943086+02:00"
-    description: A Helm chart for Chainlink RSK Initiator
-    digest: 4f1f7130e2301bc084eb64e89259a48cc2583b70967d353557e0b64b7c23a760
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - rsk
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: rsk-initiator
-    sources:
-    - https://github.com/smartcontractkit/chainlink-RSK
-    type: application
-    urls:
-    - rsk-initiator-0.1.0.tgz
-    version: 0.1.0
-  rsktx-adapter:
-  - apiVersion: v2
-    appVersion: develop
-    created: "2020-08-13T23:34:29.295665725+02:00"
-    description: A Helm chart for RSK Chainlink Adapter
-    digest: b898e76233b483a96f61a1832b14debae9a04288a4e76bdaa971d450084643fc
-    home: https://chain.link
-    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
-    keywords:
-    - rsk
-    - chainlink
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: rsktx-adapter
-    sources:
-    - https://github.com/smartcontractkit/chainlink-RSK
-    type: application
-    urls:
-    - rsktx-adapter-0.1.0.tgz
-    version: 0.1.0
-  vulcan-api:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.296369013+02:00"
-    description: A Helm chart for Vulcan GraphQL API
-    digest: d3f3836a027839eecbda4e10c218f54bacb1cd90738cd0034ab7f6ea8bc72b7a
-    home: https://vulcan.link
-    icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
-    keywords:
-    - vulcanlink
-    - ethereum
-    - chainlink
-    - blockchain
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: vulcan-api
-    sources:
-    - https://github.com/vulcanlink/vulcan-api
-    type: application
-    urls:
-    - vulcan-api-0.1.0.tgz
-    version: 0.1.0
-  vulcan-api-wss:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.296852478+02:00"
-    description: A Helm chart for Kubernetes
-    digest: 879ce53426d3d3d2d6a7bcc76611c84b966c9f9cad7262debf1d079af7cb3afc
-    name: vulcan-api-wss
-    type: application
-    urls:
-    - vulcan-api-wss-0.1.0.tgz
-    version: 0.1.0
-  vulcan-chart:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.315381516+02:00"
-    dependencies:
-    - condition: chainlink.enabled
+    - apiVersion: v2
+      appVersion: 0.8.12
+      created: "2020-08-15T15:50:55.158145324+02:00"
+      description: A Helm chart for Chainlink
+      digest: a5330b2bc6d4cc48ecb94e4e3803371498e8d20f1301481c79e1de8c54b062c2
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: chainlink
-      repository: file://../chainlink
+      sources:
+        - https://github.com/smartcontractkit/chainlink
+      type: application
+      urls:
+        - chainlink-0.1.5.tgz
+      version: 0.1.5
+    - apiVersion: v2
+      appVersion: 0.8.9
+      created: "2020-08-13T23:34:29.284412787+02:00"
+      description: A Helm chart for Chainlink
+      digest: 3e205b78abadfe166f5fd0d9823e2bfd99f4a7ac48bc6521fd37acbf2fdcebf4
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: chainlink
+      sources:
+        - https://github.com/smartcontractkit/chainlink
+      type: application
+      urls:
+        - chainlink-0.1.4.tgz
       version: 0.1.4
-    - condition: chainlink-gas-updater.enabled
-      name: chainlink-gas-updater
-      repository: file://../chainlink-gas-updater
-      version: 0.1.0
-    - condition: eth-failover.enabled
-      name: eth-failover
-      repository: file://../eth-failover
-      version: 0.1.0
-    - condition: chainlink-graphql.enabled
-      name: chainlink-graphql
-      repository: file://../chainlink-graphql
-      version: 0.1.0
-    - condition: vulcan-gateway.enabled
-      name: vulcan-gateway
-      repository: file://../vulcan-gateway
-      version: 0.1.0
-    - condition: vulcan-api.enabled
-      name: vulcan-api
-      repository: file://../vulcan-api
-      version: 0.1.0
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: '@bitnami'
-      version: 8.10.5
-    - condition: nginx-ingress.enabled
-      name: nginx-ingress
-      repository: '@stable'
-      version: 1.30.1
-    description: Vulcan Link Chainlink and API Charts
-    digest: 03cb7186b6e63ab555b422727b3bbe594b4bd5c593d19171341b377ac825ab76
-    home: https://vulcan.link
-    icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
-    keywords:
-    - vulcanlink
-    - ethereum
-    - chainlink
-    - blockchain
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: vulcan-chart
-    sources:
-    - https://github.com/vulcanlink/charts
-    type: application
-    urls:
-    - vulcan-chart-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.30411438+02:00"
-    dependencies:
-    - condition: chainlink.enabled
+    - apiVersion: v2
+      appVersion: 0.8.8
+      created: "2020-08-13T23:34:29.283699552+02:00"
+      description: A Helm chart for Chainlink
+      digest: 2be12ea702ad6e9794b17ccafaff494d0a9f1d502d6a66e0b69bbe2dcc9f094f
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: chainlink
-      repository: file://../chainlink
+      sources:
+        - https://github.com/smartcontractkit/chainlink
+      type: application
+      urls:
+        - chainlink-0.1.3.tgz
+      version: 0.1.3
+    - apiVersion: v2
+      appVersion: 0.8.7
+      created: "2020-08-13T23:34:29.282941782+02:00"
+      description: A Helm chart for Chainlink
+      digest: ab39d29f565f612bcf45ee4d6e29257ea8cd55d9af38b9fb9491293101628ec0
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: chainlink
+      sources:
+        - https://github.com/smartcontractkit/chainlink
+      type: application
+      urls:
+        - chainlink-0.1.2.tgz
+      version: 0.1.2
+    - apiVersion: v2
+      appVersion: 0.8.6
+      created: "2020-08-13T23:34:29.282228904+02:00"
+      description: A Helm chart for Chainlink
+      digest: fc9786801e472dac5fa9cabcc25949b75fede466e23246c7d0130d9ac58ea4de
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: chainlink
+      sources:
+        - https://github.com/smartcontractkit/chainlink
+      type: application
+      urls:
+        - chainlink-0.1.1.tgz
+      version: 0.1.1
+    - apiVersion: v2
+      appVersion: 0.8.3
+      created: "2020-08-13T23:34:29.281297472+02:00"
+      description: A Helm chart for Chainlink
+      digest: d4b5193ef95cb5cc4d9de80dc47fbb17b49f008e6bbe40078c4161f4a90b3b88
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: chainlink
+      sources:
+        - https://github.com/smartcontractkit/chainlink
+      type: application
+      urls:
+        - chainlink-0.1.0.tgz
       version: 0.1.0
-    - condition: chainlink-gas-updater.enabled
+  chainlink-api:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.285435728+02:00"
+      description: A Helm chart for Chainlink GraphQL API
+      digest: 72493102c92322471a7e7167684b73c5c7909f59b9be6242291c1c915ee5b23c
+      home: https://github.com/vulcanlink/chainlink-graphql
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: chainlink-api
+      sources:
+        - https://github.com/vulcanlink/chainlink-graphql
+      type: application
+      urls:
+        - chainlink-api-0.1.0.tgz
+      version: 0.1.0
+  chainlink-gas-updater:
+    - apiVersion: v2
+      appVersion: v0.1.3
+      created: "2020-08-13T23:34:29.286148354+02:00"
+      description: A Helm chart for Chainlink Gas Updater
+      digest: 3d8c8b415d4ebdd1859e84f942d2ca674d7db4e9c9459f9d02637652461b2542
+      home: https://github.com/thodges-gh/cl-gas-updater
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: chainlink-gas-updater
-      repository: file://../chainlink-gas-updater
+      sources:
+        - https://github.com/thodges-gh/cl-gas-updater
+      type: application
+      urls:
+        - chainlink-gas-updater-0.1.0.tgz
       version: 0.1.0
-    - condition: eth-failover.enabled
-      name: eth-failover
-      repository: file://../eth-failover
-      version: 0.1.0
-    - condition: chainlink-graphql.enabled
+  chainlink-graphql:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.28686254+02:00"
+      description: A Helm chart for Chainlink GraphQL API
+      digest: a1667ea1d73b77c33fbf6c8a31af81b73c87595d8e39afa2bead39a87bb5d601
+      home: https://github.com/vulcanlink/chainlink-graphql
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: chainlink-graphql
-      repository: file://../chainlink-graphql
+      sources:
+        - https://github.com/vulcanlink/chainlink-graphql
+      type: application
+      urls:
+        - chainlink-graphql-0.1.0.tgz
       version: 0.1.0
-    - condition: vulcan-gateway.enabled
-      name: vulcan-gateway
-      repository: file://../vulcan-gateway
+  chainlink-onchain-exporter:
+    - apiVersion: v2
+      appVersion: version-1.0.5
+      created: "2020-08-13T23:34:29.287596096+02:00"
+      description: A Helm chart for Chainlink Onchain Metrics Exporter by CertusOne
+      digest: f4a601f96f428a4d51e7b02ee20aca578e62817553091846bff70d4232037d9b
+      home: https://github.com/certusone/chainlink_exporter
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - chainlink
+        - ethereum
+        - oracle
+        - metrics
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: chainlink-onchain-exporter
+      sources:
+        - https://github.com/certusone/chainlink_exporter
+      type: application
+      urls:
+        - chainlink-onchain-exporter-0.1.0.tgz
       version: 0.1.0
-    - condition: vulcan-api.enabled
+  elastos-geth:
+    - apiVersion: v2
+      appVersion: latest
+      created: "2020-08-13T23:34:29.288339926+02:00"
+      description: A Helm chart for ELASTOS Ethereum Sidechain
+      digest: 0db4ea20a1e599b54bdd817d554abdbf918ff53b541c3700b8dc7868a5e06b0f
+      home: https://elaeth.io/
+      icon: https://vulcanlink.github.io/charts/assets/img/elastos.svg
+      keywords:
+        - elastos
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: elastos-geth
+      sources:
+        - https://github.com/elastos/Elastos.ELA.SideChain.ETH
+      type: application
+      urls:
+        - elastos-geth-0.1.0.tgz
+      version: 0.1.0
+  eth-failover:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.289018511+02:00"
+      description: A Helm chart for Ethereum failover proxy
+      digest: 26f1dc015456bdd36ad69d7865f51e675d10e5e6a5320d0b5da4ff7531353a02
+      home: https://github.com/OracleFinder/ChainlinkEthFailover
+      icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+      keywords:
+        - ethereum
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: eth-failover
+      sources:
+        - https://github.com/OracleFinder/ChainlinkEthFailover
+      type: application
+      urls:
+        - eth-failover-0.1.0.tgz
+      version: 0.1.0
+  geth:
+    - apiVersion: v2
+      appVersion: v1.9.10
+      created: "2020-08-13T23:34:29.289361654+02:00"
+      description: A Helm chart for ethereum
+      digest: 0bb926715eea832e50feb36dc287f8ffb7ff41f4dd8a5cbb7689f0a35e75e8d8
+      name: geth
+      type: application
+      urls:
+        - geth-0.1.0.tgz
+      version: 0.1.0
+  ipfs:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2020-08-13T23:34:29.28984031+02:00"
+      description: A Helm chart for Kubernetes
+      digest: 9690a15525f53b57f538b4056d1d68b13b70d9db90991536d50865348d211fe9
+      name: ipfs
+      type: application
+      urls:
+        - ipfs-0.1.0.tgz
+      version: 0.1.0
+  lnd:
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: "2020-08-13T23:34:29.290344352+02:00"
+      description: A Helm chart for Kubernetes
+      digest: 0229b95c0a3460da77089f134b451c7e6552fd0801b5ddb8419bbfc8848c3bae
+      name: lnd
+      type: application
+      urls:
+        - lnd-0.1.0.tgz
+      version: 0.1.0
+  openwhisk:
+    - apiVersion: v2
+      created: "2020-08-13T23:34:29.293702057+02:00"
+      description: Apache OpenWhisk is an open source serverless cloud platform
+      digest: 0b517cbb5810522a8b67270799b4938a22ffa438e838dff84016a3a6baef3117
+      home: https://openwhisk.apache.org
+      icon: https://raw.githubusercontent.com/apache/openwhisk/682eb5b62ee6ba8017ab54226c2ace3637f4f1ec/docs/images/whisk_icon_full-color_with_tm_64x64-300dpi.png
+      keywords:
+        - Apache OpenWhisk
+        - amd64
+      kubeVersion: ">=v1.10.0-r0"
+      maintainers:
+        - email: dev@openwhisk.apache.org
+          name: Apache OpenWhisk Community
+      name: openwhisk
+      type: application
+      urls:
+        - openwhisk-0.2.2.tgz
+      version: 0.2.2
+  parity:
+    - apiVersion: v2
+      appVersion: v2.7.2-stable
+      created: "2020-08-13T23:34:29.294200858+02:00"
+      description: A Helm chart for Kubernetes
+      digest: abc4231c4a118ecc00aaada6bb0996304daaf779d5e5a1578cc450993042b6d6
+      name: parity
+      type: application
+      urls:
+        - parity-0.1.0.tgz
+      version: 0.1.0
+  rsk-initiator:
+    - apiVersion: v2
+      appVersion: develop
+      created: "2020-08-13T23:34:29.294943086+02:00"
+      description: A Helm chart for Chainlink RSK Initiator
+      digest: 4f1f7130e2301bc084eb64e89259a48cc2583b70967d353557e0b64b7c23a760
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - rsk
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: rsk-initiator
+      sources:
+        - https://github.com/smartcontractkit/chainlink-RSK
+      type: application
+      urls:
+        - rsk-initiator-0.1.0.tgz
+      version: 0.1.0
+  rsktx-adapter:
+    - apiVersion: v2
+      appVersion: develop
+      created: "2020-08-13T23:34:29.295665725+02:00"
+      description: A Helm chart for RSK Chainlink Adapter
+      digest: b898e76233b483a96f61a1832b14debae9a04288a4e76bdaa971d450084643fc
+      home: https://chain.link
+      icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+      keywords:
+        - rsk
+        - chainlink
+        - ethereum
+        - oracle
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: rsktx-adapter
+      sources:
+        - https://github.com/smartcontractkit/chainlink-RSK
+      type: application
+      urls:
+        - rsktx-adapter-0.1.0.tgz
+      version: 0.1.0
+  vulcan-api:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.296369013+02:00"
+      description: A Helm chart for Vulcan GraphQL API
+      digest: d3f3836a027839eecbda4e10c218f54bacb1cd90738cd0034ab7f6ea8bc72b7a
+      home: https://vulcan.link
+      icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+      keywords:
+        - vulcanlink
+        - ethereum
+        - chainlink
+        - blockchain
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: vulcan-api
-      repository: file://../vulcan-api
+      sources:
+        - https://github.com/vulcanlink/vulcan-api
+      type: application
+      urls:
+        - vulcan-api-0.1.0.tgz
       version: 0.1.0
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: '@bitnami'
-      version: 8.10.5
-    - condition: nginx-ingress.enabled
-      name: nginx-ingress
-      repository: '@stable'
-      version: 1.30.1
-    description: Vulcan Link Chainlink and API Charts
-    digest: 652037e640b3baed946bf2d6dedb31789b49b9d5965950d145d06504cba6b09b
-    home: https://vulcan.link
-    icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
-    keywords:
-    - vulcanlink
-    - ethereum
-    - chainlink
-    - blockchain
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: vulcan-chart
-    sources:
-    - https://github.com/vulcanlink/charts
-    type: application
-    urls:
-    - vulcan-chart-0.1.1.tgz
-    version: 0.1.1
+  vulcan-api-wss:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.296852478+02:00"
+      description: A Helm chart for Kubernetes
+      digest: 879ce53426d3d3d2d6a7bcc76611c84b966c9f9cad7262debf1d079af7cb3afc
+      name: vulcan-api-wss
+      type: application
+      urls:
+        - vulcan-api-wss-0.1.0.tgz
+      version: 0.1.0
+  vulcan-chart:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.315381516+02:00"
+      dependencies:
+        - condition: chainlink.enabled
+          name: chainlink
+          repository: file://../chainlink
+          version: 0.1.4
+        - condition: chainlink-gas-updater.enabled
+          name: chainlink-gas-updater
+          repository: file://../chainlink-gas-updater
+          version: 0.1.0
+        - condition: eth-failover.enabled
+          name: eth-failover
+          repository: file://../eth-failover
+          version: 0.1.0
+        - condition: chainlink-graphql.enabled
+          name: chainlink-graphql
+          repository: file://../chainlink-graphql
+          version: 0.1.0
+        - condition: vulcan-gateway.enabled
+          name: vulcan-gateway
+          repository: file://../vulcan-gateway
+          version: 0.1.0
+        - condition: vulcan-api.enabled
+          name: vulcan-api
+          repository: file://../vulcan-api
+          version: 0.1.0
+        - condition: postgresql.enabled
+          name: postgresql
+          repository: "@bitnami"
+          version: 8.10.5
+        - condition: nginx-ingress.enabled
+          name: nginx-ingress
+          repository: "@stable"
+          version: 1.30.1
+      description: Vulcan Link Chainlink and API Charts
+      digest: 03cb7186b6e63ab555b422727b3bbe594b4bd5c593d19171341b377ac825ab76
+      home: https://vulcan.link
+      icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+      keywords:
+        - vulcanlink
+        - ethereum
+        - chainlink
+        - blockchain
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: vulcan-chart
+      sources:
+        - https://github.com/vulcanlink/charts
+      type: application
+      urls:
+        - vulcan-chart-0.1.2.tgz
+      version: 0.1.2
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.30411438+02:00"
+      dependencies:
+        - condition: chainlink.enabled
+          name: chainlink
+          repository: file://../chainlink
+          version: 0.1.0
+        - condition: chainlink-gas-updater.enabled
+          name: chainlink-gas-updater
+          repository: file://../chainlink-gas-updater
+          version: 0.1.0
+        - condition: eth-failover.enabled
+          name: eth-failover
+          repository: file://../eth-failover
+          version: 0.1.0
+        - condition: chainlink-graphql.enabled
+          name: chainlink-graphql
+          repository: file://../chainlink-graphql
+          version: 0.1.0
+        - condition: vulcan-gateway.enabled
+          name: vulcan-gateway
+          repository: file://../vulcan-gateway
+          version: 0.1.0
+        - condition: vulcan-api.enabled
+          name: vulcan-api
+          repository: file://../vulcan-api
+          version: 0.1.0
+        - condition: postgresql.enabled
+          name: postgresql
+          repository: "@bitnami"
+          version: 8.10.5
+        - condition: nginx-ingress.enabled
+          name: nginx-ingress
+          repository: "@stable"
+          version: 1.30.1
+      description: Vulcan Link Chainlink and API Charts
+      digest: 652037e640b3baed946bf2d6dedb31789b49b9d5965950d145d06504cba6b09b
+      home: https://vulcan.link
+      icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+      keywords:
+        - vulcanlink
+        - ethereum
+        - chainlink
+        - blockchain
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: vulcan-chart
+      sources:
+        - https://github.com/vulcanlink/charts
+      type: application
+      urls:
+        - vulcan-chart-0.1.1.tgz
+      version: 0.1.1
   vulcan-gateway:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-08-13T23:34:29.316222226+02:00"
-    description: A Helm chart for Vulcan GraphQL Gateway
-    digest: ab2632dab7edcc879a7bfb7351c8e82ef604c3129a74e9e87a5dd2d266592a42
-    home: https://vulcan.link
-    icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
-    keywords:
-    - vulcanlink
-    - ethereum
-    - chainlink
-    - blockchain
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: vulcan-gateway
-    sources:
-    - https://github.com/vulcanlink/vulcan-gateway
-    type: application
-    urls:
-    - vulcan-gateway-0.1.0.tgz
-    version: 0.1.0
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2020-08-13T23:34:29.316222226+02:00"
+      description: A Helm chart for Vulcan GraphQL Gateway
+      digest: ab2632dab7edcc879a7bfb7351c8e82ef604c3129a74e9e87a5dd2d266592a42
+      home: https://vulcan.link
+      icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+      keywords:
+        - vulcanlink
+        - ethereum
+        - chainlink
+        - blockchain
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
+      name: vulcan-gateway
+      sources:
+        - https://github.com/vulcanlink/vulcan-gateway
+      type: application
+      urls:
+        - vulcan-gateway-0.1.0.tgz
+      version: 0.1.0
 generated: "2020-08-13T23:34:29.168173367+02:00"
