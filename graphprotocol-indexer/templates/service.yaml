@@ -7,9 +7,25 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.service.http }}
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ .Values.service.ws }}
+      targetPort: ws
+      protocol: TCP
+      name: ws
+    - port: {{ .Values.service.indexNode }}
+      targetPort: index-node
+      protocol: TCP
+      name: index-node
+    - port: {{ .Values.service.jsonRpc }}
+      targetPort: json-rpc
+      protocol: TCP
+      name: json-rpc
+    - port: {{ .Values.service.metrics }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
   selector:
     {{- include "graphprotocol-indexer.selectorLabels" . | nindent 4 }}
