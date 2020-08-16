@@ -1,0 +1,17 @@
+apiVersion: v2
+name: openethereum
+description: A Helm chart for Ethereum OpenEthereum client
+type: application
+version: 0.2.0
+icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+keywords:
+  - ethereum
+
+home: https://ethereum.org/
+sources:
+  - https://github.com/openethereum/openethereum
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: latest
