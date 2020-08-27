@@ -98,6 +98,11 @@
           "title": "Set logger to JSON format",
           "form": true
         },
+        "ENABLE_BULLETPROOF_TX_MANAGER": {
+          "type": "string",
+          "title": "Enable Bulletproof Transaction Manager",
+          "form": true
+        },
         "ETH_MAX_GAS_PRICE_WEI": {
           "type": "string",
           "title": "Max Gas Price in Wei",

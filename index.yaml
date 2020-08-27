@@ -2,8 +2,29 @@ apiVersion: v1
 entries:
   chainlink:
   - apiVersion: v2
+    appVersion: 0.8.13
+    created: "2020-08-27T16:04:39.620728449+02:00"
+    description: A Helm chart for Chainlink
+    digest: 2eb28277e3793e379268464441af4e4138cb42c041ace09db69e6bd8a2006f50
+    home: https://chain.link
+    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+    keywords:
+    - chainlink
+    - ethereum
+    - oracle
+    maintainers:
+    - email: leo@vulcan.link
+      name: Leo Vigna
+    name: chainlink
+    sources:
+    - https://github.com/smartcontractkit/chainlink
+    type: application
+    urls:
+    - chainlink-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
     appVersion: 0.8.12
-    created: "2020-08-15T18:34:41.098388467+02:00"
+    created: "2020-08-27T16:04:39.620223219+02:00"
     description: A Helm chart for Chainlink
     digest: a5330b2bc6d4cc48ecb94e4e3803371498e8d20f1301481c79e1de8c54b062c2
     home: https://chain.link
@@ -24,7 +45,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 0.8.9
-    created: "2020-08-15T18:34:41.097896984+02:00"
+    created: "2020-08-27T16:04:39.619458296+02:00"
     description: A Helm chart for Chainlink
     digest: 3e205b78abadfe166f5fd0d9823e2bfd99f4a7ac48bc6521fd37acbf2fdcebf4
     home: https://chain.link
@@ -45,7 +66,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 0.8.8
-    created: "2020-08-15T18:34:41.097358102+02:00"
+    created: "2020-08-27T16:04:39.618648865+02:00"
     description: A Helm chart for Chainlink
     digest: 2be12ea702ad6e9794b17ccafaff494d0a9f1d502d6a66e0b69bbe2dcc9f094f
     home: https://chain.link
@@ -66,7 +87,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 0.8.7
-    created: "2020-08-15T18:34:41.096836119+02:00"
+    created: "2020-08-27T16:04:39.614160737+02:00"
     description: A Helm chart for Chainlink
     digest: ab39d29f565f612bcf45ee4d6e29257ea8cd55d9af38b9fb9491293101628ec0
     home: https://chain.link
@@ -87,7 +108,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 0.8.6
-    created: "2020-08-15T18:34:41.095792279+02:00"
+    created: "2020-08-27T16:04:39.589010263+02:00"
     description: A Helm chart for Chainlink
     digest: fc9786801e472dac5fa9cabcc25949b75fede466e23246c7d0130d9ac58ea4de
     home: https://chain.link
@@ -108,7 +129,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.8.3
-    created: "2020-08-15T18:34:41.095244344+02:00"
+    created: "2020-08-27T16:04:39.588219281+02:00"
     description: A Helm chart for Chainlink
     digest: d4b5193ef95cb5cc4d9de80dc47fbb17b49f008e6bbe40078c4161f4a90b3b88
     home: https://chain.link
@@ -130,7 +151,7 @@ entries:
   chainlink-api:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-08-15T18:34:41.098816223+02:00"
+    created: "2020-08-27T16:04:39.621311482+02:00"
     description: A Helm chart for Chainlink GraphQL API
     digest: 72493102c92322471a7e7167684b73c5c7909f59b9be6242291c1c915ee5b23c
     home: https://github.com/vulcanlink/chainlink-graphql
@@ -152,7 +173,7 @@ entries:
   chainlink-gas-updater:
   - apiVersion: v2
     appVersion: v0.1.3
-    created: "2020-08-15T18:34:41.099220931+02:00"
+    created: "2020-08-27T16:04:39.622004614+02:00"
     description: A Helm chart for Chainlink Gas Updater
     digest: 3d8c8b415d4ebdd1859e84f942d2ca674d7db4e9c9459f9d02637652461b2542
     home: https://github.com/thodges-gh/cl-gas-updater
@@ -174,7 +195,7 @@ entries:
   chainlink-graphql:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-08-15T18:34:41.099642262+02:00"
+    created: "2020-08-27T16:04:39.632222788+02:00"
     description: A Helm chart for Chainlink GraphQL API
     digest: a1667ea1d73b77c33fbf6c8a31af81b73c87595d8e39afa2bead39a87bb5d601
     home: https://github.com/vulcanlink/chainlink-graphql
@@ -196,7 +217,7 @@ entries:
   chainlink-onchain-exporter:
   - apiVersion: v2
     appVersion: version-1.0.5
-    created: "2020-08-15T18:34:41.100075343+02:00"
+    created: "2020-08-27T16:04:39.633014487+02:00"
     description: A Helm chart for Chainlink Onchain Metrics Exporter by CertusOne
     digest: f4a601f96f428a4d51e7b02ee20aca578e62817553091846bff70d4232037d9b
     home: https://github.com/certusone/chainlink_exporter
@@ -219,28 +240,7 @@ entries:
   elastos-geth:
   - apiVersion: v2
     appVersion: latest
-    created: "2020-08-15T18:34:41.101190016+02:00"
-    description: A Helm chart for ELASTOS Ethereum Sidechain
-    digest: 535b5a5abb824e1942a5ebc993ef42ee7198b4dcce4bbab216a4a90e941cef43
-    home: https://elaeth.io/
-    icon: https://vulcanlink.github.io/charts/assets/img/elastos.svg
-    keywords:
-    - elastos
-    - ethereum
-    - oracle
-    maintainers:
-    - email: leo@vulcan.link
-      name: Leo Vigna
-    name: elastos-geth
-    sources:
-    - https://github.com/elastos/Elastos.ELA.SideChain.ETH
-    type: application
-    urls:
-    - elastos-geth-0.2.0.tgz
-    version: 0.2.0
-  - apiVersion: v2
-    appVersion: latest
-    created: "2020-08-15T18:34:41.100580865+02:00"
+    created: "2020-08-27T16:04:39.633847674+02:00"
     description: A Helm chart for ELASTOS Ethereum Sidechain
     digest: 0db4ea20a1e599b54bdd817d554abdbf918ff53b541c3700b8dc7868a5e06b0f
     home: https://elaeth.io/
@@ -262,7 +262,7 @@ entries:
   eth-failover:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-08-15T18:34:41.101573655+02:00"
+    created: "2020-08-27T16:04:39.63456186+02:00"
     description: A Helm chart for Ethereum failover proxy
     digest: 26f1dc015456bdd36ad69d7865f51e675d10e5e6a5320d0b5da4ff7531353a02
     home: https://github.com/OracleFinder/ChainlinkEthFailover
@@ -282,7 +282,7 @@ entries:
   geth:
   - apiVersion: v2
     appVersion: latest
-    created: "2020-08-15T18:34:41.102735628+02:00"
+    created: "2020-08-27T16:04:39.642490486+02:00"
     description: A Helm chart for Ethereum Go client
     digest: fc3e2322d03f7f2d65ddb20080aec31b1bb4d4b3a3671b827d3b38a8cbb8867a
     home: https://ethereum.org/
@@ -301,7 +301,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: latest
-    created: "2020-08-15T18:34:41.102127378+02:00"
+    created: "2020-08-27T16:04:39.641573433+02:00"
     description: A Helm chart for Ethereum Go client
     digest: b4fa87952eadcd2ac1a8a571761d77de6d13f6b8869cc4606e6214cfb9b82fe0
     home: https://ethereum.org/
@@ -320,7 +320,7 @@ entries:
     version: 0.1.0
   openwhisk:
   - apiVersion: v2
-    created: "2020-08-15T18:34:41.105993984+02:00"
+    created: "2020-08-27T16:04:39.646306311+02:00"
     description: Apache OpenWhisk is an open source serverless cloud platform
     digest: 0b517cbb5810522a8b67270799b4938a22ffa438e838dff84016a3a6baef3117
     home: https://openwhisk.apache.org
@@ -340,7 +340,7 @@ entries:
   parity:
   - apiVersion: v2
     appVersion: v2.7.2-stable
-    created: "2020-08-15T18:34:41.10633243+02:00"
+    created: "2020-08-27T16:04:39.680408574+02:00"
     description: A Helm chart for Kubernetes
     digest: abc4231c4a118ecc00aaada6bb0996304daaf779d5e5a1578cc450993042b6d6
     name: parity
@@ -351,7 +351,7 @@ entries:
   rsk-initiator:
   - apiVersion: v2
     appVersion: develop
-    created: "2020-08-15T18:34:41.106796111+02:00"
+    created: "2020-08-27T16:04:39.681291303+02:00"
     description: A Helm chart for Chainlink RSK Initiator
     digest: 4f1f7130e2301bc084eb64e89259a48cc2583b70967d353557e0b64b7c23a760
     home: https://chain.link
@@ -374,7 +374,7 @@ entries:
   rskj:
   - apiVersion: v2
     appVersion: latest
-    created: "2020-08-15T18:34:41.107464801+02:00"
+    created: "2020-08-27T16:04:39.682226313+02:00"
     description: A Helm chart for RSK client
     digest: 8513ea9fe97fc6560670908247f35c50365bb7e5f519067f169751bef65ab7aa
     home: https://rsk.co
@@ -397,7 +397,7 @@ entries:
   rsktx-adapter:
   - apiVersion: v2
     appVersion: develop
-    created: "2020-08-15T18:34:41.107937629+02:00"
+    created: "2020-08-27T16:04:39.683067149+02:00"
     description: A Helm chart for RSK Chainlink Adapter
     digest: b898e76233b483a96f61a1832b14debae9a04288a4e76bdaa971d450084643fc
     home: https://chain.link
@@ -420,7 +420,7 @@ entries:
   vulcan-api:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-08-15T18:34:41.108358448+02:00"
+    created: "2020-08-27T16:04:39.683994503+02:00"
     description: A Helm chart for Vulcan GraphQL API
     digest: d3f3836a027839eecbda4e10c218f54bacb1cd90738cd0034ab7f6ea8bc72b7a
     home: https://vulcan.link
@@ -443,7 +443,7 @@ entries:
   vulcan-api-wss:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-08-15T18:34:41.108692557+02:00"
+    created: "2020-08-27T16:04:39.684696507+02:00"
     description: A Helm chart for Kubernetes
     digest: 879ce53426d3d3d2d6a7bcc76611c84b966c9f9cad7262debf1d079af7cb3afc
     name: vulcan-api-wss
@@ -454,7 +454,7 @@ entries:
   vulcan-gateway:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-08-15T18:34:41.109168357+02:00"
+    created: "2020-08-27T16:04:39.685664996+02:00"
     description: A Helm chart for Vulcan GraphQL Gateway
     digest: ab2632dab7edcc879a7bfb7351c8e82ef604c3129a74e9e87a5dd2d266592a42
     home: https://vulcan.link
@@ -474,4 +474,4 @@ entries:
     urls:
     - vulcan-gateway-0.1.0.tgz
     version: 0.1.0
-generated: "2020-08-15T18:34:41.094593188+02:00"
+generated: "2020-08-27T16:04:39.586017345+02:00"
