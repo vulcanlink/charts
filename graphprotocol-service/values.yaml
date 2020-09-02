@@ -1,11 +1,11 @@
-# Default values for graphprotocol-querynode.
+# Default values for graphprotocol-service.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: graphprotocol/graph-node
+  repository: graphprotocol/indexer-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -15,34 +15,17 @@ nameOverride: ""
 fullnameOverride: ""
 
 config:
-  BLOCK_INGESTOR: index-node-0
-  GRAPH_KILL_IF_UNRESPONSIVE: "true"
-  postgres_host: postgresql.default.svc.cluster.local:5432
-  postgres_user: postgres
-  postgres_pass: ""
-  postgres_db: graph
-  node_role: query-node
-  ipfs: https://testnet.thegraph.com/ipfs/
-  ethereum: >-
-    mainnet:https://eth-mainnet.alchemyapi.io/jsonrpc/demo
-    rinkeby:https://eth-rinkeby.alchemyapi.io/jsonrpc/demo
-
-volumes:
-  data:
-    mountPath: /var/lib/graph
-
-persistence:
-  enabled: true
-  annotations: {}
-  accessModes: 
-    - ReadWriteOnce
-  size: 20Gi
-
-  ## A manually managed Persistent Volume and Claim
-  ## If defined, PVC must be created manually before volume will be bound
-  ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
-  ##  
-  # existingClaim:
+  INDEXER_SERVICE_MNEMONIC:
+  INDEXER_SERVICE_PORT: "7600"
+  INDEXER_SERVICE_ETHEREUM: https://rinkeby.alchemyapi.io/jsonrpc/demo/
+  INDEXER_SERVICE_GRAPH_NODE_QUERY_ENDPOINT: http://query-node.default.svc.cluster.local/
+  INDEXER_SERVICE_GRAPH_NODE_STATUS_ENDPOINT: http://query-node.default.svc.cluster.local/index-node/graphql
+  INDEXER_SERVICE_NETWORK_SUBGRAPH_ENDPOINT: https://api.thegraph.com/subgraphs/name/graphprotocol/graph-network-rinkeby
+  SERVER_HOST:
+  SERVER_PORT: "5432"
+  SERVER_DB_USER: 
+  SERVER_DB_PASSWORD:
+  SERVER_DB_NAME: indexer-service 
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -56,7 +39,7 @@ serviceAccount:
 podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/path: "/metrics"
-  prometheus.io/port: "8040"
+  prometheus.io/port: "7300"
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -71,24 +54,13 @@ securityContext: {}
 
 container:
   ports:
-    nginx: 80
-    http: 8000
-    ws: 8001
-    jsonRpc: 8020
-    indexNode: 8030
-    metrics: 8040
+    http: 7600
+    metrics: 7300
 
 service:
-  type: ClusterIP  
-  http: 8000
-  ws: 8001
-  jsonRpc: 8020
-  indexNode: 8030
-  metrics: 8040
-
-proxyService:
-  type: LoadBalancer
-  nginx: 80
+  type: ClusterIP
+  http: 7600
+  metrics: 7300
 
 ingress:
   enabled: false
@@ -100,10 +72,10 @@ ingress:
       paths:
        - path: /
          servicePort: 8000
-         serviceName: graphprotocol-querynode
+         serviceName: graphprotocol-service
        - path: /ws
          servicePort: 8001
-         serviceName: graphprotocol-querynode
+         serviceName: graphprotocol-service
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -128,24 +100,6 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+nodeSelector: {} 
 
 tolerations: []
-
-affinity:
-  nodeAffinity:
-    preferredDuringSchedulingIgnoredDuringExecution:
-    - weight: 1
-      preference:
-        matchExpressions:
-        - key: graphprotocol/node-role
-          operator: In
-          values:
-          - query-role
-    - weight: 100
-      preference:
-        matchExpressions:
-        - key: graphprotocol/node-id
-          operator: In
-          values:
-          - metadata.name       
