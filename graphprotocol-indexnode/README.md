@@ -5,12 +5,12 @@ Helm chart deploying Graph Protocol Indexer.
 
 ```console
 $ helm repo add vulcanlink https://vulcanlink.github.io/charts/
-$ helm install my-release vulcanlink/graphprotocol-indexer
+$ helm install my-release vulcanlink/graphprotocol-indexnode
 ```
 
 ## Introduction
 
-This chart bootstraps a graphprotocol-indexer deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a graphprotocol-indexnode deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters. This chart has been tested to work with NGINX Ingress on top of AWS EKS.
 
@@ -34,10 +34,10 @@ kubectl label nodes --all graphprotocol/node-role=index-role graphprotocol/node-
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install my-release vulcanlink/graphprotocol-indexer
+$ helm install my-release vulcanlink/graphprotocol-indexnode
 ```
 
-The command deploys graphprotocol-indexer on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys graphprotocol-indexnode on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -61,7 +61,7 @@ $ kubectl delete pvc -l release=my-release
 
 ## Parameters
 
-The following tables lists the configurable parameters of the graphprotocol-indexer chart and their default values.
+The following tables lists the configurable parameters of the graphprotocol-indexnode chart and their default values.
 
 |                   Parameter                   |                                                                                Description                                                                                |                            Default                            |
 |-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
@@ -75,23 +75,23 @@ The following tables lists the configurable parameters of the graphprotocol-inde
 | `image.pullSecrets`                           | Specify Image pull secrets                                                                                                                                                | `nil` (does not add image pull secrets to deployed pods)      |
 | `image.command`                               | Specify Image run command                                                                                                                                       | `nil`                                                    |
 | `image.args`                                  | Specify Image run command args                                                                                                                                  | `nil` |                                                      |
-| `nameOverride`                                | String to partially override graphprotocol-indexer.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
-| `fullnameOverride`                            | String to fully override graphprotocol-indexer.fullname template with a string                                                                                                       | `nil`                                                         |
+| `nameOverride`                                | String to partially override graphprotocol-indexnode.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
+| `fullnameOverride`                            | String to fully override graphprotocol-indexnode.fullname template with a string                                                                                                       | `nil`                                                         |
 | `volumes.data.mountPath`                      | Blockchain data mountpath                                                                                                                                                 | `/var/lib/graph`                                             |
-| `container.http`                              | graphprotocol-indexer Container http port                                                                                                                                         | `8000`                                                        |
-| `container.jsonRpc`                                | graphprotocol-indexer Container JSON-RPC port                                                                                                                                    | `8020`                                                        |
-| `container.metrics`                                | graphprotocol-indexer Container Prometheus metrics port                                                                                                                                    | `8040`                                                        |
+| `container.http`                              | graphprotocol-indexnode Container http port                                                                                                                                         | `8000`                                                        |
+| `container.jsonRpc`                                | graphprotocol-indexnode Container JSON-RPC port                                                                                                                                    | `8020`                                                        |
+| `container.metrics`                                | graphprotocol-indexnode Container Prometheus metrics port                                                                                                                                    | `8040`                                                        |
 | `service.type`                                | Kubernetes Service type                                                                                                                                                   | `ClusterIP`                                                   |
-| `service.http`                                | graphprotocol-indexer Service http port                                                                                                                                           | `8000`                                                        |
-| `service.ws`                                  | graphprotocol-indexer Service JSON-RPC port                                                                                                                                      | `8020`                                                        |
-| `service.metrics`                                  | graphprotocol-indexer Service Prometheus metrics port                                                                                                                                      | `8040`                                                        |
+| `service.http`                                | graphprotocol-indexnode Service http port                                                                                                                                           | `8000`                                                        |
+| `service.ws`                                  | graphprotocol-indexnode Service JSON-RPC port                                                                                                                                      | `8020`                                                        |
+| `service.metrics`                                  | graphprotocol-indexnode Service Prometheus metrics port                                                                                                                                      | `8040`                                                        |
 | `service.nodePort`                            | Kubernetes Service nodePort                                                                                                                                               | `nil`                                                         |
-| `service.annotations`                         | Annotations for graphprotocol-indexer service                                                                                                                                              | `{}` (evaluated as a template)                                |
+| `service.annotations`                         | Annotations for graphprotocol-indexnode service                                                                                                                                              | `{}` (evaluated as a template)                                |
 | `persistence.enabled`                         | Enable persistence using PVC                                                                                                                                              | `true`                                                        |
 | `persistence.existingClaim`                   | Provide an existing `PersistentVolumeClaim`, the value is evaluated as a template.                                                                                        | `nil`                                                         |
-| `persistence.storageClass`                    | PVC Storage Class for graphprotocol-indexer volume                                                                                                                                   | `nil`                                                         |
-| `persistence.accessModes`                     | PVC Access Mode for graphprotocol-indexer volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
-| `persistence.size`                            | PVC Storage Request for graphprotocol-indexer volume                                                                                                                                 | `300Gi`                                                       |
+| `persistence.storageClass`                    | PVC Storage Class for graphprotocol-indexnode volume                                                                                                                                   | `nil`                                                         |
+| `persistence.accessModes`                     | PVC Access Mode for graphprotocol-indexnode volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
+| `persistence.size`                            | PVC Storage Request for graphprotocol-indexnode volume                                                                                                                                 | `300Gi`                                                       |
 | `persistence.annotations`                     | Annotations for the PVC                                                                                                                                                   | `{}`                                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
@@ -99,7 +99,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install my-release \
   --set persistence.enabled=false \
-    vulcanlink/graphprotocol-indexer
+    vulcanlink/graphprotocol-indexnode
 ```
 
 The above command disables persistent storage, meaning the node will have to resync after every Pod restart/deletion.
@@ -107,7 +107,7 @@ The above command disables persistent storage, meaning the node will have to res
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install my-release -f values.yaml vulcanlink/graphprotocol-indexer
+$ helm install my-release -f values.yaml vulcanlink/graphprotocol-indexnode
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

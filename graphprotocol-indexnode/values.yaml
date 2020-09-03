@@ -1,4 +1,4 @@
-# Default values for graphprotocol-indexer.
+# Default values for graphprotocol-indexnode.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -17,15 +17,15 @@ fullnameOverride: ""
 config:
   BLOCK_INGESTOR: index-node-0
   GRAPH_KILL_IF_UNRESPONSIVE: "true"
-  postgres_host: postgresql.default.svc.cluster.local:5432
+  postgres_host: postgresql:5432
   postgres_user: postgres
   postgres_pass: ""
   postgres_db: graph
   node_role: index-node
   ipfs: https://testnet.thegraph.com/ipfs/
   ethereum: >-
-    mainnet:https://eth-mainnet.alchemyapi.io/jsonrpc/demo
-    rinkeby:https://eth-rinkeby.alchemyapi.io/jsonrpc/demo
+    mainnet:https://eth-mainnet/
+    rinkeby:https://eth-rinkeby/
 
 volumes:
   data:
@@ -84,25 +84,6 @@ service:
   jsonRpc: 8020
   indexNode: 8030
   metrics: 8040
-
-ingress:
-  enabled: false
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-       - path: /
-         servicePort: 8000
-         serviceName: graphprotocol-indexer
-       - path: /ws
-         servicePort: 8001
-         serviceName: graphprotocol-indexer
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

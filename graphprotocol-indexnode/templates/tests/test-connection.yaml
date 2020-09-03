@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "graphprotocol-indexnode.fullname" . }}-test-connection"
+  labels:
+    {{- include "graphprotocol-indexnode.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "graphprotocol-indexnode.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

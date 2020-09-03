@@ -18,13 +18,13 @@ config:
   INDEXER_SERVICE_MNEMONIC:
   INDEXER_SERVICE_PORT: "7600"
   INDEXER_SERVICE_ETHEREUM: https://rinkeby.alchemyapi.io/jsonrpc/demo/
-  INDEXER_SERVICE_GRAPH_NODE_QUERY_ENDPOINT: http://query-node.default.svc.cluster.local/
-  INDEXER_SERVICE_GRAPH_NODE_STATUS_ENDPOINT: http://query-node.default.svc.cluster.local/index-node/graphql
+  INDEXER_SERVICE_GRAPH_NODE_QUERY_ENDPOINT: http://query-node-proxy/
+  INDEXER_SERVICE_GRAPH_NODE_STATUS_ENDPOINT: http://query-node-proxy/index-node/graphql
   INDEXER_SERVICE_NETWORK_SUBGRAPH_ENDPOINT: https://api.thegraph.com/subgraphs/name/graphprotocol/graph-network-rinkeby
-  SERVER_HOST:
+  SERVER_HOST: postgresql
   SERVER_PORT: "5432"
-  SERVER_DB_USER: 
-  SERVER_DB_PASSWORD:
+  SERVER_DB_USER: postgres
+  SERVER_DB_PASSWORD: ""
   SERVER_DB_NAME: indexer-service 
 
 serviceAccount:

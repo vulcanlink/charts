@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: query-node #{{ include "graphprotocol-querynode.fullname" . }}
+  name: index-node #{{ include "graphprotocol-indexnode.fullname" . }}
   labels:
-    {{- include "graphprotocol-querynode.labels" . | nindent 4 }}
+    {{- include "graphprotocol-indexnode.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -13,8 +13,8 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      {{- include "graphprotocol-querynode.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "graphprotocol-querynode.fullname" . }}
+      {{- include "graphprotocol-indexnode.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "graphprotocol-indexnode.fullname" . }}
   template:
     metadata:
       annotations:
@@ -23,26 +23,16 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "graphprotocol-querynode.selectorLabels" . | nindent 8 }}
+        {{- include "graphprotocol-indexnode.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "graphprotocol-querynode.serviceAccountName" . }}
+      serviceAccountName: {{ include "graphprotocol-indexnode.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-nginx
-          image: nginx
-          ports:
-            - name: nginx
-              containerPort: 80
-              protocol: TCP
-          volumeMounts:
-            - name: query-node-proxy-config
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -68,6 +58,9 @@ spec:
             - name: metrics 
               containerPort: {{ .Values.container.ports.metrics }}
               protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
           env:
             - name: node_id
               valueFrom:
@@ -75,7 +68,7 @@ spec:
                   fieldPath: metadata.name
           envFrom:
             - configMapRef:
-                name: {{ include "graphprotocol-querynode.fullname" . }}-configmap
+                name: {{ include "graphprotocol-indexnode.fullname" . }}-configmap
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -91,9 +84,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: query-node-proxy-config
-          configMap:
-            name: {{ include "graphprotocol-querynode.fullname" . }}-proxy-configmap
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
         - name: data
           persistentVolumeClaim:
@@ -121,5 +111,5 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }}
-        {{ include "graphprotocol-querynode.storageClass" . }}
+        {{ include "graphprotocol-indexnode.storageClass" . }}
 {{- end }}
