@@ -1,0 +1,18 @@
+apiVersion: v2
+name: graphprotocol-service
+description: A Helm chart for Graph Protocol Service 
+type: application
+version: 0.3.1
+icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
+keywords:
+  - graphprotocol
+  - ethereum
+
+home: https://thegraph.com/
+sources:
+  - https://github.com/graphprotocol/indexer
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: latest

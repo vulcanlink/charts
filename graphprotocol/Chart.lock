@@ -1,0 +1,15 @@
+dependencies:
+- name: graphprotocol-agent
+  repository: file://../graphprotocol-agent
+  version: 0.3.1
+- name: graphprotocol-indexnode
+  repository: file://../graphprotocol-indexnode
+  version: 0.3.1
+- name: graphprotocol-querynode
+  repository: file://../graphprotocol-querynode
+  version: 0.3.1
+- name: graphprotocol-service
+  repository: file://../graphprotocol-service
+  version: 0.3.1
+digest: sha256:979cab8ec08233567829d296a303792905e83685ad40a24141588a020be5b342
+generated: "2020-09-04T19:22:01.529095528+02:00"

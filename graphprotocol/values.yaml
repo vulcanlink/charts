@@ -1,0 +1,19 @@
+graphprotocol-agent:
+  enabled: true
+  image:
+    tag: latest
+
+graphprotocol-indexnode:
+  enabled: true
+  image:
+    tag: latest
+
+graphprotocol-querynode:
+  enabled: true
+  image:
+    tag: latest
+
+graphprotocol-service:
+  enabled: true
+  image:
+    tag: latest

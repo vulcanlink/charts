@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "graphprotocol-indexnode.fullname" . }}
+  labels:
+    {{- include "graphprotocol-indexnode.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.http }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.ws }}
+      targetPort: ws
+      protocol: TCP
+      name: ws
+    - port: {{ .Values.service.indexNode }}
+      targetPort: index-node
+      protocol: TCP
+      name: index-node
+    - port: {{ .Values.service.jsonRpc }}
+      targetPort: json-rpc
+      protocol: TCP
+      name: json-rpc
+    - port: {{ .Values.service.metrics }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "graphprotocol-indexnode.selectorLabels" . | nindent 4 }}

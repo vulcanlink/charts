@@ -19,13 +19,13 @@ image:
 config:
     API_EMAIL: admin@example.com
     API_PASSWORD: password
-    CHAINLINK_BASE_URL: http://chainlink.default.svc.cluster.local:6688/
-    DATABASE_URL: postgresql://postgres@postgresql.default.svc.cluster.local:5432/rsk_initiator?sslmode=disable
+    CHAINLINK_BASE_URL: http://chainlink:6688/
+    DATABASE_URL: postgresql://postgres@postgresql:5432/rsk_initiator?sslmode=disable
     RSK_HOST: rsk.qubistry.co
     RSK_WS_PROTOCOL: wss
     RSK_WS_PORT: "443"
     RSK_WS_URL: /websocket
-    INITIATOR_HOST: rsk-initiator.default.svc.cluster.local
+    INITIATOR_HOST: rsk-initiator
     INITIATOR_NAME: rskinitiator
     INITIATOR_PORT: "30055"
 

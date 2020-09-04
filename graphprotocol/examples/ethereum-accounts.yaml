@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ethereum-accounts
+type: Opaque
+stringData:
+  mnemonic: YOUR_MNEMONIC

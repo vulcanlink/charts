@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: index-node #{{ include "graphprotocol-indexnode.fullname" . }}
+  labels:
+    {{- include "graphprotocol-indexnode.labels" . | nindent 4 }}
+spec:
+{{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+{{- end }}
+  podManagementPolicy: Parallel
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      {{- include "graphprotocol-indexnode.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "graphprotocol-indexnode.fullname" . }}
+  template:
+    metadata:
+      annotations:
+        checksum/configmap.yaml: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "graphprotocol-indexnode.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "graphprotocol-indexnode.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: 
+            {{- toYaml .Values.image.command | nindent 12 }}
+          args: 
+            {{- toYaml .Values.image.args | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.ports.http }}
+              protocol: TCP
+            - name: ws
+              containerPort: {{ .Values.container.ports.ws }}
+              protocol: TCP
+            - name: index-node
+              containerPort: {{ .Values.container.ports.indexNode }}
+              protocol: TCP
+            - name: json-rpc 
+              containerPort: {{ .Values.container.ports.jsonRpc }}
+              protocol: TCP
+            - name: metrics 
+              containerPort: {{ .Values.container.ports.metrics }}
+              protocol: TCP
+          env:
+            - name: node_id
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: postgres_host
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: host
+            - name: postgres_user
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: user
+            - name: postgres_pass
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: password
+          envFrom:
+            - configMapRef:
+                name: {{ include "graphprotocol-indexnode.fullname" . }}-configmap
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

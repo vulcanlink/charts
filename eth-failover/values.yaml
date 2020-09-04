@@ -8,7 +8,7 @@ image:
   repository: vulcanlink/cl-eth-failover
   pullPolicy: IfNotPresent
   args: 
-    - "ws://geth.default.svc.cluster.local:8546"
+    - "ws://geth:8546"
 
 imagePullSecrets: []
 nameOverride: ""

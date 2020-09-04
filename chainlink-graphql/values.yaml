@@ -8,7 +8,7 @@ image:
   repository: vulcanlink/chainlink-graphql
   pullPolicy: IfNotPresent
 config:
-  DATABASE_URL: "postgresql://postgres@postgresql.default.svc.cluster.local:5432/chainlink"
+  DATABASE_URL: "postgresql://postgres@postgresql:5432/chainlink"
 
 imagePullSecrets: []
 nameOverride: ""

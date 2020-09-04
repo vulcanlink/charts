@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "image": {
+      "type": "object",
+      "title": "Docker Image Config",
+      "form": true,
+      "properties": {
+        "repository": {
+          "type": "string",
+          "form": true
+        },
+        "tag": {
+          "type": "string",
+          "form": true
+        },
+        "pullPolicy": {
+          "type": "string",
+          "form": true
+        },
+        "command": {
+          "type": "array",
+          "form": false
+        },
+        "args": {
+          "type": "array",
+          "form": false
+        }
+      }
+    },
+    "nameOverride": {
+      "type": "string",
+      "form": true
+    },
+    "fullnameOverride": {
+      "type": "string",
+      "form": true
+    },
+    "ingress": {
+      "type": "object",
+      "title": "Ingress",
+      "form": true,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable Kubernetes Ingress",
+          "form": true
+        },
+        "hosts": {
+          "type": "array",
+          "title": "Ingress hosts",
+          "form": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "graphprotocol-agent.fullname" . }}
+  labels:
+    {{- include "graphprotocol-agent.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.http }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.metrics }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    - port: {{ .Values.service.management }}
+      targetPort: management
+      protocol: TCP
+      name: management
+  selector:
+    {{- include "graphprotocol-agent.selectorLabels" . | nindent 4 }}
