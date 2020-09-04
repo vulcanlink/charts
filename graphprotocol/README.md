@@ -70,7 +70,7 @@ $ helm delete my-release
 
 ## Parameters
 
-The following tables lists the configurable parameters of the graphprotocol-agent chart and their default values. The only parameters listed here are whether to enable each component of the chart. Subchart-specific parameters can found in each subchart's respective README.md. To configure subchart parameters, prefix the parameter with the subchart name. For example, to change the indexnode replica count, update `graphprotocol-indexnode.replicaCount`. See the `example-values.yaml` files for an example of configuring the subcharts.
+The following tables lists the configurable parameters of the graphprotocol-agent chart and their default values. The only parameters listed here are whether to enable each component of the chart. Subchart-specific parameters can found in each subchart's respective README.md. To configure subchart parameters, prefix the parameter with the subchart name. For example, to change the indexnode replica count, update `graphprotocol-indexnode.replicaCount`. See the example [values.yaml](examples/values.yaml) file for an example of configuring the subcharts.
 
 
 |                   Parameter                   |                                                                                Description                                                                                |                            Default                            |
