@@ -93,4 +93,4 @@ Alternatively, a YAML file that specifies the values for the parameters can be p
 $ helm install my-release -f values.yaml vulcanlink/graphprotocol-agent
 ```
 
-> **Tip**: You will need to update the missing subchart placeholder parameters (eg `graphprotocol-indexnode.config.ethereum`) for the [values.yaml](values.yaml) file. See [example-values.yaml](example-values.yaml) for an example.
+> **Tip**: You will need to update the missing subchart placeholder parameters (eg `graphprotocol-indexnode.config.ethereum`) for the [values.yaml](values.yaml) file. See the example [values.yaml](examples/values.yaml) for an example.
