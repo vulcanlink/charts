@@ -14,12 +14,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+secrets:
+  postgres: postgres-credentials
+
 config:
   BLOCK_INGESTOR: index-node-0
   GRAPH_KILL_IF_UNRESPONSIVE: "true"
-  postgres_host: postgresql:5432
-  postgres_user: postgres
-  postgres_pass: ""
   postgres_db: graph
   node_role: query-node
   ipfs: https://testnet.thegraph.com/ipfs/

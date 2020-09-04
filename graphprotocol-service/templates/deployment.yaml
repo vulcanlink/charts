@@ -48,6 +48,27 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "graphprotocol-service.fullname" . }}-configmap
+          env:
+            - name: SERVER_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: host
+            - name: SERVER_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: user
+            - name: SERVER_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: password
+            - name: INDEXER_SERVICE_MNEMONIC
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mnemonic }}
+                  key: mnemonic
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -75,4 +75,4 @@ Alternatively, a YAML file that specifies the values for the parameters can be p
 $ helm install my-release -f values.yaml vulcanlink/graphprotocol-service
 ```
 
-> **Tip**: You can use the default [values.yaml](values.yaml)
+> **Tip**: You will need to update the missing placeholder parameters (eg. `config.INDEXER_SERVICE_MNEMONIC`) to override the [values.yaml](values.yaml) file.

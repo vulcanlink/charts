@@ -1,0 +1,88 @@
+graphprotocol-agent:
+  enabled: true
+  fullnameOverride: "indexer-agent"
+  image:
+    tag: latest
+  imagePullSecrets:
+    - name: DOCKER_CREDENTIALS_SECRET
+  secrets:
+    postgres: postgres-credentials # Default
+    mnemonic: ethereum-accounts # Default
+  config:
+    INDEXER_AGENT_INDEX_NODE_IDS: NODE_IDS #index_node_0,index_node_1
+    INDEXER_AGENT_ETHEREUM: AGENT_ETHEREUM_RPC #Rinkeby for Testnet https://rinkeby.infura.io/v3/PROJECT-ID
+    INDEXER_AGENT_GRAPH_NODE_QUERY_ENDPOINT: http://querynode-proxy/
+    INDEXER_AGENT_GRAPH_NODE_STATUS_ENDPOINT: http://querynode-proxy/index-node/graphql
+    INDEXER_AGENT_GRAPH_NODE_ADMIN_ENDPOINT: http://indexnode:8020/
+    INDEXER_AGENT_PUBLIC_INDEXER_URL: http://mydomain.com/ # Register Public URL
+    INDEXER_AGENT_INDEXER_GEO_COORDINATES: "51.476852,-0.000500" #Royal Observatory Greenwich, London, UK
+    INDEXER_AGENT_NETWORK_SUBGRAPH_ENDPOINT: https://api.thegraph.com/subgraphs/name/graphprotocol/graph-network-rinkeby
+    INDEXER_AGENT_POSTGRES_DATABASE: indexer-agent # Default
+
+graphprotocol-indexnode:
+  enabled: true
+  replicaCount: 2
+  fullnameOverride: "indexnode"
+  image:
+    tag: latest
+  secrets:
+    postgres: postgres-credentials # Default
+  config:
+    BLOCK_INGESTOR: index-node-0
+    GRAPH_KILL_IF_UNRESPONSIVE: "true"
+    postgres_db: graph # Default
+    ipfs: https://testnet.thegraph.com/ipfs/
+    ethereum: >-
+      mainnet:ETHEREUM_MAINNET_RPC
+      rinkeby:ETHEREUM_RINKEBY_RPC
+    # Performance tuning
+    # ETHEREUM_RPC_MAX_PARALLEL_REQUESTS: "640" #10x
+    # GRAPH_ETHEREUM_TARGET_TRIGGERS_PER_BLOCK_RANGE: ""
+    # ETHEREUM_BLOCK_BATCH_SIZE: ""
+    # GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE: ""
+    # GRAPH_ETHEREUM_MAX_EVENT_ONLY_RANGE: ""
+    # ETHEREUM_TRACE_STREAM_STEP_SIZE: ""
+    # STORE_CONNECTION_POOL_SIZE: ""
+
+graphprotocol-querynode:
+  enabled: true
+  replicaCount: 2
+  fullnameOverride: "querynode"
+  image:
+    tag: latest
+  secrets:
+    postgres: postgres-credentials # Default
+  config:
+    BLOCK_INGESTOR: index-node-0 # Ingests new blocks
+    GRAPH_KILL_IF_UNRESPONSIVE: "true"
+    postgres_db: graph
+    ipfs: https://testnet.thegraph.com/ipfs/
+    ethereum: >-
+      mainnet:ETHEREUM_MAINNET_RPC
+      rinkeby:ETHEREUM_RINKEBY_RPC
+
+graphprotocol-service:
+  enabled: true
+  fullnameOverride: "indexer-service"
+  image:
+    tag: latest
+  imagePullSecrets:
+    - name: docker-creds
+  secrets:
+    postgres: postgres-credentials # Default
+    mnemonic: ethereum-accounts #Default
+  config:
+    INDEXER_SERVICE_PORT: "7600"
+    INDEXER_SERVICE_ETHEREUM: SERVICE_ETHEREUM_RPC #Rinkeby for Testnet https://rinkeby.infura.io/v3/PROJECT-ID
+    INDEXER_SERVICE_GRAPH_NODE_QUERY_ENDPOINT: http://querynode-proxy/
+    INDEXER_SERVICE_GRAPH_NODE_STATUS_ENDPOINT: http://querynode-proxy/index-node/graphql
+    INDEXER_SERVICE_NETWORK_SUBGRAPH_ENDPOINT: https://api.thegraph.com/subgraphs/name/graphprotocol/graph-network-rinkeby
+    SERVER_DB_NAME: indexer-service
+  ingress:
+    enabled: true
+    hosts:
+      - host: mydomain.com
+        paths:
+          - path: /
+            servicePort: 7600
+            serviceName: indexer-service

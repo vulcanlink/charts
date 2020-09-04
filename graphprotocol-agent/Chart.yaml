@@ -2,7 +2,7 @@ apiVersion: v2
 name: graphprotocol-agent
 description: A Helm chart for Graph Protocol Agent
 type: application
-version: 0.3.0
+version: 0.3.1
 icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
 keywords:
   - graphprotocol

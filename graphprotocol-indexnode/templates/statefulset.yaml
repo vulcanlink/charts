@@ -63,6 +63,21 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: postgres_host
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: host
+            - name: postgres_user
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: user
+            - name: postgres_pass
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: password
           envFrom:
             - configMapRef:
                 name: {{ include "graphprotocol-indexnode.fullname" . }}-configmap

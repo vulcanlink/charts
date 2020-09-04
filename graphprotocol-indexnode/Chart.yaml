@@ -2,7 +2,7 @@ apiVersion: v2
 name: graphprotocol-indexnode
 description: A Helm chart for Graph Protocol Index Node
 type: application
-version: 0.3.0
+version: 0.3.1
 icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
 keywords:
   - graphprotocol

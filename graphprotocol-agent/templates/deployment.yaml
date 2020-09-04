@@ -50,6 +50,27 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "graphprotocol-agent.fullname" . }}-configmap
+          env:
+            - name: INDEXER_AGENT_POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: host
+            - name: INDEXER_AGENT_POSTGRES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: user
+            - name: INDEXER_AGENT_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.postgres }}
+                  key: password
+            - name: INDEXER_AGENT_MNEMONIC
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mnemonic }}
+                  key: mnemonic
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
