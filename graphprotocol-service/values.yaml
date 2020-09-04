@@ -71,8 +71,8 @@ ingress:
     - host: chart-example.local
       paths:
        - path: /
-          servicePort: 7600
-          serviceName: graphprotocol-service 
+         servicePort: 7600
+         serviceName: graphprotocol-service 
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

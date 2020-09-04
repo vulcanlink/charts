@@ -1,0 +1,11 @@
+graphprotocol-agent:
+  enabled: true
+
+graphprotocol-indexnode:
+  enabled: true
+
+graphprotocol-querynode:
+  enabled: true
+
+graphprotocol-service:
+  enabled: true

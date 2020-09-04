@@ -20,16 +20,6 @@ Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deploy
 - Helm 2.12+ or Helm 3.0-beta3+
 - PV provisioner support in the underlying infrastructure
 
-## Initial setup
-
-Identify the Kubernetes worker nodes that should be used to execute
-user containers.  Do this by labeling each node with
-`graphprotocol/node-role=query-role` and `graphprotocol/node-id=query-node-<ID>` 
-For a single node cluster, simply do
-```shell
-kubectl label nodes --all graphprotocol/node-role=query-role graphprotocol/node-id=query-node-0
-```
-
 ## Installing the Chart
 To install the chart with the release name `my-release`:
 
@@ -67,9 +57,6 @@ The following tables lists the configurable parameters of the graphprotocol-quer
 | `image.args`                                  | Specify Image run command args                                                                                                                                  | `nil` |                                                      |
 | `nameOverride`                                | String to partially override graphprotocol-querynode.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
 | `fullnameOverride`                            | String to fully override graphprotocol-querynode.fullname template with a string                                                                                                       | `nil`                                                         |
-| `container.http`                              | graphprotocol-querynode Container http port                                                                                                                                         | `8000`                                                        |
-| `container.jsonRpc`                                | graphprotocol-querynode Container JSON-RPC port                                                                                                                                    | `8020`                                                        |
-| `container.metrics`                                | graphprotocol-querynode Container Prometheus metrics port                                                                                                                                    | `8040`                                                        |
 | `service.type`                                | Kubernetes Service type                                                                                                                                                   | `ClusterIP`                                                   |
 | `service.http`                                | graphprotocol-querynode Service http port                                                                                                                                           | `8000`                                                        |
 | `service.ws`                                  | graphprotocol-querynode Service JSON-RPC port                                                                                                                                      | `8020`                                                        |

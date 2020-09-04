@@ -95,21 +95,3 @@ autoscaling:
 nodeSelector: {}
 
 tolerations: []
-
-affinity:
-  nodeAffinity:
-    preferredDuringSchedulingIgnoredDuringExecution:
-    - weight: 1
-      preference:
-        matchExpressions:
-        - key: graphprotocol/node-role
-          operator: In
-          values:
-          - query-role
-    - weight: 100
-      preference:
-        matchExpressions:
-        - key: graphprotocol/node-id
-          operator: In
-          values:
-          - metadata.name       
