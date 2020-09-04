@@ -1,11 +1,11 @@
-# Default values for rskj.
+# Default values for graphprotocol-indexer.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: vulcanlink/rskj
+  repository: graphprotocol/graph-node
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -14,16 +14,29 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+config:
+  BLOCK_INGESTOR: index-node-0
+  GRAPH_KILL_IF_UNRESPONSIVE: "true"
+  postgres_host: postgresql.default.svc.cluster.local:5432
+  postgres_user: postgres
+  postgres_pass: ""
+  postgres_db: graph
+  node_role: index-node
+  ipfs: https://testnet.thegraph.com/ipfs/
+  ethereum: >-
+    mainnet:https://eth-mainnet.alchemyapi.io/jsonrpc/demo
+    rinkeby:https://eth-rinkeby.alchemyapi.io/jsonrpc/demo
+
 volumes:
   data:
-    mountPath: /var/lib/rsk
+    mountPath: /var/lib/graph
 
 persistence:
   enabled: true
   annotations: {}
   accessModes: 
     - ReadWriteOnce
-  size: 100Gi
+  size: 20Gi
 
   ## A manually managed Persistent Volume and Claim
   ## If defined, PVC must be created manually before volume will be bound
@@ -40,7 +53,10 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: "/metrics"
+  prometheus.io/port: "8040"
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -55,30 +71,34 @@ securityContext: {}
 
 container:
   ports:
-    http: 4444
-    ws: 4445
+    http: 8000
+    ws: 8001
+    jsonRpc: 8020
+    indexNode: 8030
+    metrics: 8040
 
 service:
   type: ClusterIP
-  http: 4444
-  ws: 4445
+  http: 8000
+  ws: 8001
+  jsonRpc: 8020
+  indexNode: 8030
+  metrics: 8040
 
 ingress:
   enabled: false
   annotations:
     kubernetes.io/ingress.class: nginx
-    # Websocket only responds to /websocket
-    nginx.ingress.kubernetes.io/rewrite-target: /websocket
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
       paths:
        - path: /
-         servicePort: 4444
-         serviceName: rskj
+         servicePort: 8000
+         serviceName: graphprotocol-indexer
        - path: /ws
-         servicePort: 4445
-         serviceName: rskj
+         servicePort: 8001
+         serviceName: graphprotocol-indexer
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -103,8 +123,24 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+nodeSelector: {} 
 
 tolerations: []
 
-affinity: {}
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 1
+      preference:
+        matchExpressions:
+        - key: graphprotocol/node-role
+          operator: In
+          values:
+          - index-role
+    - weight: 100
+      preference:
+        matchExpressions:
+        - key: graphprotocol/node-id
+          operator: In
+          values:
+          - metadata.name         

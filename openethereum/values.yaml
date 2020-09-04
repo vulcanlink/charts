@@ -1,14 +1,19 @@
-# Default values for rskj.
+# Default values for openethereum.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: vulcanlink/rskj
+  repository: openethereum/openethereum
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+  args: [
+      "--jsonrpc-hosts=all",
+      "--jsonrpc-cors=all",
+      "--ws-origins=all",
+      "--ws-hosts=all" ]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -16,14 +21,14 @@ fullnameOverride: ""
 
 volumes:
   data:
-    mountPath: /var/lib/rsk
+    mountPath: /home/openethereum/.local/share
 
 persistence:
   enabled: true
   annotations: {}
   accessModes: 
     - ReadWriteOnce
-  size: 100Gi
+  size: 500Gi
 
   ## A manually managed Persistent Volume and Claim
   ## If defined, PVC must be created manually before volume will be bound
@@ -42,8 +47,10 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
 
 securityContext: {}
   # capabilities:
@@ -55,30 +62,28 @@ securityContext: {}
 
 container:
   ports:
-    http: 4444
-    ws: 4445
+    http: 8545
+    ws: 8546
 
 service:
   type: ClusterIP
-  http: 4444
-  ws: 4445
+  http: 8545
+  ws: 8546
 
 ingress:
   enabled: false
   annotations:
     kubernetes.io/ingress.class: nginx
-    # Websocket only responds to /websocket
-    nginx.ingress.kubernetes.io/rewrite-target: /websocket
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
       paths:
        - path: /
-         servicePort: 4444
-         serviceName: rskj
+         servicePort: 8545
+         serviceName: openethereum
        - path: /ws
-         servicePort: 4445
-         serviceName: rskj
+         servicePort: 8546
+         serviceName: openethereum
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -103,7 +108,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+nodeSelector: 
+  openethereum/role: node
 
 tolerations: []
 

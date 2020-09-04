@@ -64,6 +64,7 @@ The following tables lists the configurable parameters of the graphprotocol-quer
 | `service.nodePort`                            | Kubernetes Service nodePort                                                                                                                                               | `nil`                                                         |
 | `service.annotations`                         | Annotations for graphprotocol-querynode service                                                                                                                                              | `{}` (evaluated as a template)                                |
 
+
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
@@ -77,3 +78,4 @@ $ helm install my-release -f values.yaml vulcanlink/graphprotocol-querynode
 ```
 
 > **Tip**: You will need to update the missing placeholder parameters (eg. `config.ethereum`) to override the [values.yaml](values.yaml) file.
+
