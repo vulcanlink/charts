@@ -12,7 +12,7 @@ $ helm install my-release vulcanlink/graphprotocol-querynode
 
 This chart bootstraps a graphprotocol-querynode deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters. This chart has been tested to work with NGINX Ingress on top of AWS EKS.
+Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
 ## Prerequisites
 
@@ -49,16 +49,6 @@ To uninstall/delete the `my-release` deployment:
 $ helm delete my-release
 ```
 
-The command removes all the Kubernetes components but PVC's associated with the chart and deletes the release.
-
-To delete the PVC's associated with `my-release`:
-
-```console
-$ kubectl delete pvc -l release=my-release
-```
-
-> **Note**: Deleting the PVC's will delete blockchain data as well. Please be cautious before doing it.
-
 ## Parameters
 
 The following tables lists the configurable parameters of the graphprotocol-querynode chart and their default values.
@@ -77,7 +67,6 @@ The following tables lists the configurable parameters of the graphprotocol-quer
 | `image.args`                                  | Specify Image run command args                                                                                                                                  | `nil` |                                                      |
 | `nameOverride`                                | String to partially override graphprotocol-querynode.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
 | `fullnameOverride`                            | String to fully override graphprotocol-querynode.fullname template with a string                                                                                                       | `nil`                                                         |
-| `volumes.data.mountPath`                      | Blockchain data mountpath                                                                                                                                                 | `/var/lib/graph`                                             |
 | `container.http`                              | graphprotocol-querynode Container http port                                                                                                                                         | `8000`                                                        |
 | `container.jsonRpc`                                | graphprotocol-querynode Container JSON-RPC port                                                                                                                                    | `8020`                                                        |
 | `container.metrics`                                | graphprotocol-querynode Container Prometheus metrics port                                                                                                                                    | `8040`                                                        |
@@ -87,22 +76,12 @@ The following tables lists the configurable parameters of the graphprotocol-quer
 | `service.metrics`                                  | graphprotocol-querynode Service Prometheus metrics port                                                                                                                                      | `8040`                                                        |
 | `service.nodePort`                            | Kubernetes Service nodePort                                                                                                                                               | `nil`                                                         |
 | `service.annotations`                         | Annotations for graphprotocol-querynode service                                                                                                                                              | `{}` (evaluated as a template)                                |
-| `persistence.enabled`                         | Enable persistence using PVC                                                                                                                                              | `true`                                                        |
-| `persistence.existingClaim`                   | Provide an existing `PersistentVolumeClaim`, the value is evaluated as a template.                                                                                        | `nil`                                                         |
-| `persistence.storageClass`                    | PVC Storage Class for graphprotocol-querynode volume                                                                                                                                   | `nil`                                                         |
-| `persistence.accessModes`                     | PVC Access Mode for graphprotocol-querynode volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
-| `persistence.size`                            | PVC Storage Request for graphprotocol-querynode volume                                                                                                                                 | `300Gi`                                                       |
-| `persistence.annotations`                     | Annotations for the PVC                                                                                                                                                   | `{}`                                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install my-release \
-  --set persistence.enabled=false \
-    vulcanlink/graphprotocol-querynode
+$ helm install my-release vulcanlink/graphprotocol-querynode --set fullnameOverride=querynode
 ```
-
-The above command disables persistent storage, meaning the node will have to resync after every Pod restart/deletion.
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 

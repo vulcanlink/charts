@@ -27,23 +27,6 @@ config:
     mainnet:https://eth-mainnet.alchemyapi.io/jsonrpc/demo
     rinkeby:https://eth-rinkeby.alchemyapi.io/jsonrpc/demo
 
-volumes:
-  data:
-    mountPath: /var/lib/graph
-
-persistence:
-  enabled: true
-  annotations: {}
-  accessModes: 
-    - ReadWriteOnce
-  size: 20Gi
-
-  ## A manually managed Persistent Volume and Claim
-  ## If defined, PVC must be created manually before volume will be bound
-  ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
-  ##  
-  # existingClaim:
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true

@@ -12,7 +12,7 @@ $ helm install my-release vulcanlink/graphprotocol-indexnode
 
 This chart bootstraps a graphprotocol-indexnode deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters. This chart has been tested to work with NGINX Ingress on top of AWS EKS.
+Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters. 
 
 ## Prerequisites
 
@@ -49,16 +49,6 @@ To uninstall/delete the `my-release` deployment:
 $ helm delete my-release
 ```
 
-The command removes all the Kubernetes components but PVC's associated with the chart and deletes the release.
-
-To delete the PVC's associated with `my-release`:
-
-```console
-$ kubectl delete pvc -l release=my-release
-```
-
-> **Note**: Deleting the PVC's will delete blockchain data as well. Please be cautious before doing it.
-
 ## Parameters
 
 The following tables lists the configurable parameters of the graphprotocol-indexnode chart and their default values.
@@ -77,7 +67,6 @@ The following tables lists the configurable parameters of the graphprotocol-inde
 | `image.args`                                  | Specify Image run command args                                                                                                                                  | `nil` |                                                      |
 | `nameOverride`                                | String to partially override graphprotocol-indexnode.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
 | `fullnameOverride`                            | String to fully override graphprotocol-indexnode.fullname template with a string                                                                                                       | `nil`                                                         |
-| `volumes.data.mountPath`                      | Blockchain data mountpath                                                                                                                                                 | `/var/lib/graph`                                             |
 | `container.http`                              | graphprotocol-indexnode Container http port                                                                                                                                         | `8000`                                                        |
 | `container.jsonRpc`                                | graphprotocol-indexnode Container JSON-RPC port                                                                                                                                    | `8020`                                                        |
 | `container.metrics`                                | graphprotocol-indexnode Container Prometheus metrics port                                                                                                                                    | `8040`                                                        |
@@ -87,22 +76,12 @@ The following tables lists the configurable parameters of the graphprotocol-inde
 | `service.metrics`                                  | graphprotocol-indexnode Service Prometheus metrics port                                                                                                                                      | `8040`                                                        |
 | `service.nodePort`                            | Kubernetes Service nodePort                                                                                                                                               | `nil`                                                         |
 | `service.annotations`                         | Annotations for graphprotocol-indexnode service                                                                                                                                              | `{}` (evaluated as a template)                                |
-| `persistence.enabled`                         | Enable persistence using PVC                                                                                                                                              | `true`                                                        |
-| `persistence.existingClaim`                   | Provide an existing `PersistentVolumeClaim`, the value is evaluated as a template.                                                                                        | `nil`                                                         |
-| `persistence.storageClass`                    | PVC Storage Class for graphprotocol-indexnode volume                                                                                                                                   | `nil`                                                         |
-| `persistence.accessModes`                     | PVC Access Mode for graphprotocol-indexnode volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
-| `persistence.size`                            | PVC Storage Request for graphprotocol-indexnode volume                                                                                                                                 | `300Gi`                                                       |
-| `persistence.annotations`                     | Annotations for the PVC                                                                                                                                                   | `{}`                                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install my-release \
-  --set persistence.enabled=false \
-    vulcanlink/graphprotocol-indexnode
+$ helm install my-release vulcanlink/graphprotocol-indexnode --set fullnameOverride=indexnode
 ```
-
-The above command disables persistent storage, meaning the node will have to resync after every Pod restart/deletion.
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 

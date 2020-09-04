@@ -1,16 +1,16 @@
 apiVersion: v2
 name: graphprotocol-indexnode
-description: A Helm chart for Graph Protocol Indexer
+description: A Helm chart for Graph Protocol Index Node
 type: application
-version: 0.2.0
-icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+version: 0.3.0
+icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
 keywords:
   - graphprotocol
   - ethereum
 
-home: https://ethereum.org/
+home: https://thegraph.com/
 sources:
-  - https://hub.docker.com/r/graphprotocol/graph-node
+  - https://github.com/graphprotocol/graph-node
 maintainers:
   - name: Leo Vigna
     email: leo@vulcan.link
