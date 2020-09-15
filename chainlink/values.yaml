@@ -39,6 +39,7 @@ config:
   FEATURE_EXTERNAL_INITIATORS: "true"
   JSON_CONSOLE: "true"
   ENABLE_BULLETPROOF_TX_MANAGER: "true"
+  ETH_HEAD_TRACKER_MAX_BUFFER_SIZE: "3"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
