@@ -2,7 +2,7 @@ apiVersion: v2
 name: chainlink
 description: A Helm chart for Chainlink
 type: application
-version: 0.1.8
+version: 0.1.9
 icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
 keywords:
   - chainlink
@@ -18,5 +18,4 @@ maintainers:
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application.
-appVersion: 0.8.15
-ETH_HEAD_TRACKER_MAX_BUFFER_SIZE: "3"
+appVersion: 0.8.16
