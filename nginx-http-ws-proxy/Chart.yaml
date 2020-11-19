@@ -1,0 +1,17 @@
+apiVersion: v2
+name: nginx-http-ws-proxy
+description: A Helm chart for NGINX proxy
+type: application
+version: 0.1.0
+keywords:
+  - nginx
+  - proxy
+
+home: https://vulcan.link/
+sources:
+  - https://github.com/vulcanlink 
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: 1.19.2

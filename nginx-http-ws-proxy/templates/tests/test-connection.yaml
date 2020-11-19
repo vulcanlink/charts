@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "nginx-http-ws-proxy.fullname" . }}-test-connection"
+  labels:
+    {{- include "nginx-http-ws-proxy.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "nginx-http-ws-proxy.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
