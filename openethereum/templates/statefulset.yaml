@@ -16,6 +16,8 @@ spec:
     metadata:
     {{- with .Values.podAnnotations }}
       annotations:
+        checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        config: {{ .Values.config }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
@@ -45,9 +47,17 @@ spec:
             - name: ws
               containerPort: {{ .Values.container.ports.ws }}
               protocol: TCP
+            - name: listener
+              containerPort: {{ .Values.container.ports.listener }}
+              protocol: TCP
+            - name: discovery
+              containerPort: {{ .Values.container.ports.discovery }}
+              protocol: UDP
           volumeMounts:
             - name: data
               mountPath: {{ .Values.volumes.data.mountPath }}
+            - name: config
+              mountPath: {{ .Values.volumes.config.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -63,12 +73,20 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: config
+          configMap:
+            name: {{ include "openethereum.fullname" . }}-configmap
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
         - name: data
           persistentVolumeClaim:
 {{- with .Values.persistence.existingClaim }}
             claimName: {{ tpl . $ }}
 {{- end }}
+{{- else if and .Values.persistence.enabled .Values.persistence.hostPath }}
+        - name: data
+          hostPath:
+            path: {{ .Values.persistence.hostPath.path }}
+            type: {{ .Values.persistence.hostPath.type }}
 {{- else if not .Values.persistence.enabled }}
         - name: data
           emptyDir: {}

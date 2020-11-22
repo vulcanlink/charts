@@ -10,10 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   args: [
-      "--jsonrpc-hosts=all",
-      "--jsonrpc-cors=all",
-      "--ws-origins=all",
-      "--ws-hosts=all" ]
+   "--config",
+    "/home/openethereum/config/config.custom.toml"]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -21,20 +19,30 @@ fullnameOverride: ""
 
 volumes:
   data:
-    mountPath: /home/openethereum/.local/share
+    mountPath: /home/openethereum/.local/share/io.parity.ethereum
+  config:
+    mountPath:  /home/openethereum/config
 
 persistence:
   enabled: true
   annotations: {}
   accessModes: 
     - ReadWriteOnce
-  size: 500Gi
+  size: 20Gi # For mainnet must increase
 
   ## A manually managed Persistent Volume and Claim
   ## If defined, PVC must be created manually before volume will be bound
   ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
   ##  
   # existingClaim:
+
+  ## An existing directory in the node
+  ## If defined, host directory must be created manually before volume will be bound
+  ## See https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
+  ##  
+  # hostPath:
+  #   path: /root/.local/share/io.parity.ethereum
+  #   type: Directory
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -47,10 +55,8 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
+podSecurityContext: {}
+  # fsGroup: 2000
 
 securityContext: {}
   # capabilities:
@@ -64,30 +70,18 @@ container:
   ports:
     http: 8545
     ws: 8546
+    listener: 30303
+    discovery: 30303
 
 service:
   type: ClusterIP
   http: 8545
   ws: 8546
 
-ingress:
-  enabled: false
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-       - path: /
-         servicePort: 8545
-         serviceName: openethereum
-       - path: /ws
-         servicePort: 8546
-         serviceName: openethereum
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+serviceP2P:
+  type: NodePort
+  listener: 30303
+  discovery: 30303
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -114,3 +108,7 @@ nodeSelector:
 tolerations: []
 
 affinity: {}
+
+config: | 
+  [parity]
+  chain = "mainnet
