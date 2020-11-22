@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "matic-heimdall.fullname" . }}
+  labels:
+    {{- include "matic-heimdall.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.rpc }}
+      targetPort: rpc
+      protocol: TCP
+      name: rpc
+    - port: {{ .Values.service.rest }}
+      targetPort: rest
+      protocol: TCP
+      name: rest
+    - port: {{ .Values.service.proxyApp }}
+      targetPort: proxy-app
+      protocol: TCP
+      name: proxy-app
+  selector:
+    {{- include "matic-heimdall.selectorLabels" . | nindent 4 }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "matic-heimdall.fullname" . }}-p2p
+  labels:
+    {{- include "matic-heimdall.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.serviceP2P.type }}
+  ports:
+    - port: {{ .Values.serviceP2P.listener }}
+      targetPort: listener 
+      protocol: TCP
+      name: listener
+      nodePort: {{ .Values.serviceP2P.listener }}
+  selector:
+    {{- include "matic-heimdall.selectorLabels" . | nindent 4 }}
