@@ -1,6 +1,6 @@
 apiVersion: v2
 name: geth
-description: A Helm chart for Ethereum Go client
+description: A Helm chart for Ethereum geth client
 type: application
 version: 0.2.0
 icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
@@ -9,7 +9,7 @@ keywords:
 
 home: https://ethereum.org/
 sources:
-  - https://github.com/ethereum/go-ethereum
+  - https://github.com/geth/geth
 maintainers:
   - name: Leo Vigna
     email: leo@vulcan.link
