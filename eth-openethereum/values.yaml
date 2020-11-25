@@ -102,8 +102,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: 
-  openethereum/role: node
+nodeSelector: {}
 
 tolerations: []
 
