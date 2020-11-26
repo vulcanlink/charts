@@ -14,10 +14,9 @@ spec:
   serviceName: {{ include "openethereum.fullname" . }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        config: {{ .Values.config }}
+    {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
