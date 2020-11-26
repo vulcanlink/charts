@@ -63,6 +63,9 @@ spec:
             - name: proxy-app
               containerPort: {{ .Values.container.ports.proxyApp }}
               protocol: TCP
+            - name: prometheus
+              containerPort: {{ .Values.container.ports.prometheus }}
+              protocol: TCP
           volumeMounts:
             - name: heimdalld
               mountPath: {{ .Values.volumes.heimdalld.mountPath }}

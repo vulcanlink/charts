@@ -19,6 +19,10 @@ spec:
       targetPort: proxy-app
       protocol: TCP
       name: proxy-app
+    - port: {{ .Values.service.prometheus }}
+      targetPort: prometheus
+      protocol: TCP
+      name: prometheus
   selector:
     {{- include "matic-heimdall.selectorLabels" . | nindent 4 }}
 

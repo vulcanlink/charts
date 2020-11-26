@@ -61,10 +61,13 @@ service:
   rpc: 26657
   rest: 1317
   proxyApp: 26658
+  prometheus: 26660
 
 serviceP2P:
   type: NodePort
   listener: 30306 # The range of valid ports is 30000-32767
+
+prometheus: false
 
 nodeSelector: {}
 
