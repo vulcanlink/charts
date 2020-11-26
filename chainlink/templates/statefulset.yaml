@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "chainlink.fullname" . }}
   labels:
@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       {{- include "chainlink.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "chainlink.fullname" . }}
   template:
     metadata:
       annotations:
@@ -35,7 +36,7 @@ spec:
             {{- toYaml .Values.image.args | nindent 12 }}
           ports:
             - name: http
-              containerPort: 6688
+              containerPort: {{ .Values.container.ports.http }}
               protocol: TCP
           livenessProbe:
             httpGet:

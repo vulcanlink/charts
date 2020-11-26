@@ -55,9 +55,16 @@ serviceAccount:
 
 podSecurityContext: {}
 securityContext: {}
+
+container:
+  ports:
+    http: 6688
+
 service:
   type: ClusterIP
-  port: 6688
+  http: 6688
+
+prometheus: false
 
 ingress:
   enabled: false
