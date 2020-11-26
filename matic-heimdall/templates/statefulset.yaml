@@ -36,7 +36,9 @@ spec:
                 cp /root/configmap/app.toml /root/.heimdalld/config/app.toml &&
                 cp /root/configmap/config.toml /root/.heimdalld/config/config.toml &&
                 cp /root/configmap/heimdall-config.toml /root/.heimdalld/config/heimdall-config.toml &&
-                cp /root/configmap/genesis.json /root/.heimdalld/config/genesis.json"]
+                cp /root/configmap/genesis.json /root/.heimdalld/config/genesis.json &&
+                cp /root/configmap/mainnet-genesis.json /root/.heimdalld/config/mainnet-genesis.json &&
+                cp /root/configmap/testnet-genesis.json /root/.heimdalld/config/testnet-genesis.json"]
           volumeMounts:
             - name: heimdalld
               mountPath: {{ .Values.volumes.heimdalld.mountPath }}
