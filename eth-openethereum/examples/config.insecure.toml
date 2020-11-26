@@ -1,0 +1,5 @@
+# https://github.com/openethereum/openethereum/blob/main/parity/cli/presets/config.insecure.toml
+[rpc]
+interface = "all"
+apis = ["all"]
+hosts = ["all"]
