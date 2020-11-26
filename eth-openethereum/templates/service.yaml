@@ -15,6 +15,10 @@ spec:
       targetPort: ws
       protocol: TCP
       name: ws
+    - port: {{ .Values.service.prometheus }}
+      targetPort: prometheus
+      protocol: TCP
+      name: prometheus
   selector:
     {{- include "openethereum.selectorLabels" . | nindent 4 }}
 

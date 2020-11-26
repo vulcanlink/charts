@@ -47,6 +47,9 @@ spec:
             - name: ws
               containerPort: {{ .Values.container.ports.ws }}
               protocol: TCP
+            - name: prometheus
+              containerPort: {{ .Values.container.ports.prometheus }}
+              protocol: TCP
             - name: listener
               containerPort: {{ .Values.container.ports.listener }}
               protocol: TCP
