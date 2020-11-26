@@ -6,6 +6,10 @@ metadata:
 data:
   genesis.json: |
 {{ (.Files.Get "files/mainnet/genesis.json") | indent 4 }}
+  mainnet-genesis.json: |
+{{ (.Files.Get "files/mainnet/genesis.json") | indent 4 }}
+  testnet-genesis.json: |
+{{ (.Files.Get "files/testnet/genesis.json") | indent 4 }}
   app.toml: |
 {{ .Values.config | indent 4 }}
   config.toml: |

@@ -16,7 +16,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 volumes:
-  heimddalld:
+  heimdalld:
     mountPath: /root/.heimdalld/
 
 persistence:

@@ -38,8 +38,8 @@ spec:
                 cp /root/configmap/heimdall-config.toml /root/.heimdalld/config/heimdall-config.toml &&
                 cp /root/configmap/genesis.json /root/.heimdalld/config/genesis.json"]
           volumeMounts:
-            - name: heimddalld
-              mountPath: {{ .Values.volumes.heimddalld.mountPath }}
+            - name: heimdalld
+              mountPath: {{ .Values.volumes.heimdalld.mountPath }}
             - name: config
               mountPath: /root/configmap
       containers:
@@ -62,8 +62,8 @@ spec:
               containerPort: {{ .Values.container.ports.proxyApp }}
               protocol: TCP
           volumeMounts:
-            - name: heimddalld
-              mountPath: {{ .Values.volumes.heimddalld.mountPath }}
+            - name: heimdalld
+              mountPath: {{ .Values.volumes.heimdalld.mountPath }}
         - name: {{ .Chart.Name }}-rest-server
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -77,8 +77,8 @@ spec:
               containerPort: {{ .Values.container.ports.rest }}
               protocol: TCP
           volumeMounts:
-            - name: heimddalld
-              mountPath: {{ .Values.volumes.heimddalld.mountPath }}
+            - name: heimdalld
+              mountPath: {{ .Values.volumes.heimdalld.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -98,18 +98,23 @@ spec:
           configMap:
             name: {{ include "matic-heimdall.fullname" . }}-configmap
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
-        - name: heimddalld
+        - name: heimdalld
           persistentVolumeClaim:
 {{- with .Values.persistence.existingClaim }}
             claimName: {{ tpl . $ }}
 {{- end }}
 {{- else if not .Values.persistence.enabled }}
-        - name: heimddalld
+        - name: heimdalld
           emptyDir: {}
+{{- else if and .Values.persistence.enabled .Values.persistence.hostPath }}
+        - name: heimdalld
+          hostPath:
+            path: {{ .Values.persistence.hostPath.path }}
+            type: {{ .Values.persistence.hostPath.type }}
 {{- else if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
   volumeClaimTemplates:
     - metadata:
-        name: heimddalld
+        name: heimdalld
       {{- with .Values.persistence.annotations }}
         annotations:
         {{- range $key, $value := . }}
