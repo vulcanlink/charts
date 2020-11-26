@@ -1,0 +1,18 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "matic-heimdall.fullname" . }}-configmap
+data:
+  genesis.json: |
+{{ (.Files.Get "files/mainnet/genesis.json") | indent 4 }}
+  mainnet-genesis.json: |
+{{ (.Files.Get "files/mainnet/genesis.json") | indent 4 }}
+  testnet-genesis.json: |
+{{ (.Files.Get "files/testnet/genesis.json") | indent 4 }}
+  app.toml: |
+{{ .Values.config | indent 4 }}
+  config.toml: |
+{{ .Values.config | indent 4 }}
+  heimdall-config.toml: |
+{{ .Values.heimdallConfig | indent 4 }}

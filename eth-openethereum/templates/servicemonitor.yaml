@@ -1,0 +1,23 @@
+{{ if .Values.prometheus }}
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "openethereum.fullname" . }}-metrics
+spec:
+  endpoints:
+  - interval: 5s
+    path: /metrics
+    port: prometheus
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      targetLabel: __name__
+      replacement: openethereum_$1
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace}}
+  selector:
+    matchLabels:
+      {{- include "openethereum.selectorLabels" . | nindent 6 }}
+
+{{ end }}
