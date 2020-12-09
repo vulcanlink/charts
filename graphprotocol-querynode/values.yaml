@@ -8,7 +8,7 @@ image:
   repository: graphprotocol/graph-node
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "v0.19.2"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -72,6 +72,8 @@ service:
 proxyService:
   type: ClusterIP
   nginx: 80
+
+prometheus: true
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -8,7 +8,7 @@ image:
   repository: graphprotocol/indexer-agent
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: sha-b7019b9
 
 imagePullSecrets: []
 nameOverride: ""
@@ -65,6 +65,8 @@ service:
   http: 7600
   metrics: 7300
   management: 8000
+
+prometheus: false
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

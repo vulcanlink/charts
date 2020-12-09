@@ -8,7 +8,7 @@ image:
   repository: graphprotocol/indexer-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: sha-b7019b9
 
 imagePullSecrets: []
 nameOverride: ""
@@ -60,6 +60,8 @@ service:
   type: ClusterIP
   http: 7600
   metrics: 7300
+
+prometheus: false
 
 ingress:
   enabled: false

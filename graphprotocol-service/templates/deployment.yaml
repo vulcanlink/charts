@@ -49,17 +49,17 @@ spec:
             - configMapRef:
                 name: {{ include "graphprotocol-service.fullname" . }}-configmap
           env:
-            - name: SERVER_HOST
+            - name: INDEXER_SERVICE_POSTGRES_HOST
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secrets.postgres }}
                   key: host
-            - name: SERVER_DB_USER
+            - name: INDEXER_SERVICE_POSTGRES_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secrets.postgres }}
                   key: user
-            - name: SERVER_DB_PASSWORD
+            - name: INDEXER_SERVICE_POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secrets.postgres }}
