@@ -14,12 +14,11 @@ spec:
   serviceName: {{ include "geth.fullname" . }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        config: {{ .Values.config }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "geth.selectorLabels" . | nindent 8 }}
     spec:
@@ -46,6 +45,9 @@ spec:
               protocol: TCP
             - name: ws
               containerPort: {{ .Values.container.ports.ws }}
+              protocol: TCP
+            - name: prometheus
+              containerPort: {{ .Values.container.ports.prometheus }}
               protocol: TCP
             - name: listener
               containerPort: {{ .Values.container.ports.listener }}

@@ -71,6 +71,7 @@ container:
   ports:
     http: 8545
     ws: 8546
+    prometheus: 6060
     listener: 30303
     discovery: 30303
 
@@ -78,11 +79,14 @@ service:
   type: ClusterIP
   http: 8545
   ws: 8546
+  prometheus: 6060
 
 serviceP2P:
   type: NodePort
   listener: 30303
   discovery: 30303
+
+prometheus: false
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
