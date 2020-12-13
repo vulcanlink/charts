@@ -55,8 +55,12 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  # We need to ensure that the openethereum user has access to mounted volumes.
+  # The openethereum user is hardcoded to 1000 in the openethereum Dockerfile.
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
 
 securityContext: {}
   # capabilities:
@@ -114,4 +118,4 @@ affinity: {}
 
 config: | 
   [parity]
-  chain = "mainnet
+  chain = "mainnet"
