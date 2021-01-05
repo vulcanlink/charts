@@ -6,14 +6,17 @@ replicaCount: 1
 image:
   repository: smartcontract/chainlink
   pullPolicy: IfNotPresent
-  command: ["/bin/sh"]
-  args: ["-c",
-        "mkdir -p /chainlink;
-        echo $API_EMAIL > /chainlink/.api;
-        echo $API_PASSWORD >> /chainlink/.api;
-        echo $WALLET_PASSWORD > /chainlink/.password;
-        chainlink local node -a /chainlink/.api -p /chainlink/.password;
-        while true; do sleep 10;done;"]
+  command: ["chainlink", "local", "node"]
+  args: [
+    "-a", "/etc/chainlink/api",
+    "-p", "/etc/chainlink/password"]
+  #args: ["-c",
+  #      "mkdir -p /chainlink;
+  #      echo $API_EMAIL > /chainlink/.api;
+  #      echo $API_PASSWORD >> /chainlink/.api;
+  #      echo $WALLET_PASSWORD > /chainlink/.password;
+  #      chainlink local node -a /chainlink/.api -p /chainlink/.password;
+  #      while true; do sleep 10;done;"]
 config:
   ROOT: /chainlink
   LOG_LEVEL: debug
@@ -24,8 +27,11 @@ config:
   SECURE_COOKIES: "false"
   ALLOW_ORIGINS: "*"
   ETH_URL: ws://geth:8546
-  API_EMAIL: ""
-  API_PASSWORD: ""
+  API_EMAIL: "" #DEPRECATED
+  API_PASSWORD: "" #DEPRECATED
+  API_LOGIN: |
+    API_EMAIL
+    API_LOGIN
   WALLET_PASSWORD: ""
   DATABASE_TIMEOUT: "500ms"
   DATABASE_URL: postgresql://postgres@postgresql:5432/chainlink
@@ -53,16 +59,27 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
+podAnnotations: {}
+
 podSecurityContext: {}
 securityContext: {}
 
 container:
   ports:
     http: 6688
+    listener: 30668 #8068
+
+volumes:
+  config:
+    mountPath: /etc/chainlink
 
 service:
   type: ClusterIP
   http: 6688
+
+serviceP2P:
+  type: ClusterIP
+  listener: 30668 #8068
 
 prometheus: false
 
