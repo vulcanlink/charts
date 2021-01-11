@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "graphprotocol-indexer.name" -}}
+{{- define "solana.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "graphprotocol-indexer.fullname" -}}
+{{- define "solana.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "graphprotocol-indexer.chart" -}}
+{{- define "solana.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "graphprotocol-indexer.labels" -}}
-helm.sh/chart: {{ include "graphprotocol-indexer.chart" . }}
-{{ include "graphprotocol-indexer.selectorLabels" . }}
+{{- define "solana.labels" -}}
+helm.sh/chart: {{ include "solana.chart" . }}
+{{ include "solana.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,17 +46,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "graphprotocol-indexer.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "graphprotocol-indexer.name" . }}
+{{- define "solana.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "solana.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "graphprotocol-indexer.serviceAccountName" -}}
+{{- define "solana.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "graphprotocol-indexer.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "solana.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -66,7 +66,7 @@ Create the name of the service account to use
 {{/*
 Return  the proper Storage Class
 */}}
-{{- define "graphprotocol-indexer.storageClass" -}}
+{{- define "solana.storageClass" -}}
 {{- if .Values.global -}}
     {{- if .Values.global.storageClass -}}
         {{- if (eq "-" .Values.global.storageClass) -}}

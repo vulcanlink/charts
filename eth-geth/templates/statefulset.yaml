@@ -14,12 +14,11 @@ spec:
   serviceName: {{ include "geth.fullname" . }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        config: {{ .Values.config }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "geth.selectorLabels" . | nindent 8 }}
     spec:
@@ -30,6 +29,24 @@ spec:
       serviceAccountName: {{ include "geth.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{ if .Values.genesis }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            {{- toYaml .Values.initContainer.command | nindent 12 }}
+          args: 
+            {{- toYaml .Values.initContainer.args | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "geth.fullname" . }}-env-configmap
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
+            - name: config
+              mountPath: {{ .Values.volumes.config.mountPath }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -47,12 +64,18 @@ spec:
             - name: ws
               containerPort: {{ .Values.container.ports.ws }}
               protocol: TCP
+            - name: prometheus
+              containerPort: {{ .Values.container.ports.prometheus }}
+              protocol: TCP
             - name: listener
               containerPort: {{ .Values.container.ports.listener }}
               protocol: TCP
             - name: discovery
               containerPort: {{ .Values.container.ports.discovery }}
               protocol: UDP
+          envFrom:
+            - configMapRef:
+                name: {{ include "geth.fullname" . }}-env-configmap
           volumeMounts:
             - name: data
               mountPath: {{ .Values.volumes.data.mountPath }}

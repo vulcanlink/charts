@@ -10,9 +10,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1.9.24"
   command: ["geth"]
-  args: [
-   "--config",
-    "/root/config/config.custom.toml"]
+  args: ["--config", "/root/config/config.custom.toml"]
+
+initContainer:
+  command: ["geth"]
+  args: ["init", "/root/config/genesis.custom.json"]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -22,25 +24,24 @@ volumes:
   data:
     mountPath: /root/.ethereum
   config:
-    mountPath:  /root/config
+    mountPath: /root/config
 
 persistence:
   enabled: true
   annotations: {}
-  accessModes: 
+  accessModes:
     - ReadWriteOnce
   size: 20Gi # For mainnet must increase
 
   ## A manually managed Persistent Volume and Claim
   ## If defined, PVC must be created manually before volume will be bound
   ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
-  ##  
+  ##
   # existingClaim:
-
   ## An existing directory in the node
   ## If defined, host directory must be created manually before volume will be bound
   ## See https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
-  ##  
+  ##
   # hostPath:
   #   path: /root/.local/share/io.parity.ethereum
   #   type: Directory
@@ -56,10 +57,12 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -71,6 +74,7 @@ container:
   ports:
     http: 8545
     ws: 8546
+    prometheus: 6060
     listener: 30303
     discovery: 30303
 
@@ -78,13 +82,17 @@ service:
   type: ClusterIP
   http: 8545
   ws: 8546
+  prometheus: 6060
 
 serviceP2P:
   type: NodePort
   listener: 30303
   discovery: 30303
 
-resources: {}
+prometheus: false
+
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -109,6 +117,11 @@ tolerations: []
 
 affinity: {}
 
-config: | 
+config: |
   [Eth]
   NetworkId = 1
+
+genesis: ""
+
+#Additional Environment Variables
+env: {}

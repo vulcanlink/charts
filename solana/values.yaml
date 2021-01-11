@@ -1,17 +1,44 @@
-# Default values for openethereum.
+# Default values for solana.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: openethereum/openethereum
+  repository: vulcanlink/solana
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v3.1.0"
+  tag: "v1.5.1"
+  command: ["solana-validator"]
   args: [
-   "--config",
-    "/home/openethereum/config/config.custom.toml"]
+      "--ledger",
+      "/home/solana/.solana",
+      "--trusted-validator",
+      "7Np41oeYqPefeNQEHSv1UDhYrehxin3NStELsSKCT4K2",
+      "--trusted-validator",
+      "GdnSyH3YtwcxFvQrVVJMm1JhTS4QVX7MFsX56uJLUfiZ",
+      "--trusted-validator",
+      "DE1bawNcRJB9rVm3buyMVfr8mBEoyyu73NBovf2oXJsJ",
+      "--trusted-validator",
+      "CakcnaRDHka2gXyfbEd2d3xsvkJkqsLw2akB3zsN1D2S",
+      "--no-untrusted-rpc",
+      "--rpc-port",
+      "8899",
+      "--private-rpc",
+      "--gossip-port",
+      "8000",
+      "--dynamic-port-range",
+      "8001-8011",
+      "--entrypoint",
+      "mainnet-beta.solana.com:8001",
+      "--expected-genesis-hash",
+      "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+      "--wal-recovery-mode",
+      "skip_any_corrupted_record",
+      "--limit-ledger-size", #500GB
+      "--log",
+      "-",
+    ]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -19,27 +46,24 @@ fullnameOverride: ""
 
 volumes:
   data:
-    mountPath: /home/openethereum/.local/share/io.parity.ethereum
-  config:
-    mountPath:  /home/openethereum/config
+    mountPath: /home/solana/.solana
 
 persistence:
   enabled: true
   annotations: {}
-  accessModes: 
+  accessModes:
     - ReadWriteOnce
   size: 20Gi # For mainnet must increase
 
   ## A manually managed Persistent Volume and Claim
   ## If defined, PVC must be created manually before volume will be bound
   ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
-  ##  
+  ##
   # existingClaim:
-
   ## An existing directory in the node
   ## If defined, host directory must be created manually before volume will be bound
   ## See https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
-  ##  
+  ##
   # hostPath:
   #   path: /root/.local/share/io.parity.ethereum
   #   type: Directory
@@ -56,13 +80,11 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext:
-  # We need to ensure that the openethereum user has access to mounted volumes.
-  # The openethereum user is hardcoded to 1000 in the openethereum Dockerfile.
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
+  {}
+  # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -72,26 +94,33 @@ securityContext: {}
 
 container:
   ports:
-    http: 8545
-    ws: 8546
-    listener: 30303
-    discovery: 30303
-    prometheus: 3000
+    prometheus: 6060
+    rpc: 8899
+    gossip: 8000
+    listener:
+      - 8001
+      - 8002
+      - 8003
+      - 8004
+      - 8005
+      - 8006
+      - 8007
+      - 8008
+      - 8009
+      - 8010
+      - 8011
 
 service:
   type: ClusterIP
-  http: 8545
-  ws: 8546
-  prometheus: 3000
+  prometheus: 6060
 
 serviceP2P:
   type: NodePort
-  listener: 30303
-  discovery: 30303
 
 prometheus: false
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -116,6 +145,5 @@ tolerations: []
 
 affinity: {}
 
-config: | 
-  [parity]
-  chain = "mainnet"
+#Additional Environment Variables
+env: {}

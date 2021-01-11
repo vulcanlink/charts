@@ -1,16 +1,16 @@
-# Graph Protocol Indexer
-Helm chart deploying Graph Protocol Indexer.
+# solana
+Helm chart deploying solana Rust client.
 
 ## TL;DR
 
 ```console
 $ helm repo add vulcanlink https://vulcanlink.github.io/charts/
-$ helm install my-release vulcanlink/graphprotocol-indexer
+$ helm install my-release vulcanlink/solana
 ```
 
 ## Introduction
 
-This chart bootstraps a graphprotocol-indexer deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [solana](https://github.com/solana/solana) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters. This chart has been tested to work with NGINX Ingress on top of AWS EKS.
 
@@ -24,20 +24,24 @@ Vulcan Link charts can be used with [Kubeapps](https://kubeapps.com/) for deploy
 
 Identify the Kubernetes worker nodes that should be used to execute
 user containers.  Do this by labeling each node with
-`graphprotocol/node-role=index-role` and `graphprotocol/node-id=index-node-<ID>` 
+`solana/role=node`.  If you have a multi-node cluster, for each node <NODE_NAME>
+you want to be a node, execute
+```shell
+kubectl label nodes <NODE_NAME> solana/role=node
+```
 For a single node cluster, simply do
 ```shell
-kubectl label nodes --all graphprotocol/node-role=index-role graphprotocol/node-id=index-node-0
+kubectl label nodes --all solana/role=node
 ```
 
 ## Installing the Chart
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install my-release vulcanlink/graphprotocol-indexer
+$ helm install my-release vulcanlink/solana
 ```
 
-The command deploys graphprotocol-indexer on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys solana on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -61,7 +65,7 @@ $ kubectl delete pvc -l release=my-release
 
 ## Parameters
 
-The following tables lists the configurable parameters of the graphprotocol-indexer chart and their default values.
+The following tables lists the configurable parameters of the solana chart and their default values.
 
 |                   Parameter                   |                                                                                Description                                                                                |                            Default                            |
 |-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
@@ -69,29 +73,27 @@ The following tables lists the configurable parameters of the graphprotocol-inde
 | `global.imagePullSecrets`                     | Global Docker registry secret names as an array                                                                                                                           | `[]` (does not add image pull secrets to deployed pods)       |
 | `global.storageClass`                         | Global storage class for dynamic provisioning                                                                                                                             | `nil`                                                         |
 | `image.registry`                              | Image registry                                                                                                                                                            | `docker.io`                                                   |
-| `image.repository`                            | Image name                                                                                                                                                                | `graphprotocol/graph-node`                                          |
+| `image.repository`                            | Image name                                                                                                                                                                | `solana/solana`                                          |
 | `image.tag`                                   | Image tag                                                                                                                                                                 | `{TAG_NAME}`                                                  |
 | `image.pullPolicy`                            | Image pull policy                                                                                                                                                         | `IfNotPresent`                                                |
 | `image.pullSecrets`                           | Specify Image pull secrets                                                                                                                                                | `nil` (does not add image pull secrets to deployed pods)      |
 | `image.command`                               | Specify Image run command                                                                                                                                       | `nil`                                                    |
-| `image.args`                                  | Specify Image run command args                                                                                                                                  | `nil` |                                                      |
-| `nameOverride`                                | String to partially override graphprotocol-indexer.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
-| `fullnameOverride`                            | String to fully override graphprotocol-indexer.fullname template with a string                                                                                                       | `nil`                                                         |
-| `volumes.data.mountPath`                      | Blockchain data mountpath                                                                                                                                                 | `/var/lib/graph`                                             |
-| `container.http`                              | graphprotocol-indexer Container http port                                                                                                                                         | `8000`                                                        |
-| `container.jsonRpc`                                | graphprotocol-indexer Container JSON-RPC port                                                                                                                                    | `8020`                                                        |
-| `container.metrics`                                | graphprotocol-indexer Container Prometheus metrics port                                                                                                                                    | `8040`                                                        |
+| `image.args`                                  | Specify Image run command args                                                                                                                                  | `["--rpc", "--rpcaddr", "0.0.0.0", "--rpcvhosts=*", "--ws", "--wsaddr", "0.0.0.0", "--wsorigins=*"]` |                                                      |
+| `nameOverride`                                | String to partially override postgresql.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
+| `fullnameOverride`                            | String to fully override postgresql.fullname template with a string                                                                                                       | `nil`                                                         |
+| `volumes.data.mountPath`                      | Blockchain data mountpath                                                                                                                                                 | `/root/.ethereum`                                             |
+| `container.http`                              | solana Container http JSON-RPC port                                                                                                                                         | `8545`                                                        |
+| `container.ws`                                | solana Container websocket JSON-RPC port                                                                                                                                    | `8546`                                                        |
 | `service.type`                                | Kubernetes Service type                                                                                                                                                   | `ClusterIP`                                                   |
-| `service.http`                                | graphprotocol-indexer Service http port                                                                                                                                           | `8000`                                                        |
-| `service.ws`                                  | graphprotocol-indexer Service JSON-RPC port                                                                                                                                      | `8020`                                                        |
-| `service.metrics`                                  | graphprotocol-indexer Service Prometheus metrics port                                                                                                                                      | `8040`                                                        |
+| `service.http`                                | solana Service http JSON-RPC port                                                                                                                                           | `8545`                                                        |
+| `service.ws`                                  | solana Service websocket JSON-RPC port                                                                                                                                      | `8546`                                                        |
 | `service.nodePort`                            | Kubernetes Service nodePort                                                                                                                                               | `nil`                                                         |
-| `service.annotations`                         | Annotations for graphprotocol-indexer service                                                                                                                                              | `{}` (evaluated as a template)                                |
+| `service.annotations`                         | Annotations for solana service                                                                                                                                              | `{}` (evaluated as a template)                                |
 | `persistence.enabled`                         | Enable persistence using PVC                                                                                                                                              | `true`                                                        |
 | `persistence.existingClaim`                   | Provide an existing `PersistentVolumeClaim`, the value is evaluated as a template.                                                                                        | `nil`                                                         |
-| `persistence.storageClass`                    | PVC Storage Class for graphprotocol-indexer volume                                                                                                                                   | `nil`                                                         |
-| `persistence.accessModes`                     | PVC Access Mode for graphprotocol-indexer volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
-| `persistence.size`                            | PVC Storage Request for graphprotocol-indexer volume                                                                                                                                 | `300Gi`                                                       |
+| `persistence.storageClass`                    | PVC Storage Class for solana volume                                                                                                                                   | `nil`                                                         |
+| `persistence.accessModes`                     | PVC Access Mode for solana volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
+| `persistence.size`                            | PVC Storage Request for solana volume                                                                                                                                 | `300Gi`                                                       |
 | `persistence.annotations`                     | Annotations for the PVC                                                                                                                                                   | `{}`                                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
@@ -99,7 +101,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install my-release \
   --set persistence.enabled=false \
-    vulcanlink/graphprotocol-indexer
+    vulcanlink/solana
 ```
 
 The above command disables persistent storage, meaning the node will have to resync after every Pod restart/deletion.
@@ -107,7 +109,7 @@ The above command disables persistent storage, meaning the node will have to res
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install my-release -f values.yaml vulcanlink/graphprotocol-indexer
+$ helm install my-release -f values.yaml vulcanlink/solana
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

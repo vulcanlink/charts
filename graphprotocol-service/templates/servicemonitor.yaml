@@ -1,0 +1,23 @@
+{{ if .Values.prometheus }}
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "graphprotocol-service.fullname" . }}-metrics
+spec:
+  endpoints:
+  - interval: 5s
+    path: /metrics
+    port: metrics
+    #metricRelabelings:
+    #- sourceLabels: [__name__]
+    #  targetLabel: __name__
+    #  replacement: graphprotocol_$1
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace}}
+  selector:
+    matchLabels:
+      {{- include "graphprotocol-service.selectorLabels" . | nindent 6 }}
+
+{{ end }}
