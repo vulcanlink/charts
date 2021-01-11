@@ -29,6 +29,24 @@ spec:
       serviceAccountName: {{ include "geth.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{ if .Values.genesis }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            {{- toYaml .Values.initContainer.command | nindent 12 }}
+          args: 
+            {{- toYaml .Values.initContainer.args | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "geth.fullname" . }}-env-configmap
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
+            - name: config
+              mountPath: {{ .Values.volumes.config.mountPath }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -55,6 +73,9 @@ spec:
             - name: discovery
               containerPort: {{ .Values.container.ports.discovery }}
               protocol: UDP
+          envFrom:
+            - configMapRef:
+                name: {{ include "geth.fullname" . }}-env-configmap
           volumeMounts:
             - name: data
               mountPath: {{ .Values.volumes.data.mountPath }}
