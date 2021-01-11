@@ -433,6 +433,26 @@ entries:
     urls:
     - graphprotocol-service-0.3.0.tgz
     version: 0.3.0
+  openethereum:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2020-12-13T23:18:27.228107-08:00"
+    description: A Helm chart for Ethereum OpenEthereum client
+    digest: cf6b0e671c980d1ea3adb31e4648773e58704f8d57c88d5ce9abda42932f8192
+    home: https://ethereum.org/
+    icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+    keywords:
+    - ethereum
+    maintainers:
+    - email: leo@vulcan.link
+      name: Leo Vigna
+    name: openethereum
+    sources:
+    - https://github.com/openethereum/openethereum
+    type: application
+    urls:
+    - openethereum-0.2.0.tgz
+    version: 0.2.0
   openwhisk:
   - apiVersion: v2
     created: "2021-01-11T12:54:05.566467865+01:00"
