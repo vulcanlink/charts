@@ -1,20 +1,44 @@
-# Default values for geth.
+# Default values for solana.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: ethereum/client-go
+  repository: vulcanlink/solana
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.9.24"
-  command: ["geth"]
-  args: ["--config", "/root/config/config.custom.toml"]
-
-initContainer:
-  command: ["geth"]
-  args: ["init", "/root/config/genesis.custom.json"]
+  tag: "v1.5.1"
+  command: ["solana-validator"]
+  args: [
+      "--ledger",
+      "/home/solana/.solana",
+      "--trusted-validator",
+      "7Np41oeYqPefeNQEHSv1UDhYrehxin3NStELsSKCT4K2",
+      "--trusted-validator",
+      "GdnSyH3YtwcxFvQrVVJMm1JhTS4QVX7MFsX56uJLUfiZ",
+      "--trusted-validator",
+      "DE1bawNcRJB9rVm3buyMVfr8mBEoyyu73NBovf2oXJsJ",
+      "--trusted-validator",
+      "CakcnaRDHka2gXyfbEd2d3xsvkJkqsLw2akB3zsN1D2S",
+      "--no-untrusted-rpc",
+      "--rpc-port",
+      "8899",
+      "--private-rpc",
+      "--gossip-port",
+      "8000",
+      "--dynamic-port-range",
+      "8001-8011",
+      "--entrypoint",
+      "mainnet-beta.solana.com:8001",
+      "--expected-genesis-hash",
+      "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+      "--wal-recovery-mode",
+      "skip_any_corrupted_record",
+      "--limit-ledger-size", #500GB
+      "--log",
+      "-",
+    ]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -22,9 +46,7 @@ fullnameOverride: ""
 
 volumes:
   data:
-    mountPath: /root/.ethereum
-  config:
-    mountPath: /root/config
+    mountPath: /home/solana/.solana
 
 persistence:
   enabled: true
@@ -72,22 +94,28 @@ securityContext:
 
 container:
   ports:
-    http: 8545
-    ws: 8546
     prometheus: 6060
-    listener: 30303
-    discovery: 30303
+    rpc: 8899
+    gossip: 8000
+    listener:
+      - 8001
+      - 8002
+      - 8003
+      - 8004
+      - 8005
+      - 8006
+      - 8007
+      - 8008
+      - 8009
+      - 8010
+      - 8011
 
 service:
   type: ClusterIP
-  http: 8545
-  ws: 8546
   prometheus: 6060
 
 serviceP2P:
   type: NodePort
-  listener: 30303
-  discovery: 30303
 
 prometheus: false
 
@@ -116,12 +144,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-config: |
-  [Eth]
-  NetworkId = 1
-
-genesis: ""
 
 #Additional Environment Variables
 env: {}

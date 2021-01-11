@@ -1,0 +1,23 @@
+{{ if .Values.prometheus }}
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "solana.fullname" . }}-metrics
+spec:
+  endpoints:
+  - interval: 5s
+    path: /debug/metrics/prometheus
+    port: prometheus
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      targetLabel: __name__
+      replacement: solana_$1
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace}}
+  selector:
+    matchLabels:
+      {{- include "solana.selectorLabels" . | nindent 6 }}
+
+{{ end }}

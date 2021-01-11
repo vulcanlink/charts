@@ -1,0 +1,38 @@
+prometheus: false
+
+image:
+  repository: smartcontract/chainlink
+  tag: "0.9.8"
+
+config:
+  # Login Info
+  ROOT: /chainlink
+  API_LOGIN: |
+    API_EMAIL
+    API_LOGIN
+  WALLET_PASSWORD: ""
+  # HTTP Security
+  ALLOW_ORIGINS: "*"
+  SECURE_COOKIES: "false"
+  CHAINLINK_PORT: "6688"
+  CHAINLINK_TLS_PORT: "0"
+  # Database
+  DATABASE_TIMEOUT: "0"
+  DATABASE_URL: postgresql://postgres@postgresql:5432/chainlink?sslmode=disable
+  # Ethereum
+  ETH_URL: ws://geth:8546 #Your Ethereum Node
+  ETH_CHAIN_ID: "1"
+  MIN_OUTGOING_CONFIRMATIONS: "2"
+  MINIMUM_CONTRACT_PAYMENT: "50000000000000000"
+  LINK_CONTRACT_ADDRESS: 0x514910771af9ca656af840dff83e8264ecf986ca
+  ORACLE_CONTRACT_ADDRESS: ""
+  # Logging
+  JSON_CONSOLE: "true"
+  LOG_LEVEL: debug
+  LOG_TO_DISK: "false"
+  # Secondary Ethereum Node
+  # ETH_SECONDARY_URL: ""
+  # Chainlink Explorer
+  # EXPLORER_ACCESS_KEY: ""
+  # EXPLORER_SECRET: ""
+  # EXPLORER_URL: wss://explorer.chain.link
