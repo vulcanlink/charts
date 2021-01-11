@@ -63,7 +63,7 @@ spec:
                   fieldPath: metadata.namespace
           envFrom:
             - configMapRef:
-                name: {{ include "chainlink.fullname" . }}-configmap
+                name: {{ include "chainlink.fullname" . }}-env-configmap
           volumeMounts:
             - name: config
               mountPath: {{ .Values.volumes.config.mountPath }}

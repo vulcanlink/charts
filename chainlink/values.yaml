@@ -7,45 +7,39 @@ image:
   repository: smartcontract/chainlink
   pullPolicy: IfNotPresent
   command: ["chainlink", "local", "node"]
-  args: [
-    "-a", "/etc/chainlink/api",
-    "-p", "/etc/chainlink/password"]
-  #args: ["-c",
-  #      "mkdir -p /chainlink;
-  #      echo $API_EMAIL > /chainlink/.api;
-  #      echo $API_PASSWORD >> /chainlink/.api;
-  #      echo $WALLET_PASSWORD > /chainlink/.password;
-  #      chainlink local node -a /chainlink/.api -p /chainlink/.password;
-  #      while true; do sleep 10;done;"]
+  args: ["-a", "/etc/chainlink/api", "-p", "/etc/chainlink/password"]
 config:
+  # Login Info
   ROOT: /chainlink
-  LOG_LEVEL: debug
-  ETH_CHAIN_ID: "1"
-  MIN_OUTGOING_CONFIRMATIONS: "2"
-  LINK_CONTRACT_ADDRESS: "0x514910771af9ca656af840dff83e8264ecf986ca"
-  CHAINLINK_TLS_PORT: "0"
-  SECURE_COOKIES: "false"
-  ALLOW_ORIGINS: "*"
-  ETH_URL: ws://geth:8546
-  API_EMAIL: "" #DEPRECATED
-  API_PASSWORD: "" #DEPRECATED
   API_LOGIN: |
     API_EMAIL
     API_LOGIN
   WALLET_PASSWORD: ""
-  DATABASE_TIMEOUT: "500ms"
-  DATABASE_URL: postgresql://postgres@postgresql:5432/chainlink
-  EXPLORER_URL: ""
-  EXPLORER_ACCESS_KEY: ""
-  EXPLORER_SECRET: ""
+  # HTTP Security
+  ALLOW_ORIGINS: "*"
+  SECURE_COOKIES: "false"
+  CHAINLINK_PORT: "6688"
+  CHAINLINK_TLS_PORT: "0"
+  # Database
+  DATABASE_TIMEOUT: "0"
+  DATABASE_URL: postgresql://postgres@postgresql:5432/chainlink?sslmode=disable
+  # Ethereum
+  ETH_URL: ws://geth:8546 #Your Ethereum Node
+  ETH_CHAIN_ID: "1"
+  MIN_OUTGOING_CONFIRMATIONS: "2"
   MINIMUM_CONTRACT_PAYMENT: "50000000000000000"
+  LINK_CONTRACT_ADDRESS: 0x514910771af9ca656af840dff83e8264ecf986ca
   ORACLE_CONTRACT_ADDRESS: ""
-  GAS_UPDATER_ENABLED: "true"
-  FEATURE_FLUX_MONITOR: "true"
-  FEATURE_EXTERNAL_INITIATORS: "true"
+  # Logging
   JSON_CONSOLE: "true"
-  ENABLE_BULLETPROOF_TX_MANAGER: "true"
-  ETH_HEAD_TRACKER_MAX_BUFFER_SIZE: "3"
+  LOG_LEVEL: debug
+  LOG_TO_DISK: "false"
+  # Secondary Ethereum Node
+  # ETH_SECONDARY_URL: ""
+  # Chainlink Explorer
+  # EXPLORER_ACCESS_KEY: ""
+  # EXPLORER_SECRET: ""
+  # EXPLORER_URL: wss://explorer.chain.link
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -79,19 +73,10 @@ service:
 
 serviceP2P:
   type: ClusterIP
-  listener: 30668 #8068
+  listener: 30668 # Only Accepts NodePort
 
 prometheus: false
 
-ingress:
-  enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
 resources: {}
 nodeSelector: {}
 tolerations: []
