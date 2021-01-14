@@ -41,8 +41,8 @@ spec:
                 cp /root/configmap/mainnet-genesis.json /root/.heimdalld/config/mainnet-genesis.json &&
                 cp /root/configmap/testnet-genesis.json /root/.heimdalld/config/testnet-genesis.json"]
           volumeMounts:
-            - name: heimdalld
-              mountPath: {{ .Values.volumes.heimdalld.mountPath }}
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
             - name: config
               mountPath: /root/configmap
       containers:
@@ -68,8 +68,8 @@ spec:
               containerPort: {{ .Values.container.ports.prometheus }}
               protocol: TCP
           volumeMounts:
-            - name: heimdalld
-              mountPath: {{ .Values.volumes.heimdalld.mountPath }}
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
         - name: {{ .Chart.Name }}-rest-server
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -83,8 +83,8 @@ spec:
               containerPort: {{ .Values.container.ports.rest }}
               protocol: TCP
           volumeMounts:
-            - name: heimdalld
-              mountPath: {{ .Values.volumes.heimdalld.mountPath }}
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -104,23 +104,23 @@ spec:
           configMap:
             name: {{ include "matic-heimdall.fullname" . }}-configmap
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
-        - name: heimdalld
+        - name: data
           persistentVolumeClaim:
 {{- with .Values.persistence.existingClaim }}
             claimName: {{ tpl . $ }}
 {{- end }}
 {{- else if not .Values.persistence.enabled }}
-        - name: heimdalld
+        - name: data
           emptyDir: {}
 {{- else if and .Values.persistence.enabled .Values.persistence.hostPath }}
-        - name: heimdalld
+        - name: data
           hostPath:
             path: {{ .Values.persistence.hostPath.path }}
             type: {{ .Values.persistence.hostPath.type }}
 {{- else if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
   volumeClaimTemplates:
     - metadata:
-        name: heimdalld
+        name: data
       {{- with .Values.persistence.annotations }}
         annotations:
         {{- range $key, $value := . }}
