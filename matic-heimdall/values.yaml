@@ -16,13 +16,13 @@ nameOverride: ""
 fullnameOverride: ""
 
 volumes:
-  heimdalld:
+  data:
     mountPath: /root/.heimdalld/
 
 persistence:
   enabled: true
   annotations: {}
-  accessModes: 
+  accessModes:
     - ReadWriteOnce
   size: 20Gi # For mainnet must increase
 
@@ -37,10 +37,12 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -80,7 +82,7 @@ appConfig: |
   halt-height = 0
   halt-time = 0
 
-config: | 
+config: |
   proxy_app = "tcp://127.0.0.1:26658"
   moniker = "vulcanlink-helmchart-matic"
   fast_sync = true
