@@ -1,28 +1,24 @@
 #!/bin/bash
 
-# helm package
-#helm package bitcoind
-#helm package ipfs
-#helm package lnd
-#helm package parity
-#helm package geth
-#helm package blockchain
-
+# Chainlink
 helm package chainlink
 helm package chainlink-gas-updater
 helm package chainlink-onchain-exporter
-helm package eth-failover
-helm package elastos-geth
-helm package geth
-helm package rskj
-
 helm package rsk-initiator
 helm package rsktx-adapter
+# Ethereum
+helm package eth-failover
+helm package eth-geth
+helm package eth-openethereum
+# RSK
+helm package rskj
 
+# Vulcan Link API
 helm package chainlink-graphql
 helm package vulcan-api
 helm package vulcan-gateway
 
+# Graph Protocol
 helm package graphprotocol-agent
 helm package graphprotocol-indexnode
 helm package graphprotocol-querynode
