@@ -4,8 +4,8 @@ Helm chart deploying starter-chart.
 ## TL;DR
 
 ```console
-$ helm repo add vulcanlink https://vulcanlink.github.io/charts/
-$ helm install my-release vulcanlink/starter-chart
+helm repo add vulcanlink https://vulcanlink.github.io/charts/
+helm install my-release vulcanlink/starter-chart
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ Vulcan Link charts can be used for deployment and management of Helm Charts in K
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install my-release vulcanlink/starter-chart
+helm install my-release vulcanlink/starter-chart
 ```
 
 The command deploys the chart on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
@@ -36,18 +36,8 @@ The command deploys the chart on the Kubernetes cluster in the default configura
 To uninstall/delete the `my-release` deployment:
 
 ```console
-$ helm delete my-release
+helm delete my-release
 ```
-
-The command removes all the Kubernetes components but PVC's associated with the chart and deletes the release.
-
-To delete the PVC's associated with `my-release`:
-
-```console
-$ kubectl delete pvc -l release=my-release
-```
-
-> **Note**: Deleting the PVC's will delete blockchain data as well. Please be cautious before doing it.
 
 ## Parameters
 
@@ -58,8 +48,6 @@ The following tables lists the configurable parameters of the chart and their de
 | `global.imageRegistry`                        | Global Docker Image registry                                                                                       | `nil`                                                         |
 | `global.imagePullSecrets`                     | Global Docker registry secret names as an array                                                                    | `[]` (does not add image pull secrets to deployed pods)       |
 | `global.storageClass`                         | Global storage class for dynamic provisioning                                                                      | `nil`                                                         |
-| `image.registry`                              | Image registry                                                                                                     | `docker.io`                                                   |
-| `image.repository`                            | Image name                                                                                                         | `starter-chart`                                          |
 | `image.tag`                                   | Image tag                                                                                                          | `{TAG_NAME}`                                                  |
 | `image.pullPolicy`                            | Image pull policy                                                                                                  | `IfNotPresent`                                                |
 | `image.pullSecrets`                           | Specify Image pull secrets                                                                                         | `nil` (does not add image pull secrets to deployed pods)      |
@@ -79,7 +67,7 @@ The following tables lists the configurable parameters of the chart and their de
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install my-release \
+helm install my-release \
   --set image.tag=0.10.3 \
     vulcanlink/starter-chart
 ```
@@ -89,7 +77,7 @@ The above command overrides the default Docker image tag, installing a custom ve
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install my-release -f values.yaml vulcanlink/starter-chart
+helm install my-release -f values.yaml vulcanlink/starter-chart
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
