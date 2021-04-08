@@ -22,7 +22,7 @@ You can now deploy either with CLI parameters or YAML file parameters.
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install chainlink-adapter-1forge --set image.repository=public.ecr.aws/chainlink/adapters/1forge-adapter,config.API_KEY=YOUR_API_KEY vulcanlink/chainlink-adapter
+helm install chainlink-adapter-1forge --set image.repository=public.ecr.aws/chainlink-staging/adapters/1forge-adapter,config.API_KEY=YOUR_API_KEY vulcanlink/chainlink-adapter
 ```
 
 The above command overrides the `image.repository` and `config.API_KEY` values.
@@ -32,7 +32,7 @@ Alternatively, a YAML file that specifies the values for the parameters can be p
 Create a `1forge.yaml` file:
 ```yaml
 image:
-  repository: "public.ecr.aws/chainlink/adapters/1forge-adapter"
+  repository: "public.ecr.aws/chainlink-staging/adapters/1forge-adapter"
 config:
   API_KEY: "YOUR_API_KEY"
 ```
