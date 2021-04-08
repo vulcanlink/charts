@@ -41,17 +41,19 @@ spec:
             - name: http
               containerPort: {{ .Values.container.ports.http }}
               protocol: TCP
+            {{ if .Values.prometheus }}
             - name: prometheus
               containerPort: {{ .Values.container.ports.prometheus }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            {{ end }}
+          #livenessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          #readinessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
           env:
             - name: POD_NAME
               valueFrom:

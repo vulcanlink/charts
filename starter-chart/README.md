@@ -53,21 +53,28 @@ $ kubectl delete pvc -l release=my-release
 
 The following tables lists the configurable parameters of the chart and their default values.
 
-|                   Parameter                   |                                                                                Description                                                                                |                            Default                            |
-|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| `global.imageRegistry`                        | Global Docker Image registry                                                                                                                                              | `nil`                                                         |
-| `global.imagePullSecrets`                     | Global Docker registry secret names as an array                                                                                                                           | `[]` (does not add image pull secrets to deployed pods)       |
-| `global.storageClass`                         | Global storage class for dynamic provisioning                                                                                                                             | `nil`                                                         |
-| `image.registry`                              | Image registry                                                                                                                                                            | `docker.io`                                                   |
-| `image.repository`                            | Image name                                                                                                                                                                | `vulcanlink/starter-chart`                                          |
-| `image.tag`                                   | Image tag                                                                                                                                                                 | `{TAG_NAME}`                                                  |
-| `image.pullPolicy`                            | Image pull policy                                                                                                                                                         | `IfNotPresent`                                                |
-| `image.pullSecrets`                           | Specify Image pull secrets                                                                                                                                                | `nil` (does not add image pull secrets to deployed pods)      |
-| `image.command`                               | Specify Image run command                                                                                                                                       | `nil`                                                    |
-| `image.args`                                  | Specify Image run command args                                                                                                                                  | `["--rpc", "--rpcaddr", "0.0.0.0", "--rpcvhosts=*", "--ws", "--wsaddr", "0.0.0.0", "--wsorigins=*"]` |                                                      |
-| `nameOverride`                                | String to partially override postgresql.fullname template with a string (will prepend the release name)                                                                   | `nil`                                                         |
-| `fullnameOverride`                            | String to fully override postgresql.fullname template with a string                                                                                                       | `nil`                                                         |
-| `service.type`                                | Kubernetes Service type                                                                                                                                                   | `ClusterIP`                                                   |
+|                   Parameter                   |                                                                                Description                         |                            Default                            |
+|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `global.imageRegistry`                        | Global Docker Image registry                                                                                       | `nil`                                                         |
+| `global.imagePullSecrets`                     | Global Docker registry secret names as an array                                                                    | `[]` (does not add image pull secrets to deployed pods)       |
+| `global.storageClass`                         | Global storage class for dynamic provisioning                                                                      | `nil`                                                         |
+| `image.registry`                              | Image registry                                                                                                     | `docker.io`                                                   |
+| `image.repository`                            | Image name                                                                                                         | `starter-chart`                                          |
+| `image.tag`                                   | Image tag                                                                                                          | `{TAG_NAME}`                                                  |
+| `image.pullPolicy`                            | Image pull policy                                                                                                  | `IfNotPresent`                                                |
+| `image.pullSecrets`                           | Specify Image pull secrets                                                                                         | `nil` (does not add image pull secrets to deployed pods)      |
+| `image.command`                               | Specify Image run command                                                                                          | `nil`                                                    |
+| `image.args`                                  | Specify Image run command args                                                                                     | `nil` |                                                      |
+| `nameOverride`                                | String to partially override starter-chart.fullname template with a string (will prepend the release name)         | `nil`                                                         |
+| `fullnameOverride`                            | String to fully override starter-chart.fullname template with a string   | `nil`       |
+| `container.ports.http`                        | Container http port  | `80` |
+| `container.ports.prometheus`                  | Container prometheus port  | `3000` |
+| `service.http.type`                           | Kubernetes Service type  | `ClusterIP` |
+| `service.http.port`                           | Kubernetes Service port  | `80` |
+| `service.prometheus.type`                     | Kubernetes Service type  | `ClusterIP` |
+| `service.prometheus.port`                     | Kubernetes Service port  | `3000` |
+| `prometheus`                                  | Enable prometheus metrics  | `false` |
+| `config.[NAME]`                              | Environment variables injected into configmap |  |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
