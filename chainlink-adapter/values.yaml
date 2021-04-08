@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: "public.ecr.aws/chainlink/adapters/1forge-adapter"
+  repository: "public.ecr.aws/chainlink-staging/adapters/1forge-adapter"
   pullPolicy: IfNotPresent
   tag: ""
   # command: ["start"]
