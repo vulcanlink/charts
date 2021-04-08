@@ -1,21 +1,21 @@
 apiVersion: v2
-name: chainlink
-description: A Helm chart for Chainlink
+name: chainlink-adapter
+description: A Helm chart for Chainlink Adapters
 type: application
-version: 0.2.9
+version: 0.1.0
 icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
 keywords:
   - chainlink
+  - external-adapter
   - ethereum
-  - oracle
 
 home: https://chain.link
 sources:
-  - https://github.com/smartcontractkit/chainlink
+  - https://github.com/smartcontractkit/external-adapters-js
 maintainers:
   - name: Leo Vigna
     email: leo@vulcan.link
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application.
-appVersion: 0.10.3
+appVersion: "latest"

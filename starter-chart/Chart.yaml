@@ -1,0 +1,20 @@
+apiVersion: v2
+name: starter-chart
+description: A starter Helm chart for Kubernetes
+type: application
+version: 0.1.0
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+keywords:
+  - helm
+  - Kubernetes
+
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/charts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application.
+appVersion: 1.16.0

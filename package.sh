@@ -2,6 +2,7 @@
 
 # Chainlink
 helm package chainlink
+helm package chainlink-adapter
 helm package chainlink-gas-updater
 helm package chainlink-onchain-exporter
 helm package rsk-initiator
