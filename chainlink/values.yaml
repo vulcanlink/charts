@@ -30,9 +30,10 @@ config:
   MINIMUM_CONTRACT_PAYMENT: "50000000000000000"
   LINK_CONTRACT_ADDRESS: 0x514910771af9ca656af840dff83e8264ecf986ca
   ORACLE_CONTRACT_ADDRESS: ""
+  ETH_MAX_GAS_PRICE_WEI: "2500000000000"
   # Logging
   JSON_CONSOLE: "true"
-  LOG_LEVEL: debug
+  LOG_LEVEL: warn
   LOG_TO_DISK: "false"
   # Secondary Ethereum Node
   # ETH_SECONDARY_URL: ""
@@ -40,6 +41,16 @@ config:
   # EXPLORER_ACCESS_KEY: ""
   # EXPLORER_SECRET: ""
   # EXPLORER_URL: wss://explorer.chain.link
+  # OCR Variables
+  # OCR_TRACE_LOGGING: "true"
+  # FEATURE_OFFCHAIN_REPORTING: "true"
+  # P2P_LISTEN_PORT: "30668"
+  # P2P_ANNOUNCE_PORT: "30668"
+  # P2P_ANNOUNCE_IP: "YOUR_NODE_IP"
+  # OCR Default job config
+  # OCR_KEY_BUNDLE_ID: ""
+  # P2P_PEER_ID: ""
+  # OCR_TRANSMITTER_ADDRESS: ""
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -61,7 +72,7 @@ securityContext: {}
 container:
   ports:
     http: 6688
-    listener: 30668 #8068
+    listener: 30668
 
 volumes:
   config:
@@ -72,8 +83,8 @@ service:
   http: 6688
 
 serviceP2P:
-  type: ClusterIP
-  listener: 30668 # Only Accepts NodePort
+  type: NodePort
+  listener: 30668
 
 prometheus: false
 

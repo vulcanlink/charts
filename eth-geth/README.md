@@ -1,5 +1,5 @@
 # geth
-Helm chart deploying geth Rust client.
+Helm chart deploying Ethereum Go.
 
 ## TL;DR
 
