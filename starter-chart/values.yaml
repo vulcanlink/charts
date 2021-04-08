@@ -1,0 +1,54 @@
+# Default values for starter-chart.
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: ""
+  # command: ["start"]
+  # args: ["-v"]
+
+config:
+  ENVVAR1: "VALUE1"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+container:
+  ports:
+    http: 80
+    prometheus: 3000
+
+service:
+  http:
+    type: ClusterIP
+    port: 80
+  prometheus:
+    type: ClusterIP
+    port: 3000
+
+prometheus: false
+
+volumes:
+  config:
+    mountPath: /etc/starter-chart
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+securityContext: {}
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
