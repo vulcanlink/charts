@@ -9,7 +9,7 @@ data:
 {{ .Values.genesis | indent 4 }}
 
 ---
-
+{{ if .Values.key }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -17,9 +17,9 @@ metadata:
 data:
   password: |
 {{ .Values.password | indent 4 }}
-
+{{- end }}
 ---
-
+{{ if .Values.password }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -27,7 +27,7 @@ metadata:
 data:
   key.json: |
 {{ .Values.key | indent 4 }}
-
+{{- end }}
 ---
 
 apiVersion: v1
