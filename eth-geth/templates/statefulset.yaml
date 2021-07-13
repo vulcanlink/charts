@@ -85,11 +85,13 @@ spec:
             - name: key
               mountPath: {{ .Values.volumes.data.mountPath }}/keystore/key.json
               subPath: key.json
+              readOnly: true
             {{- end }}
             {{ if .Values.password }}
             - name: password
               mountPath: {{ .Values.volumes.data.mountPath }}/password
               subPath: password
+              readOnly: true
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -111,13 +113,13 @@ spec:
             name: {{ include "geth.fullname" . }}-configmap
         {{ if .Values.key }}
         - name: key
-          configMap:
-            name: {{ include "geth.fullname" . }}-key
+          secret:
+            secretName: {{ include "geth.fullname" . }}-key
         {{- end }}
         {{ if .Values.password }}
         - name: password
-          configMap:
-            name: {{ include "geth.fullname" . }}-password
+          secret:
+            secretName: {{ include "geth.fullname" . }}-password
         {{- end }}
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
         - name: data
