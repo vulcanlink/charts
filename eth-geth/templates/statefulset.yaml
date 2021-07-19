@@ -81,6 +81,18 @@ spec:
               mountPath: {{ .Values.volumes.data.mountPath }}
             - name: config
               mountPath: {{ .Values.volumes.config.mountPath }}
+            {{ if .Values.key }}
+            - name: key
+              mountPath: {{ .Values.volumes.data.mountPath }}/keystore/key.json
+              subPath: key.json
+              readOnly: true
+            {{- end }}
+            {{ if .Values.password }}
+            - name: password
+              mountPath: {{ .Values.volumes.data.mountPath }}/password
+              subPath: password
+              readOnly: true
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -99,6 +111,16 @@ spec:
         - name: config
           configMap:
             name: {{ include "geth.fullname" . }}-configmap
+        {{ if .Values.key }}
+        - name: key
+          secret:
+            secretName: {{ include "geth.fullname" . }}-key
+        {{- end }}
+        {{ if .Values.password }}
+        - name: password
+          secret:
+            secretName: {{ include "geth.fullname" . }}-password
+        {{- end }}
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
         - name: data
           persistentVolumeClaim:
