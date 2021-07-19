@@ -95,6 +95,8 @@ The following tables lists the configurable parameters of the geth chart and the
 | `persistence.accessModes`                     | PVC Access Mode for geth volume                                                                                                                                     | `[ReadWriteOnce]`                                             |
 | `persistence.size`                            | PVC Storage Request for geth volume                                                                                                                                 | `300Gi`                                                       |
 | `persistence.annotations`                     | Annotations for the PVC                                                                                                                                                   | `{}`                                                          |
+| `key`                     | Set key in the Ethereum keystore                                                                                                                                                   | `""`                                                          |
+| `password`                     | Set password for the key in the Ethereum keystore                                                                                                                                                   | `""`                                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
