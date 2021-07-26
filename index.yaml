@@ -240,19 +240,74 @@ entries:
     dependencies:
     - condition: graphprotocol-agent.enabled
       name: graphprotocol-agent
-      repository: file://../graphprotocol-agent
+      sources:
+        - https://github.com/graphprotocol/indexer
+      type: application
+      urls:
+        - graphprotocol-agent-0.3.1.tgz
       version: 0.3.1
-    - condition: graphprotocol-indexnode.enabled
+  graphprotocol-indexnode:
+    - apiVersion: v2
+      appVersion: latest
+      created: "2021-04-08T17:53:28.408488179-04:00"
+      description: A Helm chart for Graph Protocol Index Node
+      digest: ffa44a34f66a0181c48565e0f61824d8153c8fc4634951ea3bac07eb3dd31768
+      home: https://thegraph.com/
+      icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
+      keywords:
+        - graphprotocol
+        - ethereum
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: graphprotocol-indexnode
-      repository: file://../graphprotocol-indexnode
+      sources:
+        - https://github.com/graphprotocol/graph-node
+      type: application
+      urls:
+        - graphprotocol-indexnode-0.3.1.tgz
       version: 0.3.1
-    - condition: graphprotocol-querynode.enabled
+  graphprotocol-querynode:
+    - apiVersion: v2
+      appVersion: latest
+      created: "2021-04-08T17:53:28.409558294-04:00"
+      description: A Helm chart for Graph Protocol Query Node
+      digest: b3820f8e60505177252cf713f882d7c20385fc1e10d410e01a4c97109644188d
+      home: https://thegraph.com/
+      icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
+      keywords:
+        - graphprotocol
+        - ethereum
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: graphprotocol-querynode
-      repository: file://../graphprotocol-querynode
+      sources:
+        - https://github.com/graphprotocol/graph-node
+      type: application
+      urls:
+        - graphprotocol-querynode-0.3.1.tgz
       version: 0.3.1
-    - condition: graphprotocol-service.enabled
+  graphprotocol-service:
+    - apiVersion: v2
+      appVersion: latest
+      created: "2021-04-08T17:53:28.410248767-04:00"
+      description: A Helm chart for Graph Protocol Service
+      digest: 4a48f3722bf5eecae8d680e380cf86bed37095eb69c24dbe78de22c2ab7c0661
+      home: https://thegraph.com/
+      icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
+      keywords:
+        - graphprotocol
+        - ethereum
+      maintainers:
+        - email: leo@vulcan.link
+          name: Leo Vigna
       name: graphprotocol-service
-      repository: file://../graphprotocol-service
+      sources:
+        - https://github.com/graphprotocol/indexer
+      type: application
+      urls:
+        - graphprotocol-service-0.3.1.tgz
       version: 0.3.1
     description: A Helm chart bundling Graph Protocol subcharts (agent, indexnode,
       querynode, service)
