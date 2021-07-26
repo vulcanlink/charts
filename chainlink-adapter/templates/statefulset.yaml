@@ -46,6 +46,9 @@ spec:
               containerPort: {{ .Values.container.ports.prometheus }}
               protocol: TCP
             {{ end }}
+            {{- with .Values.extraPorts }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
           #livenessProbe:
           #  httpGet:
           #    path: /

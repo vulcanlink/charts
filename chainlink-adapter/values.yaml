@@ -54,3 +54,5 @@ resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+extraPorts: []

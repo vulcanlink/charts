@@ -24,33 +24,46 @@ config:
   DATABASE_TIMEOUT: "0"
   DATABASE_URL: postgresql://postgres@postgresql:5432/chainlink?sslmode=disable
   # Ethereum
-  ETH_URL: ws://geth:8546 #Your Ethereum Node
+  ETH_URL: ws://geth:8546
   ETH_CHAIN_ID: "1"
-  MIN_OUTGOING_CONFIRMATIONS: "2"
-  MINIMUM_CONTRACT_PAYMENT: "50000000000000000"
   LINK_CONTRACT_ADDRESS: 0x514910771af9ca656af840dff83e8264ecf986ca
-  ORACLE_CONTRACT_ADDRESS: ""
-  ETH_MAX_GAS_PRICE_WEI: "2500000000000"
-  # Logging
-  JSON_CONSOLE: "true"
-  LOG_LEVEL: warn
-  LOG_TO_DISK: "false"
-  # Secondary Ethereum Node
+  ### Logging ###
+  # JSON_CONSOLE: "true"
+  # LOG_LEVEL: warn
+  # LOG_TO_DISK: "false"
+  ### Secondary Ethereum Node ###
   # ETH_SECONDARY_URL: ""
-  # Chainlink Explorer
+  ### Chainlink Explorer ###
   # EXPLORER_ACCESS_KEY: ""
   # EXPLORER_SECRET: ""
   # EXPLORER_URL: wss://explorer.chain.link
-  # OCR Variables
+  ### Gas Bumber ###
+  # GAS_UPDATER_ENABLED: "true"
+  # GAS_UPDATER_TRANSACTION_PERCENTILE: "71"
+  # ETH_GAS_PRICE_DEFAULT: "1000000000"
+  # ETH_GAS_BUMP_THRESHOLD: "5"
+  # ETH_GAS_BUMP_WEI: "20000000000"
+  # ETH_GAS_BUMP_PERCENT: "20"
+  # ETH_MAX_GAS_PRICE_WEI: "2500000000000"
+  ### Transaction Manager ###
+  # CHAINLINK_TX_ATTEMPT_LIMIT: "25"
+  # ETH_MAX_IN_FLIGHT_TRANSACTIONS: "128"
+  # MIN_OUTGOING_CONFIRMATIONS: "2"
+  # MINIMUM_CONTRACT_PAYMENT: "50000000000000000"
+  ### Fluxmonitor Variables ###
+  # ORACLE_CONTRACT_ADDRESS: ""
+  # FLAGS_CONTRACT_ADDRESS: ""
+  ### OCR Variables ###
   # OCR_TRACE_LOGGING: "true"
   # FEATURE_OFFCHAIN_REPORTING: "true"
   # P2P_LISTEN_PORT: "30668"
   # P2P_ANNOUNCE_PORT: "30668"
   # P2P_ANNOUNCE_IP: "YOUR_NODE_IP"
-  # OCR Default job config
+  ### OCR Default job config ###
   # OCR_KEY_BUNDLE_ID: ""
   # P2P_PEER_ID: ""
   # OCR_TRANSMITTER_ADDRESS: ""
+  # P2P_BOOTSTRAP_PEERS: ""
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -83,7 +96,7 @@ service:
   http: 6688
 
 serviceP2P:
-  type: NodePort
+  type: ClusterIP #Ignores, only created if NodePort
   listener: 30668
 
 prometheus: false

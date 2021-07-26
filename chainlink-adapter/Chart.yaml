@@ -2,7 +2,7 @@ apiVersion: v2
 name: chainlink-adapter
 description: A Helm chart for Chainlink Adapters
 type: application
-version: 0.1.0
+version: 0.1.1
 icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
 keywords:
   - chainlink
@@ -16,6 +16,4 @@ maintainers:
   - name: Leo Vigna
     email: leo@vulcan.link
 
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application.
 appVersion: "latest"
