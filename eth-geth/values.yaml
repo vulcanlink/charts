@@ -109,6 +109,8 @@ config: |
   NetworkId = 1
 
 genesis: ""
+key: ""
+password: ""
 
 #Additional Environment Variables
 env: {}
