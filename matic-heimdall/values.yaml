@@ -9,7 +9,9 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v0.2.0"
-  args: []
+  args: [
+  "--networkid", "137"
+  ]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -52,7 +54,7 @@ securityContext:
 
 container:
   ports:
-    listener: 36656
+    listener: 30656 # default 26656
     rpc: 26657
     rest: 1317
     proxyApp: 26658
@@ -67,15 +69,16 @@ service:
 
 serviceP2P:
   type: NodePort
-  listener: 30306 # The range of valid ports is 30000-32767
+  listener: 30656 # The range of valid ports is 30000-32767
 
 prometheus: false
 
+resources: {}
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
+
+genesis: "files/mainnet/genesis.json"
 
 appConfig: |
   minimum-gas-prices = ""
