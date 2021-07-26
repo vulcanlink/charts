@@ -13,6 +13,8 @@ helm package eth-geth
 helm package eth-openethereum
 # RSK
 helm package rskj
+# Matic
+helm package matic-heimdall
 
 # Vulcan Link API
 helm package chainlink-graphql

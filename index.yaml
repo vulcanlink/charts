@@ -2,8 +2,29 @@ apiVersion: v1
 entries:
   chainlink:
   - apiVersion: v2
+    appVersion: 0.10.9
+    created: "2021-07-26T10:27:21.611013625-04:00"
+    description: A Helm chart for Chainlink
+    digest: e3c3489048bf78e87f94f9925ef2bd506f74a799975a510404ac2fdf807f1190
+    home: https://chain.link
+    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+    keywords:
+    - chainlink
+    - ethereum
+    - oracle
+    maintainers:
+    - email: leo@vulcan.link
+      name: Leo Vigna
+    name: chainlink
+    sources:
+    - https://github.com/smartcontractkit/chainlink
+    type: application
+    urls:
+    - chainlink-0.2.10.tgz
+    version: 0.2.10
+  - apiVersion: v2
     appVersion: 0.10.3
-    created: "2021-04-08T17:53:28.401220831-04:00"
+    created: "2021-07-26T10:27:21.652751829-04:00"
     description: A Helm chart for Chainlink
     digest: 97f2e4dbac106d574e9170e880c045e70da211f3bba42beb759c23e8c49db251
     home: https://chain.link
@@ -24,7 +45,7 @@ entries:
     version: 0.2.9
   - apiVersion: v2
     appVersion: 0.9.8
-    created: "2021-04-08T17:53:28.400548937-04:00"
+    created: "2021-07-26T10:27:21.650105544-04:00"
     description: A Helm chart for Chainlink
     digest: 293ca93b54f502586ee228de6e3f1e7d2a391e3b0b1522fa364af3e20c45d2c5
     home: https://chain.link
@@ -46,7 +67,28 @@ entries:
   chainlink-adapter:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.40179009-04:00"
+    created: "2021-07-26T10:27:21.654137814-04:00"
+    description: A Helm chart for Chainlink Adapters
+    digest: 0406d4ab23bf710e7d5344b524c352aa290737704e96052df6798663fbd66ce5
+    home: https://chain.link
+    icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+    keywords:
+    - chainlink
+    - external-adapter
+    - ethereum
+    maintainers:
+    - email: leo@vulcan.link
+      name: Leo Vigna
+    name: chainlink-adapter
+    sources:
+    - https://github.com/smartcontractkit/external-adapters-js
+    type: application
+    urls:
+    - chainlink-adapter-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-07-26T10:27:21.653578861-04:00"
     description: A Helm chart for Chainlink Adapters
     digest: e4cb5f2e5169cfa2c1ece15cd99144a36639c9c6805870ff4d71923eacfc2cbe
     home: https://chain.link
@@ -68,7 +110,7 @@ entries:
   chainlink-gas-updater:
   - apiVersion: v2
     appVersion: v0.1.3
-    created: "2021-04-08T17:53:28.402312928-04:00"
+    created: "2021-07-26T10:27:21.655087221-04:00"
     description: A Helm chart for Chainlink Gas Updater
     digest: 9ac2e80f617e24531a9a7e1c019506520e42b16ea7c80bd67208486635bcf6b7
     home: https://github.com/thodges-gh/cl-gas-updater
@@ -90,7 +132,7 @@ entries:
   chainlink-graphql:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-04-08T17:53:28.402789994-04:00"
+    created: "2021-07-26T10:27:21.655911981-04:00"
     description: A Helm chart for Chainlink GraphQL API
     digest: 5402fb32c53bff4d8ef91f90c2498f951a91559a7ee46e1b9733134dc6b61622
     home: https://github.com/vulcanlink/chainlink-graphql
@@ -112,7 +154,7 @@ entries:
   chainlink-onchain-exporter:
   - apiVersion: v2
     appVersion: version-1.0.5
-    created: "2021-04-08T17:53:28.403261338-04:00"
+    created: "2021-07-26T10:27:21.656701747-04:00"
     description: A Helm chart for Chainlink Onchain Metrics Exporter by CertusOne
     digest: 425c43280bf12712ae60afd611d026e4a45c49aedd056d5835b2d63791e21e15
     home: https://github.com/certusone/chainlink_exporter
@@ -135,7 +177,7 @@ entries:
   eth-failover:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-04-08T17:53:28.403698208-04:00"
+    created: "2021-07-26T10:27:21.657445376-04:00"
     description: A Helm chart for Ethereum failover proxy
     digest: 1c35795fefea58957c20cf7f03b99491f9a65347eb1b7fd77a71f8ce722a57ba
     home: https://github.com/OracleFinder/ChainlinkEthFailover
@@ -154,8 +196,27 @@ entries:
     version: 0.1.0
   geth:
   - apiVersion: v2
+    appVersion: 1.10.1
+    created: "2021-07-26T10:27:21.65911251-04:00"
+    description: A Helm chart for Ethereum geth client
+    digest: bb4d4a8cf764a87d79109720d11ba83a1fba36e74e4f7ff6016154071403aa10
+    home: https://ethereum.org/
+    icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+    keywords:
+    - ethereum
+    maintainers:
+    - email: leo@vulcan.link
+      name: Leo Vigna
+    name: geth
+    sources:
+    - https://github.com/geth/geth
+    type: application
+    urls:
+    - geth-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.404339504-04:00"
+    created: "2021-07-26T10:27:21.658355195-04:00"
     description: A Helm chart for Ethereum geth client
     digest: 4795f7051cae031bec199fbfe8d720661df5f25a742a8ea211a94d95c8b8cc15
     home: https://ethereum.org/
@@ -175,7 +236,7 @@ entries:
   graphprotocol:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-04-08T17:53:28.40727251-04:00"
+    created: "2021-07-26T10:27:21.662335375-04:00"
     dependencies:
     - condition: graphprotocol-agent.enabled
       name: graphprotocol-agent
@@ -193,7 +254,8 @@ entries:
       name: graphprotocol-service
       repository: file://../graphprotocol-service
       version: 0.3.1
-    description: A Helm chart bundling Graph Protocol subcharts (agent, indexnode, querynode, service)
+    description: A Helm chart bundling Graph Protocol subcharts (agent, indexnode,
+      querynode, service)
     digest: 9f82776276b4c17e8c0025f7cd1a2caeb01b1631966534bbdabb32a5f8b98563
     home: https://thegraph.com/
     icon: https://vulcanlink.github.io/charts/assets/img/thegraph.png
@@ -213,7 +275,7 @@ entries:
   graphprotocol-agent:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.407824954-04:00"
+    created: "2021-07-26T10:27:21.663373503-04:00"
     description: A Helm chart for Graph Protocol Agent
     digest: 5c05d0f18b01a114da488a5ee2d349a84eae3e6a4f43b877682af87f610d2cea
     home: https://thegraph.com/
@@ -234,7 +296,7 @@ entries:
   graphprotocol-indexnode:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.408488179-04:00"
+    created: "2021-07-26T10:27:21.664852784-04:00"
     description: A Helm chart for Graph Protocol Index Node
     digest: ffa44a34f66a0181c48565e0f61824d8153c8fc4634951ea3bac07eb3dd31768
     home: https://thegraph.com/
@@ -255,7 +317,7 @@ entries:
   graphprotocol-querynode:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.409558294-04:00"
+    created: "2021-07-26T10:27:21.666634386-04:00"
     description: A Helm chart for Graph Protocol Query Node
     digest: b3820f8e60505177252cf713f882d7c20385fc1e10d410e01a4c97109644188d
     home: https://thegraph.com/
@@ -276,7 +338,7 @@ entries:
   graphprotocol-service:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.410248767-04:00"
+    created: "2021-07-26T10:27:21.667845665-04:00"
     description: A Helm chart for Graph Protocol Service
     digest: 4a48f3722bf5eecae8d680e380cf86bed37095eb69c24dbe78de22c2ab7c0661
     home: https://thegraph.com/
@@ -294,10 +356,21 @@ entries:
     urls:
     - graphprotocol-service-0.3.1.tgz
     version: 0.3.1
+  matic-heimdall:
+  - apiVersion: v2
+    appVersion: 0.2.0
+    created: "2021-07-26T10:27:21.668616613-04:00"
+    description: A Helm chart for Matic Heimdall
+    digest: 361c642a0534d0fd66b34ff5b9a87c6c3672654e3baf31d51f73ddc727342a96
+    name: matic-heimdall
+    type: application
+    urls:
+    - matic-heimdall-0.1.1.tgz
+    version: 0.1.1
   openethereum:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.410896103-04:00"
+    created: "2021-07-26T10:27:21.669915554-04:00"
     description: A Helm chart for Ethereum OpenEthereum client
     digest: 4368fd245f804e3216898fe0fdbdbf15c91d98c5e29aa894ac4f47d236faa000
     home: https://ethereum.org/
@@ -317,7 +390,7 @@ entries:
   rsk-initiator:
   - apiVersion: v2
     appVersion: develop
-    created: "2021-04-08T17:53:28.411615145-04:00"
+    created: "2021-07-26T10:27:21.670747359-04:00"
     description: A Helm chart for Chainlink RSK Initiator
     digest: 4e53aa8daade3002d29cf22df98e2bd801a6d87ef5228b60f3f2a574e0b3a78e
     home: https://chain.link
@@ -340,7 +413,7 @@ entries:
   rskj:
   - apiVersion: v2
     appVersion: latest
-    created: "2021-04-08T17:53:28.412746816-04:00"
+    created: "2021-07-26T10:27:21.671823231-04:00"
     description: A Helm chart for RSK client
     digest: 302a50516582caae1b5c208b47a1992f314cbe01bb932368c2206cdb3010470e
     home: https://rsk.co
@@ -363,7 +436,7 @@ entries:
   rsktx-adapter:
   - apiVersion: v2
     appVersion: develop
-    created: "2021-04-08T17:53:28.413344192-04:00"
+    created: "2021-07-26T10:27:21.672743616-04:00"
     description: A Helm chart for RSK Chainlink Adapter
     digest: f977b57b4dd3bc7649b54aff3072aeecc5a46a4ab4c811b618f927dea4de01c4
     home: https://chain.link
@@ -386,7 +459,7 @@ entries:
   vulcan-api:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-04-08T17:53:28.413822171-04:00"
+    created: "2021-07-26T10:27:21.673529648-04:00"
     description: A Helm chart for Vulcan GraphQL API
     digest: f37de674dfcede5ec8b53aa1d3f372bd1e555d32f83c5ce12a71c45f0c01d537
     home: https://vulcan.link
@@ -409,7 +482,7 @@ entries:
   vulcan-api-wss:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-04-08T17:53:28.414218381-04:00"
+    created: "2021-07-26T10:27:21.674067545-04:00"
     description: A Helm chart for Kubernetes
     digest: 879ce53426d3d3d2d6a7bcc76611c84b966c9f9cad7262debf1d079af7cb3afc
     name: vulcan-api-wss
@@ -420,7 +493,7 @@ entries:
   vulcan-gateway:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-04-08T17:53:28.414741616-04:00"
+    created: "2021-07-26T10:27:21.674832432-04:00"
     description: A Helm chart for Vulcan GraphQL Gateway
     digest: 37d02a97e1366a3054ff7f0fe2a78e62a463c2acd96d540bad4a13d5b67de4c3
     home: https://vulcan.link
@@ -440,4 +513,4 @@ entries:
     urls:
     - vulcan-gateway-0.1.0.tgz
     version: 0.1.0
-generated: "2021-04-08T17:53:28.399754972-04:00"
+generated: "2021-07-26T10:27:21.605170872-04:00"
