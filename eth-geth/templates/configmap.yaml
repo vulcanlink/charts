@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: {{ include "geth.fullname" . }}-configmap
 data:
-  config.custom.toml: |
+  config.toml: |
 {{ .Values.config | indent 4 }}
-  genesis.custom.json: |
+  genesis.json: |
 {{ .Values.genesis | indent 4 }}
 
 ---

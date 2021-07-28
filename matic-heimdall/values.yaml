@@ -172,11 +172,11 @@ config: |
   namespace = "tendermint"
 
 heimdallConfig: |
-  eth_rpc_url = "http://ethereum.default.svc.cluster.local:8545"
-  bor_rpc_url = "http://matic-bor.default.svc.cluster.local:8545"
+  eth_rpc_url = "http://ethereum.default:8545"
+  bor_rpc_url = "http://matic-bor.default:8545"
   tendermint_rpc_url = "http://0.0.0.0:26657"
   heimdall_rest_server = "http://0.0.0.0:1317"
-  amqp_url = "amqp://guest:guest@rabbitmq.default.svc.cluster.local:5672/"
+  amqp_url = "amqp://guest:guest@rabbitmq.default:5672/"
   checkpoint_poll_interval = "5m0s"
   syncer_poll_interval = "1m0s"
   noack_poll_interval = "16m50s"

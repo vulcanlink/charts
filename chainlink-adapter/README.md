@@ -52,9 +52,9 @@ The chainlink adapter creates 2 services on your Kubernetes cluster:
 * chainlink-adapter-[ADAPTER_NAME]-prometheus (`prometheus: true`): a prometheus metrics endpoint on port 3000  
 
 To configure your Chainlink node to use your deployed adapter, simply set the adapter url to:
-`chainlink-adapter-[ADAPTER_NAME].default.svc.cluster.local`
+`chainlink-adapter-[ADAPTER_NAME].default`
 For our 1forge example, this amounts to:
-`chainlink-adapter-1forge.default.svc.cluster.local`
+`chainlink-adapter-1forge.default`
 
 The above assumes the Chainlink node is running in the same Kubernetes cluster and the adapter is deployed in the `default` namespace. If you have a doubt on what services you've created, you can always list them with `kubectl get svc`.
 
