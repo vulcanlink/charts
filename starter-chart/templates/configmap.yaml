@@ -1,6 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name:  {{ include "starter-chart.fullname" . }}-configmap
+  name:  {{ include "starter-chart.fullname" . }}-env
 data:
-  {{- toYaml .Values.config | nindent 2 }}
+  {{- toYaml .Values.configmap.env | nindent 2 }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  {{ include "starter-chart.fullname" . }}-files
+data:
+  {{- toYaml .Values.configmap.files | nindent 2 }}

@@ -27,6 +27,22 @@ spec:
       serviceAccountName: {{ include "starter-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
+          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+          command:
+            {{- toYaml .Values.initContainer.image.command | nindent 12 }}
+          args: 
+            {{- toYaml .Values.initContainer.image.args | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "starter-chart.fullname" . }}-env
+          volumeMounts:
+            - name: files
+              mountPath: {{ .Values.volumes.files.mountPath }}
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -65,10 +81,12 @@ spec:
                   fieldPath: metadata.namespace
           envFrom:
             - configMapRef:
-                name: {{ include "starter-chart.fullname" . }}-configmap
+                name: {{ include "starter-chart.fullname" . }}-env
           volumeMounts:
-            - name: config
-              mountPath: {{ .Values.volumes.config.mountPath }}
+            - name: files
+              mountPath: {{ .Values.volumes.files.mountPath }}
+            - name: data
+              mountPath: {{ .Values.volumes.data.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -84,9 +102,40 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
-        - name: config
+        - name: files
           configMap:
-            name: {{ include "starter-chart.fullname" . }}-configmap
-            items:
-            - key: ENVVAR1
-              path: var1.txt
+            name: {{ include "starter-chart.fullname" . }}-files
+{{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
+        - name: data
+          persistentVolumeClaim:
+{{- with .Values.persistence.existingClaim }}
+            claimName: {{ tpl . $ }}
+{{- end }}
+{{- else if and .Values.persistence.enabled .Values.persistence.hostPath }}
+        - name: data
+          hostPath:
+            path: {{ .Values.persistence.hostPath.path }}
+            type: {{ .Values.persistence.hostPath.type }}
+{{- else if not .Values.persistence.enabled }}
+        - name: data
+          emptyDir: {}
+{{- else if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      {{- with .Values.persistence.annotations }}
+        annotations:
+        {{- range $key, $value := . }}
+            {{ $key }}: {{ $value }}
+        {{- end }}
+      {{- end }}
+      spec:
+        accessModes:
+        {{- range .Values.persistence.accessModes }}
+          - {{ . | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size | quote }}
+        {{ include "starter-chart.storageClass" . }}
+{{- end }}

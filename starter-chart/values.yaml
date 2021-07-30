@@ -8,12 +8,37 @@ image:
   # command: ["start"]
   # args: ["-v"]
 
-config:
-  ENVVAR1: "VALUE1"
+initContainer:
+  enabled: false
+  image:
+    repository: alpine
+    tag: "3.14.0"
+    pullPolicy: IfNotPresent
+    command: ["sh"]
+    args: ["-c", "echo 'Hello world!'"]
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+configmap:
+  env:
+    ENVVAR1: "VALUE1"
+  files:
+    test.txt: "Hello world!"
+
+volumes:
+  files:
+    mountPath: /home/nginx/config
+  data:
+    mountPath: /home/nginx/data
+
+persistence:
+  enabled: false
+  annotations: {}
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
 
 container:
   ports:
@@ -30,16 +55,9 @@ service:
 
 prometheus: false
 
-volumes:
-  config:
-    mountPath: /etc/starter-chart
-
 serviceAccount:
-  # Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
