@@ -15,7 +15,8 @@ initContainer:
     tag: "3.14.0"
     pullPolicy: IfNotPresent
     command: ["sh"]
-    args: ["-c", "echo 'Hello world!'"]
+    args:
+      ["-c", "date >> /mnt/data/date.txt; hostname >> /mnt/data/hostname.txt;"]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -29,9 +30,9 @@ configmap:
 
 volumes:
   files:
-    mountPath: /home/nginx/config
+    mountPath: /mnt/files
   data:
-    mountPath: /home/nginx/data
+    mountPath: /mnt/data
 
 persistence:
   enabled: false
