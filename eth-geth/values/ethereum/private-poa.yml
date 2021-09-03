@@ -1,0 +1,132 @@
+fullnameOverride: "ethereum-private-poa"
+
+# TODO: Create keystore, customize genesis, update config for POA
+
+image:
+  args:
+    [
+      "--nat=extip:$(HOST_IP)",
+      "--metrics",
+      "--metrics.addr=0.0.0.0",
+      "--nousb",
+      "--config=/root/config/config.toml",
+      "--unlock=$(PUBLIC_KEY)",
+      "--allow-insecure-unlock",
+      "--password=/root/.ethereum/password",
+      "--mine",
+    ]
+
+# Init genesis
+initContainer:
+  enabled: true
+
+resources:
+  limits:
+    memory: 32Gi
+    cpu: 16
+  requests:
+    memory: 8Gi
+    cpu: 4
+
+nodeSelector:
+  geth/4243: node
+
+persistence:
+  size: 2Ti
+
+container:
+  ports:
+    listener: 30043
+    discovery: 30043
+
+serviceP2P:
+  type: NodePort
+  listener: 30043
+  discovery: 30043
+
+prometheus: true
+
+config: |
+
+  [Eth]
+  NetworkId = 4243
+  DatabaseCache = 8192 
+  TrieCleanCache = 4096
+  TrieDirtyCache = 4096
+  [Node]
+  HTTPHost = "0.0.0.0"
+  HTTPPort = 8545
+  HTTPVirtualHosts = ["*"]
+  HTTPModules = ["net", "web3", "eth"]
+  WSHost = "0.0.0.0"
+  WSPort = 8546
+  WSOrigins = ["*"]
+  WSModules = ["net", "web3", "eth"]
+  [Node.P2P]
+  MaxPeers = 200
+  ListenAddr = ":30043"
+  BootstrapNodes = []
+  BootstrapNodesV5 = []
+
+env:
+  PUBLIC_KEY: "0x92Ac020d1A89271408aab391ABe5B843F2C7eE69"
+
+genesis: |
+
+  {
+    "config": {
+      "chainId": 4243,
+      "homesteadBlock": 0,
+      "eip150Block": 0,
+      "eip155Block": 0,
+      "eip158Block": 0,
+      "byzantiumBlock": 0,
+      "constantinopleBlock": 0,
+      "petersburgBlock": 0,
+      "istanbulBlock": 0,
+      "berlinBlock": 0,
+      "clique": {
+        "period": 5,
+        "epoch": 30000
+      }
+    },
+    "alloc": {
+      "0x0000000000000000000000000000000000000001": {
+        "balance": "111111111"
+      }
+    },
+    "coinbase": "0x0000000000000000000000000000000000000000",
+    "difficulty": "0x20000",
+    "extradata": "0x000000000000000000000000000000000000000000000000000000000000000092Ac020d1A89271408aab391ABe5B843F2C7eE690000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "gasLimit": "0x2fefd8",
+    "nonce": "0x0000000000004243",
+    "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "timestamp": "0x00"
+  }
+
+key: |
+
+  {
+    "address": "92ac020d1a89271408aab391abe5b843f2c7ee69",
+    "crypto": {
+      "cipher": "aes-128-ctr",
+      "ciphertext": "f27d85349a8a283b71eba16ffd5e9cfb52f58850ae4c44f23f5be2dd919edef9",
+      "cipherparams": {
+        "iv": "07e57d8085f860bbce6084ff2ee81881"
+      },
+      "kdf": "scrypt",
+      "kdfparams": {
+        "dklen": 32,
+        "n": 262144,
+        "p": 1,
+        "r": 8,
+        "salt": "c005fce2539d37bcabe647d581a25e744862f0ef6562c2404cdc5a2ffb971350"
+      },
+      "mac": "900041617b11de2d2c510e960251928caf5cff082b0903a02e08db49859bf255"
+    },
+    "id": "f0b8a014-c08b-4b02-a679-8f592851d30c",
+    "version": 3
+  }
+
+password: "poa"

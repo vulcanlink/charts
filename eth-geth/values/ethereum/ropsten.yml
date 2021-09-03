@@ -1,0 +1,60 @@
+fullnameOverride: "ethereum-ropsten"
+
+image:
+  repository: ethereum/client-go
+  tag: "v1.10.8"
+  args:
+    [
+      "--nat=extip:$(HOST_IP)",
+      "--metrics",
+      "--metrics.addr=0.0.0.0",
+      "--nousb",
+      "--config=/root/config/config.toml",
+      "--ropsten",
+    ]
+
+resources:
+  limits:
+    memory: 32Gi
+    cpu: 16
+  requests:
+    memory: 8Gi
+    cpu: 4
+
+nodeSelector:
+  geth/3: node
+
+persistence:
+  size: 2Ti
+
+container:
+  ports:
+    listener: 30004
+    discovery: 30004
+
+serviceP2P:
+  type: NodePort
+  listener: 30004
+  discovery: 30004
+
+prometheus: true
+
+config: |
+
+  [Eth]
+  NetworkId = 3
+  DatabaseCache = 8192 
+  TrieCleanCache = 4096
+  TrieDirtyCache = 4096
+  [Node]
+  HTTPHost = "0.0.0.0"
+  HTTPPort = 8545
+  HTTPVirtualHosts = ["*"]
+  HTTPModules = ["net", "web3", "eth"]
+  WSHost = "0.0.0.0"
+  WSPort = 8546
+  WSOrigins = ["*"]
+  WSModules = ["net", "web3", "eth"]
+  [Node.P2P]
+  MaxPeers = 200
+  ListenAddr = ":30004"

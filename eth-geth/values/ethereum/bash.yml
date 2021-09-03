@@ -1,0 +1,70 @@
+fullnameOverride: "ethereum-poa"
+
+image:
+  command: ["sh"]
+  args:
+    ["-c", "cat /root/config/genesis.json && while true; do sleep 30; done;"]
+
+persistence:
+  size: 2Ti
+
+container:
+  ports:
+    listener: 30042
+    discovery: 30042
+
+serviceP2P:
+  type: NodePort
+  listener: 30042
+  discovery: 30042
+
+prometheus: true
+
+config: |
+
+  [Eth]
+  NetworkId = 4242
+  DatabaseCache = 8192 
+  TrieCleanCache = 4096
+  TrieDirtyCache = 4096
+  [Node]
+  HTTPHost = "0.0.0.0"
+  HTTPPort = 8545
+  HTTPVirtualHosts = ["*"]
+  HTTPModules = ["net", "web3", "eth"]
+  WSHost = "0.0.0.0"
+  WSPort = 8546
+  WSOrigins = ["*"]
+  WSModules = ["net", "web3", "eth"]
+  [Node.P2P]
+  MaxPeers = 200
+  ListenAddr = ":30042"
+
+genesis: |
+  {
+    "config": {
+      "chainId": 4242,
+      "homesteadBlock": 0,
+      "eip150Block": 0,
+      "eip155Block": 0,
+      "eip158Block": 0,
+      "byzantiumBlock": 0,
+      "constantinopleBlock": 0,
+      "petersburgBlock": 0,
+      "istanbulBlock": 0,
+      "berlinBlock": 0
+    },
+    "alloc": {
+      "0x0000000000000000000000000000000000000001": {
+        "balance": "111111111"
+      }
+    },
+    "coinbase": "0x0000000000000000000000000000000000000000",
+    "difficulty": "0x20000",
+    "extraData": "",
+    "gasLimit": "0x2fefd8",
+    "nonce": "0x0000000000004242",
+    "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "timestamp": "0x00"
+  }

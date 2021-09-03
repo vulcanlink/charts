@@ -1,0 +1,79 @@
+fullnameOverride: "mainnet-opera"
+
+image:
+  repository: vulcanlink/fantom-opera
+  tag: v1.0.1-rc.1
+  command: []
+  args:
+    [
+      "--nat=extip:$(HOST_IP)",
+      "--txpool.nolocals",
+      "--txpool.accountslots=128",
+      "--txpool.globalslots=100000",
+      "--rpc.txfeecap=0",
+      "--metrics",
+      "--metrics.prometheus.endpoint=:6060",
+      "--pprof.addr=0.0.0.0",
+      "--nousb",
+      "--config=/root/.opera/config/config.toml",
+      "--genesis=/root/.opera/genesis/mainnet.g",
+    ]
+
+initContainer:
+  enabled: true
+  image:
+    repository: alpine
+    tag: "3.14.0"
+    pullPolicy: IfNotPresent
+    command: ["sh"]
+    args: [
+        "-c",
+        "
+        mkdir -p /root/.opera/genesis &&
+        cd /root/.opera/genesis &&
+        test -f mainnet.g || wget https://opera.fantom.network/mainnet.g",
+      ]
+
+resources:
+  limits:
+    memory: 32Gi
+    cpu: 16
+  requests:
+    memory: 8Gi
+    cpu: 4
+
+nodeSelector:
+  geth/networkId/250: node
+
+persistence:
+  size: 2Ti
+
+volumes:
+  data:
+    mountPath: /root/.opera
+  config:
+    mountPath: /root/.opera/config
+
+container:
+  ports:
+    listener: 30050
+    discovery: 30050
+
+serviceP2P:
+  type: NodePort
+  listener: 30050
+  discovery: 30050
+
+config: |
+  [Node]
+  HTTPHost = "0.0.0.0"
+  HTTPPort = 8545
+  HTTPVirtualHosts = ["*"]
+  HTTPModules = ["net", "web3", "eth"]
+  WSHost = "0.0.0.0"
+  WSPort = 8546
+  WSOrigins = ["*"]
+  WSModules = ["net", "web3", "eth"]
+  [Node.P2P]
+  MaxPeers = 200
+  ListenAddr = ":30050"
