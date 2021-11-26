@@ -8,25 +8,27 @@ image:
   # command: ["start"]
   # args: ["-v"]
 
-initContainer:
-  enabled: false
-  image:
-    repository: alpine
-    tag: "3.14.0"
-    pullPolicy: IfNotPresent
-    command: ["sh"]
-    args:
-      ["-c", "date >> /mnt/data/date.txt; hostname >> /mnt/data/hostname.txt;"]
+initContainers: []
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
 configmap:
-  env:
-    ENVVAR1: "VALUE1"
-  files:
-    test.txt: "Hello world!"
+  env: {}
+  files: {}
+
+envFromFieldRef:
+  - name: POD_NAME
+    fieldPath: metadata.name
+  - name: POD_NAMESPACE
+    fieldPath: metadata.namespace
+  - name: POD_IP
+    fieldPath: status.podIP
+  - name: NODE_NAME
+    fieldPath: spec.nodeName
+  - name: HOST_IP
+    fieldPath: status.hostIP
 
 volumes:
   files:
@@ -43,16 +45,17 @@ persistence:
 
 container:
   ports:
-    http: 80
-    prometheus: 3000
+    - name: http
+      containerPort: 80
+    #prometheus:
+    #  containerPort: 3000
 
 service:
-  http:
-    type: ClusterIP
+  - name: http
     port: 80
-  prometheus:
-    type: ClusterIP
-    port: 3000
+  #prometheus:
+  #  type: ClusterIP
+  #  port: 3000
 
 prometheus: false
 

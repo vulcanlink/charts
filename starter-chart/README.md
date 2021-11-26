@@ -1,6 +1,9 @@
 # starter-chart
 Helm chart deploying starter-chart.
 
+## TODO
+* Update `values.schema.json`
+
 ## TL;DR
 
 ```console
@@ -55,21 +58,22 @@ The following tables lists the configurable parameters of the chart and their de
 | `image.args`                                  | Specify Image run command args                                                                                     | `nil` |                                                      |
 | `nameOverride`                                | String to partially override starter-chart.fullname template with a string (will prepend the release name)         | `nil`                                                         |
 | `fullnameOverride`                            | String to fully override starter-chart.fullname template with a string   | `nil`       |
-| `container.ports.http`                        | Container http port  | `80` |
-| `container.ports.prometheus`                  | Container prometheus port  | `3000` |
-| `service.http.type`                           | Kubernetes Service type  | `ClusterIP` |
-| `service.http.port`                           | Kubernetes Service port  | `80` |
-| `service.prometheus.type`                     | Kubernetes Service type  | `ClusterIP` |
-| `service.prometheus.port`                     | Kubernetes Service port  | `3000` |
+| `container.ports`                             | Container ports  | see `values.yaml` |
+| `service`                                     | Kubernetes Services  | see `values.yaml` |
 | `prometheus`                                  | Enable prometheus metrics  | `false` |
-| `config.[NAME]`                              | Environment variables injected into configmap |  |
+| `configmap.env`                               | Key-value of env configmap which injects environment variables into pods | `{}` |
+| `configmap.files`                             | Key-value of files configmap which mounts files to pods |  `{}` |
+| `initContainers`                              | List of initcontainers run in order. Useful for running custom config scripts | `[]` |
+| `persistence.enabled`                         | Enable persistent storage | `false` |
+| `serviceAccount.create`                       | Create a Service Account for the pod | `true` |
+| `resources`                                   | Kubernetes resource limits | `{}` |
+| `nodeSelector`                                | Assign pods based on node tags | `{}` |
+| `affiinity`                                   | Node affinity | `{}` |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install my-release \
-  --set image.tag=0.10.3 \
-    vulcanlink/starter-chart
+helm install my-release --set image.tag=0.10.3 vulcanlink/starter-chart
 ```
 
 The above command overrides the default Docker image tag, installing a custom version.

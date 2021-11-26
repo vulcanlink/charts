@@ -1,36 +1,17 @@
+{{- range $idx, $value := .Values.service }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "starter-chart.fullname" . }}
+  name: "{{ include "starter-chart.fullname" $ }}-{{ $value.name }}"
   labels:
-    {{- include "starter-chart.labels" . | nindent 4 }}
+    {{- include "starter-chart.labels" $ | nindent 4 }}
 spec:
-  type: {{ .Values.service.http.type }}
+  type: {{ $value.type | default "ClusterIP" }}
   ports:
-    - port: {{ .Values.service.http.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    - port: {{ $value.port }}
+      targetPort: {{ $value.targetPort | default $value.port }}
+      protocol: {{ $value.protocol | default "TCP" }}
+      name: {{ $value.name }}
   selector:
-    {{- include "starter-chart.selectorLabels" . | nindent 4 }}
-
-
----
-
-{{- if (.Values.prometheus) -}}
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "starter-chart.fullname" . }}
-  labels:
-    {{- include "starter-chart.labels" . | nindent 4 }}
-spec:
-  type: {{ .Values.service.prometheus.type }}
-  ports:
-    - port: {{ .Values.service.prometheus.port }}
-      targetPort: prometheus
-      protocol: TCP
-      name: prometheus
-  selector:
-    {{- include "starter-chart.selectorLabels" . | nindent 4 }}
-{{- end -}}
+    {{- include "starter-chart.selectorLabels" $ | nindent 4 }}
+{{ end }}

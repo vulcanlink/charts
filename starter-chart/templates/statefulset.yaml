@@ -28,21 +28,30 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: {{ .Chart.Name }}-init
-          image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
-          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+        {{- range $key, $value := .Values.initContainers }}
+        - name: "{{ $.Chart.Name }}-init-{{ $key }}"
+          image: "{{ $value.image.repository }}:{{ $value.image.tag }}"
+          imagePullPolicy: {{ $value.image.pullPolicy }}
           command:
-            {{- toYaml .Values.initContainer.image.command | nindent 12 }}
+            {{- toYaml $value.image.command | nindent 12 }}
           args: 
-            {{- toYaml .Values.initContainer.image.args | nindent 12 }}
+            {{- toYaml $value.image.args | nindent 12 }}
+          env:
+            {{- range $idx, $value := $.Values.envFromFieldRef }}
+            - name: $value.name
+              valueFrom:
+                fieldRef:
+                  fieldPath: $value.name.fieldPath
+            {{ end }}
           envFrom:
             - configMapRef:
-                name: {{ include "starter-chart.fullname" . }}-env
+                name: {{ include "starter-chart.fullname" $ }}-env
           volumeMounts:
             - name: files
-              mountPath: {{ .Values.volumes.files.mountPath }}
+              mountPath: {{ $.Values.volumes.files.mountPath }}
             - name: data
-              mountPath: {{ .Values.volumes.data.mountPath }}
+              mountPath: {{ $.Values.volumes.data.mountPath }}
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -54,31 +63,18 @@ spec:
           args: 
             {{- toYaml .Values.image.args | nindent 12 }}
           ports:
-            - name: http
-              containerPort: {{ .Values.container.ports.http }}
-              protocol: TCP
-            {{ if .Values.prometheus }}
-            - name: prometheus
-              containerPort: {{ .Values.container.ports.prometheus }}
-              protocol: TCP
+            {{- range $idx, $value := .Values.container.ports }}
+            - name: {{ $value.name }}
+              containerPort: {{ $value.containerPort }}
+              protocol: {{ $value.protocol | default "TCP" }}
             {{ end }}
-          #livenessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http
-          #readinessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http
           env:
-            - name: POD_NAME
+            {{- range $idx, $value := .Values.envFromFieldRef }}
+            - name: $value.name
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.name
-            - name: POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
+                  fieldPath: $value.name.fieldPath
+            {{ end }}
           envFrom:
             - configMapRef:
                 name: {{ include "starter-chart.fullname" . }}-env
