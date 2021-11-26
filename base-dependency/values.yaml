@@ -1,0 +1,19 @@
+base:
+  nameOverride: example
+  initContainers:
+    - image:
+        repository: alpine
+        tag: "3.14.0"
+        pullPolicy: IfNotPresent
+        command: ["sh"]
+        args:
+          [
+            "-c",
+            "date >> /mnt/data/date.txt; hostname >> /mnt/data/hostname.txt;",
+          ]
+
+  configmap:
+    env:
+      ENVVAR1: "VALUE1"
+    files:
+      test.txt: "Hello world!"

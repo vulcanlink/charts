@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "starter-chart.fullname" . }}-prometheus
+  name: {{ include "base.fullname" . }}-prometheus
 spec:
   endpoints:
   - interval: 5s
@@ -12,12 +12,12 @@ spec:
     metricRelabelings:
     - sourceLabels: [__name__]
       targetLabel: __name__
-      replacement: starter-chart_$1
+      replacement: base_$1
   namespaceSelector:
     matchNames:
     - {{ .Release.Namespace}}
   selector:
     matchLabels:
-      {{- include "starter-chart.selectorLabels" . | nindent 6 }}
+      {{- include "base.selectorLabels" . | nindent 6 }}
 
 {{ end }}

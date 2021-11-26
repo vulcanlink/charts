@@ -1,15 +1,17 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: {{ .Values.kind }}
 metadata:
-  name: {{ include "starter-chart.fullname" . }}
+  name: {{ include "base.fullname" . }}
   labels:
-    {{- include "starter-chart.labels" . | nindent 4 }}
+    {{- include "base.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "starter-chart.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "starter-chart.fullname" . }}
+      {{- include "base.selectorLabels" . | nindent 6 }}
+  {{ if eq .Values.kind "StatefulSet"  }}
+  serviceName: {{ include "base.fullname" . }}
+  {{ end }}
   template:
     metadata:
       annotations:
@@ -18,13 +20,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "starter-chart.selectorLabels" . | nindent 8 }}
+        {{- include "base.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "starter-chart.serviceAccountName" . }}
+      serviceAccountName: {{ include "base.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
@@ -38,14 +40,14 @@ spec:
             {{- toYaml $value.image.args | nindent 12 }}
           env:
             {{- range $idx, $value := $.Values.envFromFieldRef }}
-            - name: $value.name
+            - name: {{ $value.name }}
               valueFrom:
                 fieldRef:
-                  fieldPath: $value.name.fieldPath
+                  fieldPath: {{ $value.fieldPath }}
             {{ end }}
           envFrom:
             - configMapRef:
-                name: {{ include "starter-chart.fullname" $ }}-env
+                name: {{ include "base.fullname" $ }}-env
           volumeMounts:
             - name: files
               mountPath: {{ $.Values.volumes.files.mountPath }}
@@ -70,14 +72,14 @@ spec:
             {{ end }}
           env:
             {{- range $idx, $value := .Values.envFromFieldRef }}
-            - name: $value.name
+            - name: {{ $value.name }}
               valueFrom:
                 fieldRef:
-                  fieldPath: $value.name.fieldPath
+                  fieldPath: {{ $value.fieldPath }}
             {{ end }}
           envFrom:
             - configMapRef:
-                name: {{ include "starter-chart.fullname" . }}-env
+                name: {{ include "base.fullname" . }}-env
           volumeMounts:
             - name: files
               mountPath: {{ .Values.volumes.files.mountPath }}
@@ -100,7 +102,7 @@ spec:
       volumes:
         - name: files
           configMap:
-            name: {{ include "starter-chart.fullname" . }}-files
+            name: {{ include "base.fullname" . }}-files
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
         - name: data
           persistentVolumeClaim:
@@ -133,5 +135,5 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }}
-        {{ include "starter-chart.storageClass" . }}
+        {{ include "base.storageClass" . }}
 {{- end }}

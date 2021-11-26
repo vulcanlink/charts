@@ -1,5 +1,7 @@
-# Default values for starter-chart.
+# Default values for base.
 replicaCount: 1
+
+kind: StatefulSet #Deployment
 
 image:
   repository: nginx
