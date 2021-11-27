@@ -20,6 +20,8 @@ configmap:
   env: {}
   files: {}
 
+secret: {}
+
 envFromFieldRef:
   - name: POD_NAME
     fieldPath: metadata.name
@@ -32,25 +34,29 @@ envFromFieldRef:
   - name: HOST_IP
     fieldPath: status.hostIP
 
-volumes:
-  files:
-    mountPath: /mnt/files
-  data:
-    mountPath: /mnt/data
-
-persistence:
-  enabled: false
-  annotations: {}
-  accessModes:
-    - ReadWriteOnce
-  size: 1Gi
+envFromSecretKeyRef:
+  []
+  #- name:
+  #  key: #key from secret
 
 container:
   ports:
     - name: http
       containerPort: 80
-    #prometheus:
-    #  containerPort: 3000
+  volumes:
+    - name: files
+      mountPath: /mnt/files
+      configMap: true
+      persistence:
+        enabled: false
+    - name: data
+      mountPath: /mnt/data
+      persistence:
+        enabled: false
+        annotations: {}
+        accessModes:
+          - ReadWriteOnce
+        size: 1Gi
 
 service:
   - name: http
