@@ -11,14 +11,23 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+{{ if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.http }}
+{{ end }}
     - port: {{ .Values.service.ws }}
       targetPort: ws
       protocol: TCP
       name: ws
+{{ if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.ws }}
+{{ end }}
     - port: {{ .Values.service.prometheus }}
       targetPort: prometheus
       protocol: TCP
       name: prometheus
+{{ if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.prometheus }}
+{{ end }}
   selector:
     {{- include "geth.selectorLabels" . | nindent 4 }}
 

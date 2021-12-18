@@ -29,15 +29,16 @@ spec:
       serviceAccountName: {{ include "geth.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{ if .Values.initContainer.enabled }}
+      {{- with .Values.initContainers }}
       initContainers:
-        - name: {{ .Chart.Name }}-init
-          image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
-          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+        {{- range $key, $value := . }}
+        - name: "{{ $.Chart.Name }}-init-{{ $key }}"
+          image: "{{ $value.image.repository }}:{{ $value.image.tag }}"
+          imagePullPolicy: {{ $value.image.pullPolicy }}
           command:
-            {{- toYaml .Values.initContainer.image.command | nindent 12 }}
+            {{- toYaml $value.image.command | nindent 12 }}
           args: 
-            {{- toYaml .Values.initContainer.image.args | nindent 12 }}
+            {{- toYaml $value.image.args | nindent 12 }}
           env:
             - name: POD_NAME
               valueFrom:
@@ -59,14 +60,27 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+            {{ if $.Values.secrets.influxdb }}
+            - name: INFLUXDB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Values.secrets.influxdb }}
+                  key: username
+            - name: INFLUXDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Values.secrets.influxdb }}
+                  key: password
+            {{- end }}
           envFrom:
             - configMapRef:
-                name: {{ include "geth.fullname" . }}-env-configmap
+                name: {{ include "geth.fullname" $ }}-env-configmap
           volumeMounts:
             - name: data
-              mountPath: {{ .Values.volumes.data.mountPath }}
+              mountPath: {{ $.Values.volumes.data.mountPath }}
             - name: config
-              mountPath: {{ .Values.volumes.config.mountPath }}
+              mountPath: {{ $.Values.volumes.config.mountPath }}
+        {{- end }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -115,6 +129,18 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+            {{ if .Values.secrets.influxdb }}
+            - name: INFLUXDB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.influxdb }}
+                  key: username
+            - name: INFLUXDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.influxdb }}
+                  key: password
+            {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "geth.fullname" . }}-env-configmap

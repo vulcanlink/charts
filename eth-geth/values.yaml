@@ -12,14 +12,15 @@ image:
   command: ["geth"]
   args: ["--config", "/root/config/config.toml"]
 
-initContainer:
-  enabled: false
-  image:
-    repository: ethereum/client-go
-    pullPolicy: IfNotPresent
-    tag: "v1.10.8"
-    command: ["geth"]
-    args: ["init", "/root/config/genesis.json"]
+# List of init containers run in order, this can be used for custom config scripts such as loading snapshots.
+initContainers:
+  []
+  #- image:
+  #    repository: ethereum/client-go
+  #    pullPolicy: IfNotPresent
+  #    tag: "v1.10.8"
+  #    command: ["geth"]
+  #    args: ["init", "/root/config/genesis.json"]
 
 imagePullSecrets: []
 nameOverride: ""
@@ -96,6 +97,9 @@ serviceP2P:
 
 prometheus: false
 
+prometheusServiceMonitor:
+  path: /debug/metrics/prometheus
+
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -116,6 +120,10 @@ config: |
 genesis: ""
 key: ""
 password: ""
+
+secrets:
+  #Influxdb secret to inject credentials from
+  influxdb: "" #influxdb
 
 #Additional Environment Variables
 env: {}

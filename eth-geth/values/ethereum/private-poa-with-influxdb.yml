@@ -6,9 +6,16 @@ image:
   args:
     [
       "--nat=extip:$(HOST_IP)",
+      "--verbosity=1",
+      "--vmodule=eth/*=1,rpc=5,p2p=1",
       "--metrics",
       "--metrics.addr=0.0.0.0",
-      "--nousb",
+      "--metrics.influxdb",
+      "--metrics.influxdb.endpoint=$(INFLUXDB_ENDPOINT)",
+      "--metrics.influxdb.username=$(INFLUXDB_USERNAME)",
+      "--metrics.influxdb.password=$(INFLUXDB_PASSWORD)",
+      "--metrics.influxdb.database=$(INFLUXDB_DATABASE)",
+      "--metrics.influxdb.tags=host=$(POD_NAME)",
       "--config=/root/config/config.toml",
       "--unlock=$(PUBLIC_KEY)",
       "--allow-insecure-unlock",
@@ -70,6 +77,12 @@ config: |
 
 env:
   PUBLIC_KEY: "0x92Ac020d1A89271408aab391ABe5B843F2C7eE69"
+  INFLUXDB_ENDPOINT: http://influxdb.default:8086
+  INFLUXDB_DATABASE: geth
+
+secrets:
+  #Influxdb secret to inject credentials from
+  influxdb: influxdb
 
 genesis: |
 

@@ -7,7 +7,7 @@ metadata:
 spec:
   endpoints:
   - interval: 5s
-    path: /debug/metrics/prometheus
+    path: {{ .Values.prometheusServiceMonitor.path }}
     port: prometheus
     metricRelabelings:
     - sourceLabels: [__name__]
