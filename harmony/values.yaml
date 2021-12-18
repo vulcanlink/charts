@@ -1,0 +1,154 @@
+base:
+  nameOverride: harmony
+  image:
+    repository: vulcanlink/harmony
+    #repository: alpine
+    tag: "4.3.0"
+    #tag: "3.14"
+    #command: ["harmony"]
+    command: ["tail", "-f", "/dev/null"]
+    #args: ["-c", "config/harmony.conf"]
+  initContainers: []
+  container:
+    ports:
+      - name: p2p-consensus
+        containerPort: 32090
+      - name: p2p-state
+        containerPort: 32060
+      - name: rpc
+        containerPort: 9500
+      - name: ws
+        containerPort: 9800
+    volumes:
+      - name: config
+        mountPath: /home/harmony/config
+        configMap:
+          enabled: true
+          name: '{{ include "base.fullname" . }}-config'
+      - name: data
+        mountPath: /home/harmony/data
+        persistence:
+          enabled: true
+          annotations: {}
+          accessModes:
+            - ReadWriteOnce
+          size: 500Gi
+      - name: varlog
+        mountPath: /var/log
+
+  securityContext:
+    fsGroup: 1000
+    runAsUser: 1000
+    runAsGroup: 1000
+
+  service:
+    - name: p2p-consensus
+      targetPort: p2p-consensus
+      port: 32090
+      type: NodePort
+    - name: p2p-state
+      targetPort: p2p-state
+      port: 32060
+      type: NodePort
+    - name: rpc
+      port: 9500
+    - name: ws
+      port: 9800
+
+  configmap:
+    - name: '{{ include "base.fullname" . }}-config'
+      data:
+        harmony.conf: |
+
+          Version = "2.3.0"
+
+          [BLSKeys]
+            KMSConfigFile = ""
+            KMSConfigSrcType = "shared"
+            KMSEnabled = false
+            KeyDir = "./blskeys"
+            KeyFiles = []
+            MaxKeys = 10
+            PassEnabled = true
+            PassFile = ""
+            PassSrcType = "auto"
+            SavePassphrase = false
+
+          [DNSSync]
+            Client = false
+            LegacySyncing = false
+            Port = 32060
+            Server = true
+            ServerPort = 32060
+            Zone = "t.hmny.io"
+
+          [General]
+            DataDir = "./data"
+            IsArchival = false
+            IsBackup = false
+            IsBeaconArchival = false
+            IsOffline = false
+            NoStaking = true
+            NodeType = "explorer"
+            ShardID = 0
+
+          [HTTP]
+            AuthPort = 9501
+            Enabled = true
+            IP = "0.0.0.0"
+            Port = 9500
+            RosettaEnabled = false
+            RosettaPort = 9700
+
+          [Log]
+            FileName = "harmony.log"
+            Folder = "/var/log"
+            RotateSize = 100
+            Verbosity = 3
+
+            [Log.VerbosePrints]
+              Config = true
+
+          [Network]
+            BootNodes = ["/dnsaddr/bootstrap.t.hmny.io"]
+            NetworkType = "mainnet"
+
+          [P2P]
+            DiscConcurrency = 0
+            IP = "0.0.0.0"
+            KeyFile = "./hmykey"
+            Port = 32090
+
+          [Pprof]
+            Enabled = false
+            Folder = "./profiles"
+            ListenAddr = "0.0.0.0:6060"
+            ProfileDebugValues = [0]
+            ProfileIntervals = [600]
+            ProfileNames = []
+
+          [RPCOpt]
+            DebugEnabled = false
+            RateLimterEnabled = true
+            RequestsPerSecond = 1000
+
+          [Sync]
+            Concurrency = 6
+            DiscBatch = 8
+            DiscHardLowCap = 6
+            DiscHighCap = 128
+            DiscSoftLowCap = 8
+            Downloader = true
+            Enabled = false
+            InitStreams = 8
+            MinPeers = 6
+
+          [TxPool]
+            BlacklistFile = "./config/blacklist.txt"
+
+          [WS]
+            Enabled = true
+            IP = "0.0.0.0"
+            Port = 9800
+        blacklist.txt: |
+          ""

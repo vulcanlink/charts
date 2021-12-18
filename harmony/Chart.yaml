@@ -1,0 +1,23 @@
+apiVersion: v2
+name: harmony
+description: A chart deploying a Harmony node
+type: application
+version: 0.1.0
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+keywords:
+  - harmony
+  - helm
+  - Kubernetes
+
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/charts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: 4.3.0
+dependencies:
+  - name: base
+    repository: file://../base
+    version: 1.x.x
