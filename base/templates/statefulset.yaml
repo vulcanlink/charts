@@ -17,7 +17,7 @@ spec:
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
-      {{- with .Values.podAnnotations }}
+      {{- with .Values.annotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -29,7 +29,7 @@ spec:
     {{- end }}
       serviceAccountName: {{ include "base.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.securityContext | nindent 8 }}
       initContainers:
         {{- range $key, $value := .Values.initContainers }}
         - name: "{{ $.Chart.Name }}-init-{{ $key }}"
@@ -46,16 +46,41 @@ spec:
                 fieldRef:
                   fieldPath: {{ $value.fieldPath }}
             {{ end }}
-            {{- range $idx, $value := $.Values.envFromSecretKeyRef }}
-            - name: {{ $value.name }}
+            {{- range $idx, $value := $.Values.configMap }}
+            {{ with $value.env }}
+            {{- range $i, $key := .keys }}
+            - name: {{ $key }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ tpl $value.name $ }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- range $idx, $value := $.Values.secret }}
+            {{ with $value.env }}
+            {{- range $i, $key := .keys }}
+            - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "base.fullname" $ }}-secret
-                  key: {{ $value.key }}
-            {{ end }}
+                  name: {{ tpl $value.name $ }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
           envFrom:
+            {{- range $idx, $value := $.Values.configMap }}
+            {{ if $value.envFrom }}
             - configMapRef:
-                name: {{ include "base.fullname" $ }}-env
+                name: {{ tpl $value.name $ }}
+            {{- end }}
+            {{- end }}
+            {{- range $idx, $value := $.Values.secret }}
+            {{ if $value.envFrom }}
+            - secretRef:
+                name: {{ tpl $value.name $ }}
+            {{- end }}
+            {{- end }}
           volumeMounts:
             {{- range $idx, $value := $.Values.container.volumes }}
             - name: {{ $value.name }}
@@ -64,8 +89,6 @@ spec:
         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: 
@@ -85,16 +108,41 @@ spec:
                 fieldRef:
                   fieldPath: {{ $value.fieldPath }}
             {{ end }}
-            {{- range $idx, $value := $.Values.envFromSecretKeyRef }}
-            - name: {{ $value.name }}
+            {{- range $idx, $value := .Values.configMap }}
+            {{ with $value.env }}
+            {{- range $i, $key := .keys }}
+            - name: {{ $key }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ tpl $value.name $ }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- range $idx, $value := .Values.secret }}
+            {{ with $value.env }}
+            {{- range $i, $key := .keys }}
+            - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "base.fullname" $ }}-secret
-                  key: {{ $value.key }}
-            {{ end }}
+                  name: {{ tpl $value.name $ }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
           envFrom:
+            {{- range $idx, $value := .Values.configMap }}
+            {{ if $value.envFrom }}
             - configMapRef:
-                name: {{ include "base.fullname" . }}-env
+                name: {{ tpl $value.name $ }}
+            {{- end }}
+            {{- end }}
+            {{- range $idx, $value := .Values.secret }}
+            {{ if $value.envFrom }}
+            - secretRef:
+                name: {{ tpl $value.name $ }}
+            {{- end }}
+            {{- end }}
           volumeMounts:
             {{- range $idx, $value := .Values.container.volumes }}
             - name: {{ $value.name }}
@@ -116,32 +164,50 @@ spec:
     {{- end }}
       volumes:
         {{- range $idx, $value := .Values.container.volumes }}
-        {{- if $value.configMap }}
         - name: {{ $value.name }}
+        {{- with $value.configMap }}
+        {{- if .enabled }}
           configMap:
-            name: "{{ include "base.fullname" $ }}-{{ $value.name}}"
-        {{- else if and $value.persistence.enabled $value.persistence.existingClaim }}
-        - name: {{ $value.name }}
+            name: {{ tpl .name $ }}
+            {{- if .items }}
+              items: 
+                {{- toYaml .items | nindent 16 }}
+            {{- end }}
+        {{- end}}
+        {{- end}}
+        {{- with $value.secret }}
+        {{- if .enabled }}
+          secret:
+            secretName: {{ tpl .name $ }}
+            {{- if .items }}
+              items: 
+                {{- toYaml .items | nindent 16 }}
+            {{- end }}
+        {{- end }}
+        {{- end}}
+        {{- with $value.persistence }}
+        {{- if .enabled }}
+          {{- if .existingClaim }}
           persistentVolumeClaim:
-        {{- with $value.persistence.existingClaim }}
-            claimName: {{ tpl . $ }}
-        {{- end }}
-        {{- else if and $value.persistence.enabled $value.persistence.hostPath }}
-        - name: {{ $value.name }}
+            claimName: {{ tpl .existingClaim $ }}
+          {{- else if .hostPath }}
           hostPath:
-            path: {{ $value.persistence.hostPath.path }}
-            type: {{ $value.persistence.hostPath.type }}
-        {{- else if not $value.persistence.enabled }}
-        - name: {{ $value.name }}
-          emptyDir: {}
+            path: {{ .hostPath.path }}
+            type: {{ .hostPath.type }}
+          {{- end }}
         {{- end }}
+        {{- end }}
+          {{- if and (and (not ($value.configMap).enabled) (not ($value.secret).enabled)) (not ($value.persistence).enabled) }}
+          emptyDir: {}
+          {{- end }}
         {{- end }}
   volumeClaimTemplates:
     {{- range $idx, $value := .Values.container.volumes }}
-    {{- if and $value.persistence.enabled (not $value.persistence.existingClaim) }}
+    {{- with $value.persistence }}
+    {{- if and .enabled (not .existingClaim) }}
     - metadata:
         name: {{ $value.name }}
-      {{- with $value.persistence.annotations }}
+      {{- with .annotations }}
         annotations:
         {{- range $k, $v := . }}
             {{ $k }}: {{ $v }}
@@ -149,12 +215,13 @@ spec:
       {{- end }}
       spec:
         accessModes:
-        {{- range $value.persistence.accessModes }}
+        {{- range .accessModes }}
           - {{ . | quote }}
         {{- end }}
         resources:
           requests:
-            storage: {{ $value.persistence.size | quote }}
-        {{ include "base.storageClass" . }}
+            storage: {{ .size | quote }}
+        {{ include "base.storageClass" $ }}
+    {{- end }}
     {{- end }}
     {{- end }}

@@ -4,11 +4,11 @@ replicaCount: 1
 kind: StatefulSet #Deployment
 
 image:
-  repository: nginx
+  repository: alpine
   pullPolicy: IfNotPresent
-  tag: ""
-  # command: ["start"]
-  # args: ["-v"]
+  tag: "3.14"
+  #command: ["tail", "-f", "/dev/null"]
+  #args: []
 
 initContainers: []
 
@@ -17,10 +17,23 @@ nameOverride: ""
 fullnameOverride: ""
 
 configmap:
-  env: {}
-  files: {}
+  - name: '{{ include "base.fullname" . }}-env'
+    data: {}
+    envFrom: false
+    env:
+      keys: []
+  - name: '{{ include "base.fullname" . }}-files'
+    data: {}
+    env:
+      keys: []
+    envFrom: false
 
-secret: {}
+secret:
+  - name: '{{ include "base.fullname" . }}-secret'
+    data: {}
+    env:
+      keys: []
+    envFrom: false
 
 envFromFieldRef:
   - name: POD_NAME
@@ -34,11 +47,6 @@ envFromFieldRef:
   - name: HOST_IP
     fieldPath: status.hostIP
 
-envFromSecretKeyRef:
-  []
-  #- name:
-  #  key: #key from secret
-
 container:
   ports:
     - name: http
@@ -46,9 +54,14 @@ container:
   volumes:
     - name: files
       mountPath: /mnt/files
-      configMap: true
-      persistence:
+      configMap:
         enabled: false
+        name: '{{ include "base.fullname" . }}-files'
+    - name: secret
+      mountPath: /mnt/secret
+      secret:
+        enabled: false
+        name: '{{ include "base.fullname" . }}-secret'
     - name: data
       mountPath: /mnt/data
       persistence:
@@ -57,6 +70,9 @@ container:
         accessModes:
           - ReadWriteOnce
         size: 1Gi
+
+persistence:
+  storageClass: ""
 
 service:
   - name: http
@@ -73,11 +89,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
-
-podSecurityContext: {}
+annotations: {}
 securityContext: {}
-
 resources: {}
 nodeSelector: {}
 tolerations: []

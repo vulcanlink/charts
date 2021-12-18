@@ -12,6 +12,14 @@ base:
             "date >> /mnt/data/date.txt; hostname >> /mnt/data/hostname.txt;",
           ]
 
+  container:
+    volumes:
+      - name: files
+        mountPath: /mnt/files
+        configMap:
+          enabled: false
+          name: '{{ include "base.fullname" . }}-files'
+
   configmap:
     env:
       ENVVAR1: "VALUE1"

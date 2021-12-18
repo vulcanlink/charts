@@ -12,6 +12,11 @@ spec:
       targetPort: {{ $value.targetPort | default $value.port }}
       protocol: {{ $value.protocol | default "TCP" }}
       name: {{ $value.name }}
+      {{- if eq "NodePort" ($value.type | default "ClusterIP") }}
+      nodePort: {{ $value.nodePort | default $value.port }}
+      {{- end }}
   selector:
     {{- include "base.selectorLabels" $ | nindent 4 }}
+
+---
 {{ end }}

@@ -1,15 +1,10 @@
+{{- range $idx, $value := .Values.configmap }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name:  {{ include "base.fullname" . }}-env
+  name:  {{ tpl $value.name $ }}
 data:
-  {{- toYaml .Values.configmap.env | nindent 2 }}
+  {{- toYaml $value.data | nindent 2 }}
 
 ---
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name:  {{ include "base.fullname" . }}-files
-data:
-  {{- toYaml .Values.configmap.files | nindent 2 }}
+{{- end }}
