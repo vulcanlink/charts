@@ -1,0 +1,24 @@
+apiVersion: v2
+name: geth
+description: A Helm chart for Ethereum Go client
+type: application
+version: 0.3.0
+icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+keywords:
+  - ethereum
+  - geth
+  - helm
+  - Kubernetes
+
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/charts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: 1.10.15
+dependencies:
+  - name: base
+    repository: file://../base
+    version: 1.x.x
