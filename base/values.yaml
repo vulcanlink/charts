@@ -80,9 +80,11 @@ persistence:
 services:
   []
   #- name: http
-  #  port: 80
+  #  ports:
+  #    - port: 80
   #- name: prometheus
-  #  port: 3000
+  #  ports:
+  #    - port: 3000
 
 prometheus: false
 

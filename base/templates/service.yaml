@@ -8,13 +8,17 @@ metadata:
 spec:
   type: {{ $value.type | default "ClusterIP" }}
   ports:
-    - port: {{ $value.port }}
-      targetPort: {{ $value.targetPort | default $value.port }}
-      protocol: {{ $value.protocol | default "TCP" }}
-      name: {{ $value.name }}
-      {{- if eq "NodePort" ($value.type | default "ClusterIP") }}
-      nodePort: {{ $value.nodePort | default $value.port }}
+    {{- range $i, $v := $value.ports }}
+    - port: {{ $v.port }}
+      targetPort: {{ $v.targetPort | default $v.port }}
+      protocol: {{ $v.protocol | default "TCP" }}
+      {{- if $v.name }}
+      name: {{ $v.name }}
       {{- end }}
+      {{- if eq "NodePort" ($v.type | default "ClusterIP") }}
+      nodePort: {{ $v.nodePort | default $v.port }}
+      {{- end }}
+    {{- end }}
   selector:
     {{- include "base.selectorLabels" $ | nindent 4 }}
 
