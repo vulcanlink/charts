@@ -1,4 +1,4 @@
-{{- range $idx, $value := .Values.configmap }}
+{{- range $idx, $value := .Values.configmaps }}
 apiVersion: v1
 kind: ConfigMap
 metadata:

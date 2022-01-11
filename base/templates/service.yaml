@@ -1,4 +1,4 @@
-{{- range $idx, $value := .Values.service }}
+{{- range $idx, $value := .Values.services }}
 apiVersion: v1
 kind: Service
 metadata:
