@@ -2,3 +2,4 @@ node_modules
 values/**
 .vscode
 values
+**/charts/*.tgz

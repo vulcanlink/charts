@@ -15,7 +15,7 @@ spec:
       {{- if $v.name }}
       name: {{ $v.name }}
       {{- end }}
-      {{- if eq "NodePort" ($v.type | default "ClusterIP") }}
+      {{- if eq "NodePort" ($value.type | default "ClusterIP") }}
       nodePort: {{ $v.nodePort | default $v.port }}
       {{- end }}
     {{- end }}
