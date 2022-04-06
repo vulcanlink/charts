@@ -1,9 +1,24 @@
 apiVersion: v2
-name: matic-heimdall
-description: A Helm chart for Matic Heimdall
-
+name: geth
+description: A Helm chart for Ethereum Go client
 type: application
+version: 1.10.17
+icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+keywords:
+  - ethereum
+  - geth
+  - helm
+  - Kubernetes
 
-version: 0.1.1
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/charts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
 
-appVersion: 0.2.0
+appVersion: 1.10.17
+dependencies:
+  - name: base
+    repository: file://../base
+    version: 1.x.x
