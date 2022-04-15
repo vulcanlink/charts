@@ -10,7 +10,22 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1.10.8"
   command: ["geth"]
-  args: ["--config", "/root/config/config.toml"]
+  args:
+    ["--config", "/root/config/config.toml"]
+    #"--nat=extip:$(HOST_IP)",
+    #"--cache=16384",
+    #"--metrics",
+    #"--metrics.addr=0.0.0.0",
+    #"--metrics.influxdb",
+    #"--metrics.influxdb.endpoint=$(INFLUXDB_ENDPOINT)",
+    #"--metrics.influxdb.username=$(INFLUXDB_USERNAME)",
+    #"--metrics.influxdb.password=$(INFLUXDB_PASSWORD)",
+    #"--metrics.influxdb.database=$(INFLUXDB_DATABASE)",
+    #"--metrics.influxdb.tags=host=$(POD_NAME)",
+    #"--ipcdisable",
+    #"--txpool.accountslots=256",
+    #"--txpool.locals=$(ACCOUNTS)",
+    #"--txpool.globalslots=100000"
 
 # List of init containers run in order, this can be used for custom config scripts such as loading snapshots.
 initContainers:

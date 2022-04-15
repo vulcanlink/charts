@@ -23,3 +23,12 @@ Open a debugging shell
 ```
 kubectl exec mainnet-2-0 -n ethereum -ti -- sh
 ```
+
+## Chains
+Many Ethereum sidechains use geth as their original fork and therefore can be run with this chart with simple tweaks.
+```
+helm install mainnet-1 geth -f values/geth/ethereum/mainnet-1.yaml -n ethereum
+helm install mainnet-bor-1 geth -f values/geth/matic/mainnet-1.yaml -n matic
+helm install mainnet-opera-1 geth -f values/geth/fantom/mainnet-1.yaml -n fantom
+helm install mainnet-harmony-1 geth -f values/geth/harmony/mainnet-1.yaml -n harmony
+```

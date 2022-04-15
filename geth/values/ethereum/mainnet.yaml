@@ -16,17 +16,17 @@ base:
             "--metrics",
             "--metrics.addr=0.0.0.0",
             "--ipcdisable",
+            "--cache=16384",
+            "--metrics.influxdb",
+            "--metrics.influxdb.endpoint=$(INFLUXDB_ENDPOINT)",
+            "--metrics.influxdb.username=$(INFLUXDB_USERNAME)",
+            "--metrics.influxdb.password=$(INFLUXDB_PASSWORD)",
+            "--metrics.influxdb.database=$(INFLUXDB_DATABASE)",
+            "--metrics.influxdb.tags=host=$(POD_NAME)",
+            "--txpool.accountslots=256",
+            "--txpool.locals=$(ACCOUNTS)",
+            "--txpool.globalslots=100000",
           ]
-      #"--cache=16384",
-      #"--metrics.influxdb",
-      #"--metrics.influxdb.endpoint=$(INFLUXDB_ENDPOINT)",
-      #"--metrics.influxdb.username=$(INFLUXDB_USERNAME)",
-      #"--metrics.influxdb.password=$(INFLUXDB_PASSWORD)",
-      #"--metrics.influxdb.database=$(INFLUXDB_DATABASE)",
-      #"--metrics.influxdb.tags=host=$(POD_NAME)",
-      #"--txpool.accountslots=256",
-      #"--txpool.locals=$(ACCOUNTS)",
-      #"--txpool.globalslots=100000",
       ports:
         - name: http
           containerPort: 8545
@@ -58,7 +58,7 @@ base:
       persistence:
         accessModes:
           - ReadWriteOnce
-        size: 1Ti
+        size: 2Ti
   configmaps:
     - name: '{{ include "base.fullname" . }}-env'
       data:
@@ -84,31 +84,27 @@ base:
         genesis: ""
   env:
     fieldRef:
-      []
-      #- name: HOST_IP
-      #  fieldPath: status.hostIP
+      - name: HOST_IP
+        fieldPath: status.hostIP
     configMapKeyRef:
-      []
-      #- name: ACCOUNTS
-      #  configMap: '{{ include "base.fullname" . }}-env'
+      - name: ACCOUNTS
+        configMap: '{{ include "base.fullname" . }}-env'
     secretKeyRef:
-      []
-      #- name: INFLUXDB_ENDPOINT
-      #  secret: '{{ include "base.fullname" . }}-influxdb'
-      #- name: INFLUXDB_USERNAME
-      #  secret: '{{ include "base.fullname" . }}-influxdb'
-      #- name: INFLUXDB_PASSWORD
-      #  secret: '{{ include "base.fullname" . }}-influxdb'
-      #- name: INFLUXDB_DATABASE
-      #  secret: '{{ include "base.fullname" . }}-influxdb'
+      - name: INFLUXDB_ENDPOINT
+        secret: '{{ include "base.fullname" . }}-influxdb'
+      - name: INFLUXDB_USERNAME
+        secret: '{{ include "base.fullname" . }}-influxdb'
+      - name: INFLUXDB_PASSWORD
+        secret: '{{ include "base.fullname" . }}-influxdb'
+      - name: INFLUXDB_DATABASE
+        secret: '{{ include "base.fullname" . }}-influxdb'
   secrets:
-    []
-    #- name: '{{ include "base.fullname" . }}-influxdb'
-    #  data:
-    #    INFLUXDB_ENDPOINT: http://influxdb.default:8086
-    #    INFLUXDB_USERNAME: admin
-    #    INFLUXDB_PASSWORD: CHANGE_HERE
-    #    INFLUXDB_DATABASE: geth
+    - name: '{{ include "base.fullname" . }}-influxdb'
+      data:
+        INFLUXDB_ENDPOINT: http://influxdb.default:8086
+        INFLUXDB_USERNAME: admin
+        INFLUXDB_PASSWORD: CHANGE_HERE
+        INFLUXDB_DATABASE: geth
   services:
     - name: rpc
       ports:
@@ -123,10 +119,9 @@ base:
       type: NodePort
       ports:
         - name: listener
-          port: 30303
+          port: 30000
         - name: discovery
-          port: 30303
+          port: 30000
           protocol: UDP
   nodeSelector:
-    geth: node
-    #geth/1: node
+    geth/1: node
