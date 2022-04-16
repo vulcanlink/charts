@@ -1,0 +1,105 @@
+nameOverride: "fio-tools"
+
+base:
+  nameOverride: "fio-tools"
+  # Hacky way to make configmap mount writable
+  initContainers:
+    - image:
+        repository: alpine
+        tag: "3.14.0"
+        pullPolicy: IfNotPresent
+        command: ["sh"]
+        args:
+          ["-c", "cp /mnt/files-config/seqwrite.fio /mnt/files/seqwrite.fio"]
+      volumeMounts:
+        - name: files-config
+          mountPath: /mnt/files-config
+        - name: files
+          mountPath: /mnt/files
+  containers:
+    - image:
+        repository: wallnerryan/fiotools-aio
+        tag: "latest"
+        pullPolicy: IfNotPresent
+        #command: ["sh"]
+        #args: ["-c", "tail -f /dev/null"]
+      ports:
+        - name: http
+          containerPort: 8000
+      volumeMounts:
+        # Default entrypoint with files
+        - name: files
+          mountPath: /mnt/files
+        # Drive to benchmark
+        - name: data
+          mountPath: /mnt/data
+      resources: {}
+  volumes:
+    - name: files-config
+      configMap:
+        name: '{{ include "base.fullname" . }}-files'
+    - name: files
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        size: 1Mi
+    - name: data
+      #persistence:
+      #  accessModes:
+      #    - ReadWriteOnce
+      #  size: 1GiB
+  configmaps:
+    - name: '{{ include "base.fullname" . }}-env'
+      data:
+        JOBFILES: /mnt/files/seqwrite.fio
+        PLOTNAME: "Benchmark"
+    - name: '{{ include "base.fullname" . }}-files'
+      data:
+        read.fio: |
+
+          [global]
+          direct=1
+          rw=read
+          size=10G
+          ioengine=libaio
+          iodepth=128
+          end_fsync=1
+
+          [read]
+          directory=/mnt/data
+          bs=64k
+          write_bw_log=read
+          write_lat_log=read
+          write_iops_log=read
+
+        seqwrite.fio: |
+
+          [global]
+          direct=1
+          rw=read
+          size=10G
+          ioengine=libaio
+          iodepth=128
+          end_fsync=1
+
+          [read]
+          directory=/mnt/data
+          bs=64k
+          write_bw_log=seqwrite
+          write_lat_log=seqwrite
+          write_iops_log=seqwrite
+  env:
+    fieldRef: []
+    configMapKeyRef:
+      - name: JOBFILES
+        configMap: '{{ include "base.fullname" . }}-env'
+      - name: PLOTNAME
+        configMap: '{{ include "base.fullname" . }}-env'
+    secretKeyRef: []
+  secrets: []
+  services:
+    - name: http
+      ports:
+        - port: 8000
+  nodeSelector:
+    kubernetes.io/hostname: ubuntu-4gb-hel1-9
