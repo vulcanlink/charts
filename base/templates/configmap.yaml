@@ -1,10 +1,12 @@
-{{- range $idx, $value := .Values.configmap }}
+{{- range $idx, $value := .Values.configmaps }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name:  {{ tpl $value.name $ }}
 data:
-  {{- toYaml $value.data | nindent 2 }}
-
+  {{- range $k, $v := $value.data }}
+  {{ $k }}: | 
+{{ (tpl $v $) | indent 4 }}
+  {{- end }}
 ---
 {{- end }}

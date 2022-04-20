@@ -1,0 +1,145 @@
+nameOverride: "mainnet-opera"
+
+base:
+  nameOverride: "mainnet-opera"
+  # Download Genesis
+  initContainers:
+    - image:
+        repository: alpine
+        tag: "3.14.0"
+        pullPolicy: IfNotPresent
+        command: ["sh"]
+        args: [
+            "-c",
+            "
+            mkdir -p /root/.opera/genesis &&
+            cd /root/.opera/genesis &&
+            test -f mainnet.g || wget https://opera.fantom.network/mainnet.g",
+          ]
+      volumeMounts:
+        - name: data
+          mountPath: /root/.opera
+  containers:
+    - image:
+        repository: chainstack/fantom-opera
+        pullPolicy: IfNotPresent
+        tag: 1.1.0-rc.3
+        command: []
+        args:
+          [
+            "--config",
+            "/root/files/config.toml",
+            "--nat=extip:$(HOST_IP)",
+            "--metrics",
+            "--metrics.addr=0.0.0.0",
+            "--ipcdisable",
+            "--cache=16384",
+            "--metrics.influxdb",
+            "--metrics.influxdb.endpoint=$(INFLUXDB_ENDPOINT)",
+            "--metrics.influxdb.username=$(INFLUXDB_USERNAME)",
+            "--metrics.influxdb.password=$(INFLUXDB_PASSWORD)",
+            "--metrics.influxdb.database=$(INFLUXDB_DATABASE)",
+            "--metrics.influxdb.tags=host=$(POD_NAME)",
+            "--txpool.accountslots=256",
+            "--txpool.locals=$(ACCOUNTS)",
+            "--txpool.globalslots=100000",
+            "--pprof.addr=0.0.0.0",
+            "--rpc.txfeecap=0",
+            "--genesis=/root/.opera/genesis/mainnet.g",
+          ]
+      ports:
+        - name: http
+          containerPort: 8545
+        - name: ws
+          containerPort: 8546
+        - name: prometheus
+          containerPort: 6060
+        - name: listener
+          containerPort: 30303
+        - name: discovery
+          containerPort: 30303
+      volumeMounts:
+        - name: files
+          mountPath: /root/files
+        - name: data
+          mountPath: /root/.opera
+      resources:
+        limits:
+          cpu: 4000m
+          memory: 16Gi
+        requests:
+          cpu: 4000m
+          memory: 16Gi
+  volumes:
+    - name: files
+      configMap:
+        name: '{{ include "base.fullname" . }}-files'
+    - name: data
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        size: 2Ti
+  configmaps:
+    - name: '{{ include "base.fullname" . }}-env'
+      data:
+        ACCOUNTS: ""
+    - name: '{{ include "base.fullname" . }}-files'
+      data:
+        config.toml: |
+
+          [Node]
+          HTTPHost = "0.0.0.0"
+          HTTPPort = 8545
+          HTTPVirtualHosts = ["*"]
+          HTTPModules = ["net", "web3", "eth"]
+          WSHost = "0.0.0.0"
+          WSPort = 8546
+          WSOrigins = ["*"]
+          WSModules = ["net", "web3", "eth"]
+          [Node.P2P]
+          MaxPeers = 200
+          ListenAddr = ":30303"
+        genesis: ""
+  env:
+    fieldRef:
+      - name: HOST_IP
+        fieldPath: status.hostIP
+    configMapKeyRef:
+      - name: ACCOUNTS
+        configMap: '{{ include "base.fullname" . }}-env'
+    secretKeyRef:
+      - name: INFLUXDB_ENDPOINT
+        secret: '{{ include "base.fullname" . }}-influxdb'
+      - name: INFLUXDB_USERNAME
+        secret: '{{ include "base.fullname" . }}-influxdb'
+      - name: INFLUXDB_PASSWORD
+        secret: '{{ include "base.fullname" . }}-influxdb'
+      - name: INFLUXDB_DATABASE
+        secret: '{{ include "base.fullname" . }}-influxdb'
+  secrets:
+    - name: '{{ include "base.fullname" . }}-influxdb'
+      data:
+        INFLUXDB_ENDPOINT: http://influxdb.default:8086
+        INFLUXDB_USERNAME: admin
+        INFLUXDB_PASSWORD: CHANGE_HERE
+        INFLUXDB_DATABASE: geth
+  services:
+    - name: rpc
+      ports:
+        - name: http
+          port: 8545
+        - name: ws
+          port: 8546
+    - name: prometheus
+      ports:
+        - port: 6060
+    - name: p2p
+      type: NodePort
+      ports:
+        - name: listener
+          port: 30303
+        - name: discovery
+          port: 30303
+          protocol: UDP
+  nodeSelector:
+    geth/250: node

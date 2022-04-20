@@ -1,3 +1,4 @@
+{{- if gt (len .Values.containers) 0 }}
 apiVersion: apps/v1
 kind: {{ .Values.kind }}
 metadata:
@@ -9,9 +10,9 @@ spec:
   selector:
     matchLabels:
       {{- include "base.selectorLabels" . | nindent 6 }}
-  {{ if eq .Values.kind "StatefulSet"  }}
+  {{- if eq .Values.kind "StatefulSet"  }}
   serviceName: {{ include "base.fullname" . }}
-  {{ end }}
+  {{- end }}
   template:
     metadata:
       annotations:
@@ -23,205 +24,51 @@ spec:
       labels:
         {{- include "base.selectorLabels" . | nindent 8 }}
     spec:
-    {{- with .Values.imagePullSecrets }}
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       serviceAccountName: {{ include "base.serviceAccountName" . }}
+      {{- with .Values.securityContext }}
       securityContext:
-        {{- toYaml .Values.securityContext | nindent 8 }}
-      initContainers:
-        {{- range $key, $value := .Values.initContainers }}
-        - name: "{{ $.Chart.Name }}-init-{{ $key }}"
-          image: "{{ $value.image.repository }}:{{ $value.image.tag }}"
-          imagePullPolicy: {{ $value.image.pullPolicy }}
-          command:
-            {{- toYaml $value.image.command | nindent 12 }}
-          args: 
-            {{- toYaml $value.image.args | nindent 12 }}
-          env:
-            {{- range $idx, $value := $.Values.envFromFieldRef }}
-            - name: {{ $value.name }}
-              valueFrom:
-                fieldRef:
-                  fieldPath: {{ $value.fieldPath }}
-            {{ end }}
-            {{- range $idx, $value := $.Values.configMap }}
-            {{ with $value.env }}
-            {{- range $i, $key := .keys }}
-            - name: {{ $key }}
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ tpl $value.name $ }}
-                  key: {{ $key }}
-            {{- end }}
-            {{- end }}
-            {{- end }}
-            {{- range $idx, $value := $.Values.secret }}
-            {{ with $value.env }}
-            {{- range $i, $key := .keys }}
-            - name: {{ $key }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ tpl $value.name $ }}
-                  key: {{ $key }}
-            {{- end }}
-            {{- end }}
-            {{- end }}
-          envFrom:
-            {{- range $idx, $value := $.Values.configMap }}
-            {{ if $value.envFrom }}
-            - configMapRef:
-                name: {{ tpl $value.name $ }}
-            {{- end }}
-            {{- end }}
-            {{- range $idx, $value := $.Values.secret }}
-            {{ if $value.envFrom }}
-            - secretRef:
-                name: {{ tpl $value.name $ }}
-            {{- end }}
-            {{- end }}
-          volumeMounts:
-            {{- range $idx, $value := $.Values.container.volumes }}
-            - name: {{ $value.name }}
-              mountPath: {{ $value.mountPath }}
-            {{- end}}
-        {{- end }}
-      containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: 
-            {{- toYaml .Values.image.command | nindent 12 }}
-          args: 
-            {{- toYaml .Values.image.args | nindent 12 }}
-          ports:
-            {{- range $idx, $value := .Values.container.ports }}
-            - name: {{ $value.name }}
-              containerPort: {{ $value.containerPort }}
-              protocol: {{ $value.protocol | default "TCP" }}
-            {{ end }}
-          env:
-            {{- range $idx, $value := .Values.envFromFieldRef }}
-            - name: {{ $value.name }}
-              valueFrom:
-                fieldRef:
-                  fieldPath: {{ $value.fieldPath }}
-            {{ end }}
-            {{- range $idx, $value := .Values.configMap }}
-            {{ with $value.env }}
-            {{- range $i, $key := .keys }}
-            - name: {{ $key }}
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ tpl $value.name $ }}
-                  key: {{ $key }}
-            {{- end }}
-            {{- end }}
-            {{- end }}
-            {{- range $idx, $value := .Values.secret }}
-            {{ with $value.env }}
-            {{- range $i, $key := .keys }}
-            - name: {{ $key }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ tpl $value.name $ }}
-                  key: {{ $key }}
-            {{- end }}
-            {{- end }}
-            {{- end }}
-          envFrom:
-            {{- range $idx, $value := .Values.configMap }}
-            {{ if $value.envFrom }}
-            - configMapRef:
-                name: {{ tpl $value.name $ }}
-            {{- end }}
-            {{- end }}
-            {{- range $idx, $value := .Values.secret }}
-            {{ if $value.envFrom }}
-            - secretRef:
-                name: {{ tpl $value.name $ }}
-            {{- end }}
-            {{- end }}
-          volumeMounts:
-            {{- range $idx, $value := .Values.container.volumes }}
-            - name: {{ $value.name }}
-              mountPath: {{ $value.mountPath }}
-            {{- end}} 
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
+      {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
-      volumes:
-        {{- range $idx, $value := .Values.container.volumes }}
-        - name: {{ $value.name }}
-        {{- with $value.configMap }}
-        {{- if .enabled }}
-          configMap:
-            name: {{ tpl .name $ }}
-            {{- if .items }}
-              items: 
-                {{- toYaml .items | nindent 16 }}
-            {{- end }}
-        {{- end}}
-        {{- end}}
-        {{- with $value.secret }}
-        {{- if .enabled }}
-          secret:
-            secretName: {{ tpl .name $ }}
-            {{- if .items }}
-              items: 
-                {{- toYaml .items | nindent 16 }}
-            {{- end }}
-        {{- end }}
-        {{- end}}
-        {{- with $value.persistence }}
-        {{- if .enabled }}
-          {{- if .existingClaim }}
-          persistentVolumeClaim:
-            claimName: {{ tpl .existingClaim $ }}
-          {{- else if .hostPath }}
-          hostPath:
-            path: {{ .hostPath.path }}
-            type: {{ .hostPath.type }}
-          {{- end }}
-        {{- end }}
-        {{- end }}
-          {{- if and (and (not ($value.configMap).enabled) (not ($value.secret).enabled)) (not ($value.persistence).enabled) }}
-          emptyDir: {}
-          {{- end }}
-        {{- end }}
-  volumeClaimTemplates:
-    {{- range $idx, $value := .Values.container.volumes }}
-    {{- with $value.persistence }}
-    {{- if and .enabled (not .existingClaim) }}
-    - metadata:
-        name: {{ $value.name }}
-      {{- with .annotations }}
-        annotations:
-        {{- range $k, $v := . }}
-            {{ $k }}: {{ $v }}
-        {{- end }}
       {{- end }}
-      spec:
-        accessModes:
-        {{- range .accessModes }}
-          - {{ . | quote }}
+      initContainers:
+        {{- range $i, $v := .Values.initContainers }}
+        - name: "{{ $.Chart.Name }}-init-{{ $i }}"
+          {{- include "base.image" $v.image | indent 10 }}
+          {{- include "base.ports" $v.ports | indent 10 }}
+          {{- include "base.env" $ | indent 10 }}
+          {{- include "base.volumeMounts" $v.volumeMounts | indent 10 }}
+          {{- with $v.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
         {{- end }}
-        resources:
-          requests:
-            storage: {{ .size | quote }}
-        {{ include "base.storageClass" $ }}
-    {{- end }}
-    {{- end }}
-    {{- end }}
+      containers:
+        {{- range $i, $v := .Values.containers }}
+        - name: "{{ $.Chart.Name }}-{{ $i }}"
+          {{- include "base.image" $v.image | indent 10 }}
+          {{- include "base.ports" $v.ports | indent 10 }}
+          {{- include "base.env" $ | indent 10 }}
+          {{- include "base.volumeMounts" $v.volumeMounts | indent 10 }}
+          {{- with $v.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        {{- end }}
+      {{- include "base.volumes" . | indent 6 }}
+  {{- include "base.volumeClaimTemplates" . | indent 2 }}
+{{- end }}

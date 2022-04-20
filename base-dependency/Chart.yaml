@@ -2,7 +2,7 @@ apiVersion: v2
 name: base-dependency
 description: Example chart using the vulcanlink base library
 type: application
-version: 0.1.0
+version: 1.0.0
 icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
 keywords:
   - base-dependency
@@ -16,7 +16,7 @@ maintainers:
   - name: Leo Vigna
     email: leo@vulcan.link
 
-appVersion: 1.16.0
+appVersion: 1.0.0
 dependencies:
   - name: base
     repository: file://../base

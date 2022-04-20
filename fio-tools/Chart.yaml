@@ -1,12 +1,11 @@
 apiVersion: v2
-name: geth
-description: A Helm chart for Ethereum Go client
+name: fio-tools
+description: Example chart using the vulcanlink base library
 type: application
-version: 1.10.17
-icon: https://vulcanlink.github.io/charts/assets/img/ethereum.svg
+version: 1.0.0
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
 keywords:
-  - ethereum
-  - geth
+  - fio-tools
   - helm
   - Kubernetes
 
@@ -17,7 +16,7 @@ maintainers:
   - name: Leo Vigna
     email: leo@vulcan.link
 
-appVersion: 1.10.17
+appVersion: 1.0.0
 dependencies:
   - name: base
     repository: file://../base

@@ -1,0 +1,93 @@
+## Default values for base.
+replicaCount: 1
+kind: StatefulSet #Deployment
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+initContainers:
+  - image:
+      repository: alpine
+      pullPolicy: IfNotPresent
+      tag: "3.14"
+      command: ["sh"]
+      args: ["-c", "cat", "$(ENVVAR1)"]
+
+containers:
+  - image:
+      repository: alpine
+      pullPolicy: IfNotPresent
+      tag: "3.14"
+      command: ["tail"]
+      args: ["-f", "/dev/null"]
+    ports:
+      - name: http
+        containerPort: 80
+    volumeMounts:
+      - name: env
+        mountPath: /mnt/env
+      - name: secret
+        mountPath: /mnt/secret
+      - name: data
+        mountPath: /mnt/data
+
+volumes:
+  - name: env
+    configMap:
+      name: '{{ include "base.fullname" . }}-env'
+  - name: secret
+    secret:
+      name: '{{ include "base.fullname" . }}-secret'
+  - name: data
+    persistence:
+      accessModes:
+        - ReadWriteOnce
+      size: 1Gi
+
+configmaps:
+  - name: '{{ include "base.fullname" . }}-env'
+    data:
+      ENVVAR1: Hello world!
+
+secrets:
+  - name: '{{ include "base.fullname" . }}-secret'
+    data:
+      SECRET1: Secret1
+
+env:
+  fieldRef:
+    - name: HOST_IP
+      fieldPath: status.hostIP
+  configMapKeyRef:
+    - name: ENVVAR1
+      configMap: '{{ include "base.fullname" . }}-env'
+  secretKeyRef:
+    - name: SECRET1
+      secret: '{{ include "base.fullname" . }}-secret'
+
+persistence:
+  storageClass: ""
+
+services:
+  - name: http
+    ports:
+      - port: 80
+  - name: prometheus
+    ports:
+      - port: 3000
+
+prometheus: false
+
+# Pod-level
+serviceAccount:
+  create: true
+  annotations: {}
+# If not set and create is true, a name is generated using the fullname template
+#  name: ""
+
+annotations: {}
+securityContext: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

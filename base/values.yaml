@@ -1,97 +1,102 @@
-# Default values for base.
+## Default values for base.
 replicaCount: 1
-
 kind: StatefulSet #Deployment
-
-image:
-  repository: alpine
-  pullPolicy: IfNotPresent
-  tag: "3.14"
-  #command: ["tail", "-f", "/dev/null"]
-  #args: []
-
-initContainers: []
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-configmap:
-  - name: '{{ include "base.fullname" . }}-env'
-    data: {}
-    envFrom: false
-    env:
-      keys: []
-  - name: '{{ include "base.fullname" . }}-files'
-    data: {}
-    env:
-      keys: []
-    envFrom: false
+initContainers:
+  []
+  #- image:
+  #    repository: alpine
+  #    pullPolicy: IfNotPresent
+  #    tag: "3.14"
+  #    command: ["sh"]
+  #    args: ["-c", "cat", "$(ENVVAR1)"]
 
-secret:
-  - name: '{{ include "base.fullname" . }}-secret'
-    data: {}
-    env:
-      keys: []
-    envFrom: false
+containers:
+  []
+  #- image:
+  #    repository: alpine
+  #    pullPolicy: IfNotPresent
+  #    tag: "3.14"
+  #    command: ["tail"]
+  #    args: ["-f", "/dev/null"]
+  #  ports:
+  #    - name: http
+  #      containerPort: 80
+  #  volumeMounts:
+  #    - name: env
+  #      mountPath: /mnt/env
+  #    - name: secret
+  #      mountPath: /mnt/env
+  #    - name: data
+  #      mountPath: /mnt/env
 
-envFromFieldRef:
-  - name: POD_NAME
-    fieldPath: metadata.name
-  - name: POD_NAMESPACE
-    fieldPath: metadata.namespace
-  - name: POD_IP
-    fieldPath: status.podIP
-  - name: NODE_NAME
-    fieldPath: spec.nodeName
-  - name: HOST_IP
-    fieldPath: status.hostIP
+volumes:
+  []
+  #- name: env
+  #  configMap:
+  #    name: '{{ include "base.fullname" . }}-env'
+  #- name: secret
+  #  mountPath: /mnt/secret
+  #  secret:
+  #    name: '{{ include "base.fullname" . }}-secret'
+  #- name: data
+  #  mountPath: /mnt/data
+  #  persistence:
+  #    accessModes:
+  #      - ReadWriteOnce
+  #    size: 1Gi
 
-container:
-  ports:
-    - name: http
-      containerPort: 80
-  volumes:
-    - name: files
-      mountPath: /mnt/files
-      configMap:
-        enabled: false
-        name: '{{ include "base.fullname" . }}-files'
-    - name: secret
-      mountPath: /mnt/secret
-      secret:
-        enabled: false
-        name: '{{ include "base.fullname" . }}-secret'
-    - name: data
-      mountPath: /mnt/data
-      persistence:
-        enabled: false
-        annotations: {}
-        accessModes:
-          - ReadWriteOnce
-        size: 1Gi
+configmaps:
+  []
+  #- name: '{{ include "base.fullname" . }}-env'
+  #  data:
+  #    ENVVAR1: Hello world!
+
+secrets:
+  []
+  #- name: '{{ include "base.fullname" . }}-secret'
+  #  data:
+  #    SECRET1: Secret1
+
+env:
+  {}
+  #fieldRef:
+  #  - name: HOST_IP
+  #    fieldPath: status.hostIP
+  #configMapKeyRef:
+  #  - name: ENVVAR1
+  #    configMap: '{{ include "base.fullname" . }}-env'
+  #secretKeyRef:
+  #  - name: SECRET1
+  #    secret: '{{ include "base.fullname" . }}-secret'
 
 persistence:
   storageClass: ""
 
-service:
-  - name: http
-    port: 80
-  #prometheus:
-  #  type: ClusterIP
-  #  port: 3000
+services:
+  []
+  #- name: http
+  #  ports:
+  #    - port: 80
+  #- name: prometheus
+  #  ports:
+  #    - port: 3000
 
 prometheus: false
 
+# Pod-level
 serviceAccount:
-  create: true
+  create: false
   annotations: {}
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
+# If not set and create is true, a name is generated using the fullname template
+#  name: ""
 
 annotations: {}
 securityContext: {}
-resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
