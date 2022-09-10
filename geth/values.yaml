@@ -160,9 +160,9 @@ base:
       type: NodePort
       ports:
         - name: listener
-          port: 30002
+          port: 30001
         - name: discovery
-          port: 30002
+          port: 30001
           protocol: UDP
   nodeSelector: {}
   tolerations: []
