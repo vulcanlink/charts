@@ -1,0 +1,26 @@
+{{- range $idx, $value := .Values.services }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "base.fullname" $ }}-{{ $value.name }}"
+  labels:
+    {{- include "base.labels" $ | nindent 4 }}
+spec:
+  type: {{ $value.type | default "ClusterIP" }}
+  ports:
+    {{- range $i, $v := $value.ports }}
+    - port: {{ $v.port }}
+      targetPort: {{ $v.targetPort | default $v.port }}
+      protocol: {{ $v.protocol | default "TCP" }}
+      {{- if $v.name }}
+      name: {{ $v.name }}
+      {{- end }}
+      {{- if eq "NodePort" ($value.type | default "ClusterIP") }}
+      nodePort: {{ $v.nodePort | default $v.port }}
+      {{- end }}
+    {{- end }}
+  selector:
+    {{- include "base.selectorLabels" $ | nindent 4 }}
+
+---
+{{ end }}

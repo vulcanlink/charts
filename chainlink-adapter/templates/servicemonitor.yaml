@@ -1,0 +1,23 @@
+{{ if .Values.prometheus }}
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "chainlink-adapter.fullname" . }}-metrics
+spec:
+  endpoints:
+  - interval: 5s
+    path: /metrics
+    port: prometheus
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      targetLabel: __name__
+      replacement: chainlink_adapter_$1
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace}}
+  selector:
+    matchLabels:
+      {{- include "chainlink-adapter.selectorLabels" . | nindent 6 }}
+
+{{ end }}

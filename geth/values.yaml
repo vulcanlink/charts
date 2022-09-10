@@ -1,0 +1,168 @@
+nameOverride: geth
+
+base:
+  replicaCount: 1
+  nameOverride: geth
+  persistence:
+    storageClass: openebs-zfspv #ZFS Storage class
+  prometheus:
+    serviceMonitor:
+      enabled: false
+      path: /debug/metrics/prometheus
+      prefix: geth_
+  containers:
+    - image:
+        repository: ethereum/client-go
+        pullPolicy: IfNotPresent
+        tag: "v1.10.23"
+        #command: [tail]
+        #args: [-f, /dev/null]
+        command: ["geth"]
+        args: [
+            "--config",
+            "/root/files/config.toml",
+            "--nat=extip:$(HOST_IP)",
+            "--metrics",
+            "--metrics.addr=0.0.0.0",
+            "--ipcdisable",
+            "--cache=$(CACHE_MEMORY)",
+            #"--metrics.influxdb",
+            #'--metrics.influxdb.endpoint=$(INFLUXDB_ENDPOINT)',
+            #'--metrics.influxdb.username=$(INFLUXDB_USERNAME)',
+            #'--metrics.influxdb.password=$(INFLUXDB_PASSWORD)',
+            #'--metrics.influxdb.database=$(INFLUXDB_DATABASE)',
+            #'--metrics.influxdb.tags=host=$(POD_NAME)',
+            #'--txpool.accountslots=$(ACCOUNT_SLOTS)',
+            #'--txpool.locals=$(ACCOUNTS)',
+            #'--txpool.globalslots=$(GLOBAL_SLOTS)',
+            "--http.corsdomain=*",
+          ]
+        env:
+          - name: HOST_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+          - name: ACCOUNTS
+            value: ""
+          - name: ACCOUNT_SLOTS
+            value: "256"
+          - name: GLOBAL_SLOTS
+            value: "100000"
+          - name: CACHE_MEMORY
+            value: "16000" #MB
+          - name: INFLUXDB_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: "geth-influxdb"
+                key: INFLUXDB_ENDPOINT
+          - name: INFLUXDB_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: "geth-influxdb"
+                key: INFLUXDB_ENDPOINT
+          - name: INFLUXDB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: "geth-influxdb"
+                key: INFLUXDB_USERNAME
+          - name: INFLUXDB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "geth-influxdb"
+                key: INFLUXDB_PASSWORD
+          - name: INFLUXDB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: "geth-influxdb"
+                key: INFLUXDB_DATABASE
+      ports:
+        - name: http
+          containerPort: 8545
+        - name: ws
+          containerPort: 8546
+        - name: prometheus
+          containerPort: 6060
+        - name: listener
+          containerPort: 30001
+        - name: discovery
+          containerPort: 30001
+      volumeMounts:
+        - name: files
+          mountPath: /root/files
+        - name: data
+          mountPath: /root/.ethereum
+        - name: chaindata
+          mountPath: /root/.ethereum/geth/chaindata
+        - name: keystore
+          mountPath: /root/.ethereum/keystore
+      resources:
+        requests:
+          memory: 16Gi
+          cpu: "4"
+  volumes:
+    - name: files
+      configMap:
+        name: "geth-files"
+    - name: data
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        size: 50G
+    - name: chaindata
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        size: 700G
+    - name: keystore
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        size: 1G
+  configmaps:
+    - name: "geth-files"
+      data:
+        config.toml: |
+
+          [Eth]
+          NetworkId = 1
+          [Node]
+          HTTPHost = "0.0.0.0"
+          HTTPPort = 8545
+          HTTPVirtualHosts = ["*"]
+          HTTPModules = ["net", "web3", "eth", "txpool"]
+          WSHost = "0.0.0.0"
+          WSPort = 8546
+          WSOrigins = ["*"]
+          WSModules = ["net", "web3", "eth", "txpool"]
+          [Node.P2P]
+          MaxPeers = 200
+          ListenAddr = ":30001"
+        genesis: ""
+  secrets:
+    - name: "geth-influxdb"
+      data:
+        INFLUXDB_ENDPOINT: http://influxdb.default:8086
+        INFLUXDB_USERNAME: admin
+        INFLUXDB_PASSWORD: ""
+        INFLUXDB_DATABASE: geth
+  services:
+    - name: rpc
+      ports:
+        - name: http
+          port: 8545
+        - name: ws
+          port: 8546
+    - name: prometheus
+      ports:
+        - name: prometheus
+          port: 6060
+    - name: p2p
+      type: NodePort
+      ports:
+        - name: listener
+          port: 30002
+        - name: discovery
+          port: 30002
+          protocol: UDP
+  nodeSelector: {}
+  tolerations: []

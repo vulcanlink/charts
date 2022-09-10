@@ -1,0 +1,23 @@
+apiVersion: v2
+name: ipfs
+description: Deploy IPFS and IPFS Cluster
+type: application
+version: 1.0.0
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+keywords:
+  - ipfs
+  - helm
+  - Kubernetes
+
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/charts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: 1.0.0
+dependencies:
+  - name: base
+    repository: file://../base
+    version: 1.x.x

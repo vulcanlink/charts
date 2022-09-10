@@ -1,0 +1,155 @@
+nameOverride: "ipfs"
+#https://github.com/monaparty/helm-ipfs-cluster/blob/main/templates/cluster.statefulset.yaml
+
+istio:
+  enabled: true
+  api:
+    hosts:
+      - ipfs-api.istio.vulcan.link
+    gateways:
+      - istio-ingress/gateway
+    destination:
+      host: ipfs-rpc.blockchain.svc.cluster.local
+      port: 5001
+  gateway:
+    hosts:
+      - ipfs-gateway.istio.vulcan.link
+    gateways:
+      - istio-ingress/gateway
+    destination:
+      host: ipfs-gateway.blockchain.svc.cluster.local
+      port: 8080
+
+base:
+  nameOverride: "ipfs"
+  #initContainers:
+  #  # Copy config file
+  #  - image:
+  #      repository: busybox
+  #      pullPolicy: IfNotPresent
+  #      tag: "1.35"
+  #      command: ["sh"]
+  #      args: ["-c", "cp /root/files/config /data/ipfs/config;"]
+  #    volumeMounts:
+  #      - name: files
+  #        mountPath: /root/files
+  #      - name: ipfs
+  #        mountPath: /data/ipfs
+  containers:
+    - image:
+        repository: ipfs/go-ipfs
+        tag: "v0.12.2"
+        pullPolicy: IfNotPresent
+        command: ["sh"]
+        args: [
+            "-c",
+            "export IPFS_LOGGING=debug;
+            ipfs daemon --migrate=true --agent-version-suffix=docker;
+            ",
+          ]
+      ports:
+        - name: p2p
+          containerPort: 4001
+
+        - name: rpc
+          containerPort: 5001
+        - name: gateway
+          containerPort: 8080
+      volumeMounts:
+        - name: ipfs
+          mountPath: /data/ipfs
+      resources: {}
+    #- image:
+    #    repository: ipfs/ipfs-cluster
+    #    tag: "v1.0.1"
+    #    pullPolicy: IfNotPresent
+    #  ports:
+    #    - name: cluster-pinning
+    #      containerPort: 9097
+    #    - name: cluster-p2p
+    #      containerPort: 9096
+    #    - name: cluster-rpc
+    #      containerPort: 9095
+    #    - name: cluster-api
+    #      containerPort: 9094
+    #    - name: prometheus
+    #      containerPort: 8888
+    #  volumeMounts:
+    #    - name: ipfs-cluster
+    #      mountPath: /root/.ipfs-cluster
+  volumes:
+    - name: files
+      configMap:
+        name: '{{ include "base.fullname" . }}-files'
+    - name: ipfs
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        size: 1Gi
+    #- name: ipfs-cluster
+    #  persistence:
+    #    accessModes:
+    #      - ReadWriteOnce
+    #    size: 1Gi
+  configmaps:
+    - name: '{{ include "base.fullname" . }}-env'
+      data:
+        IPFS_LOGGING: debug
+    - name: '{{ include "base.fullname" . }}-files'
+      data:
+        config: |
+          {
+            "API": {
+                "HTTPHeaders": {
+                    "Access-Control-Allow-Methods": [
+                        "GET",
+                        "POST",
+                        "PUT"
+                    ],
+                    "Access-Control-Allow-Origin": [
+                        "*"
+                    ]
+                }
+            },
+            "Gateway": {
+                "HTTPHeaders": {
+                    "Access-Control-Allow-Methods": [
+                        "GET",
+                        "POST",
+                        "PUT"
+                    ],
+                    "Access-Control-Allow-Origin": [
+                        "*"
+                    ]
+                },
+                "Writable": true
+            },
+            "Migration": {
+              "DownloadSources": [],
+              "Keep": ""
+            }
+          }
+  env:
+    fieldRef: []
+    configMapKeyRef:
+      - name: IPFS_LOGGING
+        configMap: '{{ include "base.fullname" . }}-env'
+    secretKeyRef: []
+  secrets: []
+  services:
+    - name: p2p
+      type: NodePort
+      ports:
+        - name: p2p
+          port: 30401
+    - name: rpc
+      ports:
+        - name: rpc
+          port: 5001
+    - name: gateway
+      ports:
+        - name: gateway
+          port: 8080
+  nodeSelector:
+    {}
+    #node/1: node

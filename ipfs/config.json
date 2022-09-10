@@ -1,0 +1,27 @@
+{
+    "API": {
+        "HTTPHeaders": {
+            "Access-Control-Allow-Methods": [
+                "GET",
+                "POST",
+                "PUT"
+            ],
+            "Access-Control-Allow-Origin": [
+                "*"
+            ]
+        }
+    },
+    "Gateway": {
+        "HTTPHeaders": {
+            "Access-Control-Allow-Methods": [
+                "GET",
+                "POST",
+                "PUT"
+            ],
+            "Access-Control-Allow-Origin": [
+                "*"
+            ]
+        },
+        "Writable": true
+    }
+}

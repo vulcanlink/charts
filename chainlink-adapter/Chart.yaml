@@ -1,0 +1,19 @@
+apiVersion: v2
+name: chainlink-adapter
+description: A Helm chart for Chainlink Adapters
+type: application
+version: 0.1.1
+icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+keywords:
+  - chainlink
+  - external-adapter
+  - ethereum
+
+home: https://chain.link
+sources:
+  - https://github.com/smartcontractkit/external-adapters-js
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: "latest"

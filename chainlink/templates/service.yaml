@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "chainlink.fullname" . }}
+  labels:
+    {{- include "chainlink.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.http }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "chainlink.selectorLabels" . | nindent 4 }}
+
+---
+
+{{- if (eq "NodePort" .Values.serviceP2P.type) -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "chainlink.fullname" . }}-p2p
+  labels:
+    {{- include "chainlink.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.serviceP2P.type }}
+  ports:
+    - port: {{ .Values.serviceP2P.listener }}
+      targetPort: listener
+      protocol: TCP
+      name: listener
+      nodePort: {{ .Values.serviceP2P.listener }}
+  selector:
+    {{- include "chainlink.selectorLabels" . | nindent 4 }}
+{{- end -}}

@@ -1,0 +1,121 @@
+## Default values for base.
+replicaCount: 1
+kind: StatefulSet #Deployment
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Shared container variables (merged)
+shared:
+  image:
+  ports:
+    - name: prometheus
+      containerPort: 80
+  env:
+    - name: CONFIGMAP_0
+      valueFrom:
+        configMapKeyRef:
+          name: configmap-0
+          key: CONFIGMAP_0
+    - name: SECRET_0
+      valueFrom:
+        secretKeyRef:
+          name: secret-0
+          key: SECRET_0
+
+initContainers:
+  - image:
+      repository: alpine
+      pullPolicy: IfNotPresent
+      tag: "3.14"
+      command: ["sh"]
+      args: ["-c", "cat", "$(ENVVAR1)"]
+
+containers:
+  - image:
+      repository: alpine
+      pullPolicy: IfNotPresent
+      tag: "3.14"
+      command: ["tail"]
+      args: ["-f", "/dev/null"]
+    ports:
+      - name: http
+        containerPort: 80
+    volumeMounts:
+      - name: env
+        mountPath: /mnt/env
+      - name: secret
+        mountPath: /mnt/secret
+      - name: data
+        mountPath: /mnt/data
+    env:
+      - name: HOST_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
+      - name: ENVVAR1
+        value: VALUE1
+
+volumes:
+  - name: configmap-vol
+    configMap:
+      name: configmap-0
+  - name: secret-vol
+    secret:
+      name: secret-0
+  - name: data-vol
+    persistence:
+      accessModes:
+        - ReadWriteOnce
+      size: 1Gi
+
+configmaps:
+  - name: configmap-0
+    data:
+      CONFIGMAP_0: CONFIGMAP_0
+
+secrets:
+  - name: secret-0
+    data:
+      SECRET_0: SECRET_0
+
+persistence:
+  storageClass: ""
+
+services:
+  - name: http
+    ports:
+      - port: 80
+  - name: prometheus
+    ports:
+      - port: 3000
+
+prometheus:
+  serviceMonitor:
+    enabled: true
+
+# Pod-level
+serviceAccount:
+  create: true
+  annotations: {}
+# If not set and create is true, a name is generated using the fullname template
+#  name: ""
+
+annotations: {}
+securityContext: {}
+nodeSelector:
+  base: "node"
+tolerations:
+  - key: "base"
+    operator: "Exists"
+    effect: "NoSchedule"
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: base
+              operator: In
+              values:
+                - "node"

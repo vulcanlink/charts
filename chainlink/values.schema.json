@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "object",
+      "title": "Chainlink Node Details",
+      "form": true,
+      "properties": {
+        "API_EMAIL": {
+          "type": "string",
+          "title": "Login Email",
+          "form": true
+        },
+        "API_PASSWORD": {
+          "type": "string",
+          "title": "Login Password",
+          "form": true
+        },
+        "WALLET_PASSWORD": {
+          "type": "string",
+          "title": "Wallet Password",
+          "form": true
+        },
+        "DATABASE_URL": {
+          "type": "string",
+          "title": "Postgres database uri",
+          "form": true
+        },
+        "DATABASE_TIMEOUT": {
+          "type": "string",
+          "title": "Database timeout tolerance",
+          "form": true
+        },
+        "LINK_CONTRACT_ADDRESS": {
+          "type": "string",
+          "title": "Link Token Contract Address",
+          "form": true
+        },
+        "ETH_URL": {
+          "type": "string",
+          "title": "Ethereum Node URL",
+          "form": true
+        },
+        "LOG_LEVEL": {
+          "type": "string",
+          "title": "Chainlink node log level.",
+          "form": true
+        },
+        "ETH_CHAIN_ID": {
+          "type": "string",
+          "title": "Ethereum chain ID",
+          "form": true
+        },
+        "MIN_OUTGOING_CONFIRMATIONS": {
+          "type": "string",
+          "title": "Min Outgoing Transactions",
+          "form": true
+        },
+        "EXPLORER_URL": {
+          "type": "string",
+          "title": "Chainlink explorer url (wss://explorer.chain.link)",
+          "form": true
+        },
+        "EXPLORER_ACCESS_KEY": {
+          "type": "string",
+          "title": "Chainlink explorer access key",
+          "form": true
+        },
+        "EXPLORER_SECRET": {
+          "type": "string",
+          "title": "Chainlink explorer secret",
+          "form": true
+        },
+        "ORACLE_CONTRACT_ADDRESS": {
+          "type": "string",
+          "title": "Explorer Oracle Contract Address",
+          "description": "Default oracle contract address for Chainlink explorer. The Chainlink node can respond to requests from multiple oracle contracts but this will be the main oracle contract reported to the Chainlink Explorer.",
+          "form": true
+        },
+        "GAS_UPDATER_ENABLED": {
+          "type": "string",
+          "title": "Enable built-in gas updater",
+          "form": true
+        },
+        "FEATURE_FLUX_MONITOR": {
+          "type": "string",
+          "title": "Enable flux monitor",
+          "form": true
+        },
+        "FEATURE_EXTERNAL_INITIATORS": {
+          "type": "string",
+          "title": "Enable external initiators",
+          "form": true
+        },
+        "JSON_CONSOLE": {
+          "type": "string",
+          "title": "Set logger to JSON format",
+          "form": true
+        },
+        "ENABLE_BULLETPROOF_TX_MANAGER": {
+          "type": "string",
+          "title": "Enable Bulletproof Transaction Manager",
+          "form": true
+        },
+        "ETH_MAX_GAS_PRICE_WEI": {
+          "type": "string",
+          "title": "Max Gas Price in Wei",
+          "form": true
+        }
+      }
+    }
+  }
+}

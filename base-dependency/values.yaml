@@ -1,0 +1,89 @@
+nameOverride: "base-dependency"
+
+base:
+  nameOverride: "base-dependency"
+  initContainers:
+    []
+    #- image:
+    #    repository: alpine
+    #    tag: "3.14.0"
+    #    pullPolicy: IfNotPresent
+    #    command: ["sh"]
+    #    args:
+    #      [
+    #        "-c",
+    #        "date >> /mnt/data/date.txt; hostname >> /mnt/data/hostname.txt;",
+    #      ]
+  containers:
+    - image:
+        repository: alpine
+        tag: "3.14.0"
+        pullPolicy: IfNotPresent
+        command: ["sh"]
+        args: ["-c", "tail -f /dev/null"]
+      ports:
+        []
+        #- name: http
+        #  containerPort: 8080
+      volumeMounts:
+        []
+        #- name: files
+        #  mountPath: /root/files
+      resources:
+        {}
+        #limits:
+        #  cpu: 4000m
+        #  memory: 16Gi
+        #requests:
+        #  cpu: 4000m
+        #  memory: 16Gi
+  volumes:
+    []
+    #- name: files
+    #  configMap:
+    #    name: '{{ include "base.fullname" . }}-files'
+    #- name: data
+    #  persistence:
+    #    accessModes:
+    #      - ReadWriteOnce
+    #    size: 1Ti
+  configmaps:
+    []
+    #- name: '{{ include "base.fullname" . }}-env'
+    #  data:
+    #    ENV1: ""
+    #- name: '{{ include "base.fullname" . }}-files'
+    #  data:
+    #    config.toml: |
+    #
+    #      [Config]
+  env:
+    fieldRef:
+      []
+      #- name: HOST_IP
+      #  fieldPath: status.hostIP
+    configMapKeyRef:
+      []
+      #- name: ACCOUNTS
+      #  configMap: '{{ include "base.fullname" . }}-env'
+    secretKeyRef:
+      []
+      #- name: INFLUXDB_ENDPOINT
+      #  secret: '{{ include "base.fullname" . }}-secret'
+  secrets:
+    []
+    #- name: '{{ include "base.fullname" . }}-secret'
+    #  data:
+    #    SECRET1: secret1
+  services:
+    []
+    #- name: rpc
+    #  ports:
+    #    - name: http
+    #      port: 8080
+    #- name: prometheus
+    #  ports:
+    #    - port: 6060
+  nodeSelector:
+    {}
+    #node/1: node

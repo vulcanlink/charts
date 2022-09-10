@@ -1,0 +1,19 @@
+apiVersion: v2
+name: chainlink
+description: A Helm chart for Chainlink
+type: application
+version: 0.2.10
+icon: https://vulcanlink.github.io/charts/assets/img/chainlink.svg
+keywords:
+  - chainlink
+  - ethereum
+  - oracle
+
+home: https://chain.link
+sources:
+  - https://github.com/smartcontractkit/chainlink
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: 0.10.9

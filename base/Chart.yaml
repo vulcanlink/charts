@@ -1,0 +1,18 @@
+apiVersion: v2
+name: base
+description: A starter Helm chart for Kubernetes
+type: application
+version: 1.0.0
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+keywords:
+  - helm
+  - Kubernetes
+
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/charts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: "3.14"

@@ -1,0 +1,58 @@
+# Default values for chainlink-adapter.
+replicaCount: 1
+
+image:
+  repository: "public.ecr.aws/chainlink-staging/adapters/1forge-adapter"
+  pullPolicy: IfNotPresent
+  tag: ""
+  # command: ["start"]
+  # args: ["-v"]
+
+config:
+  # API_KEY: "YOUR_API_KEY"
+  # CACHE_ENABLED: "true"
+  # CACHE_MAX_AGE: "60000"
+  # CACHE_TYPE: "local"
+  # EXPERIMENTAL_METRICS_ENABLED: "true"
+  METRICS_ENABLED: "true"
+  METRICS_PORT: "9080"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+container:
+  ports:
+    http: 8080
+    prometheus: 9080
+
+service:
+  http:
+    type: ClusterIP
+    port: 80
+  prometheus:
+    type: ClusterIP
+    port: 3000
+
+prometheus: false
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+securityContext: {}
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+extraPorts: []

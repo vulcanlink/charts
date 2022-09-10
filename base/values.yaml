@@ -1,0 +1,43 @@
+## Default values for base.
+## See values-example.yaml for example values
+replicaCount: 1
+kind: StatefulSet #Deployment
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Shared container variables (merged)
+shared: {}
+
+initContainers: []
+
+containers: []
+
+volumes: []
+
+configmaps: []
+
+secrets: []
+
+persistence:
+  storageClass: ""
+
+services: []
+
+prometheus:
+  serviceMonitor:
+    enabled: true
+
+# Pod-level
+serviceAccount:
+  create: true
+  annotations: {}
+# If not set and create is true, a name is generated using the fullname template
+#  name: ""
+
+annotations: {}
+securityContext: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

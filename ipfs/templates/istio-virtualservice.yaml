@@ -1,0 +1,43 @@
+{{ if .Values.istio.enabled }}
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: "{{ include "base.fullname" $ }}-api"
+spec:
+  hosts:
+    {{- toYaml .Values.istio.api.hosts | nindent 4 }}
+  gateways:
+    {{- toYaml .Values.istio.api.gateways | nindent 4 }}
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host:  {{ .Values.istio.api.destination.host }}
+            port:
+              number: {{ .Values.istio.api.destination.port }}
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: "{{ include "base.fullname" $ }}-gateway"
+spec:
+  hosts:
+    {{- toYaml .Values.istio.gateway.hosts | nindent 4 }}
+  gateways:
+    {{- toYaml .Values.istio.gateway.gateways | nindent 4 }}
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host:  {{ .Values.istio.gateway.destination.host }}
+            port:
+              number: {{ .Values.istio.gateway.destination.port }}
+
+{{ end }}
