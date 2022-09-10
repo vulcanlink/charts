@@ -1,0 +1,68 @@
+base:
+  ## Default values for base.
+  replicaCount: 3
+  kind: StatefulSet #Deployment
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  # Shared container variables (merged)
+  shared:
+    env:
+      - name: DB_HOST
+        value: "postgresql.postgresql.svc.cluster.local"
+      - name: DB_PORT
+        value: "5432"
+      - name: DB_USERNAME
+        value: "postgres"
+      - name: DB_PASSWORD
+        value: ""
+      - name: DB_DATABASE
+        value: "network_1"
+      - name: ETH_URL
+        value: "ws://ethereum.ethereum.svc.cluster.local:8546"
+      - name: IPFS_URL
+        value: "ipfs.ipfs.svc.cluster.local"
+      - name: KAFKA_URL
+        value: "kafka.kafka.svc.cluster.local:9092"
+
+  initContainers: []
+
+  containers:
+    - image:
+        repository: vulcanlink/eth-sql-ingestion
+        tag: "0.0.15"
+        pullPolicy: Always
+        command: ["tail"]
+        args: ["-f", "/dev/null"]
+        #command: ["main"]
+        #args: ["block"]
+
+  volumes: []
+
+  configmaps: []
+
+  secrets: []
+
+  persistence:
+    storageClass: ""
+
+  services: []
+
+  prometheus:
+    serviceMonitor:
+      enabled: true
+
+  # Pod-level
+  serviceAccount:
+    create: true
+    annotations: {}
+  # If not set and create is true, a name is generated using the fullname template
+  #  name: ""
+
+  annotations: {}
+  securityContext: {}
+  nodeSelector: []
+  tolerations: []
+  affinity: []

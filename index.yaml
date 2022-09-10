@@ -3,7 +3,7 @@ entries:
   base:
   - apiVersion: v2
     appVersion: "3.14"
-    created: "2022-09-10T16:05:45.804066092+04:00"
+    created: "2022-09-10T16:21:42.439396634+04:00"
     description: A starter Helm chart for Kubernetes
     digest: 39e8aa932dcb0707114e08772a670fa7f355caf26551e09b804a4b37a093555f
     home: https://vulcan.link
@@ -24,7 +24,7 @@ entries:
   base-dependency:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-09-10T16:05:45.80503088+04:00"
+    created: "2022-09-10T16:21:42.440856936+04:00"
     dependencies:
     - name: base
       repository: file://../base
@@ -50,7 +50,7 @@ entries:
   cluster-api-provider-hetzner:
   - apiVersion: v1
     appVersion: v0.1.0
-    created: "2022-09-10T16:05:45.805640593+04:00"
+    created: "2022-09-10T16:21:42.441879733+04:00"
     description: A Helm chart for cluster-api-provider Hetzner
     digest: b7d9eae3c9342a4266843bdfe36ab2a4bdb0863a2d6adfd3ee448c96d5c99c90
     home: https://github.com/syself/cluster-api-provider-hetzner
@@ -63,7 +63,7 @@ entries:
   geth:
   - apiVersion: v2
     appVersion: 1.10.23
-    created: "2022-09-10T16:05:45.806893428+04:00"
+    created: "2022-09-10T16:21:42.443997726+04:00"
     dependencies:
     - name: base
       repository: file://../base
@@ -87,4 +87,30 @@ entries:
     urls:
     - geth-1.10.23.tgz
     version: 1.10.23
-generated: "2022-09-10T16:05:45.803150846+04:00"
+  web3-indexer:
+  - apiVersion: v2
+    appVersion: 0.0.15
+    created: "2022-09-10T16:21:42.444903663+04:00"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: 1.x.x
+    description: Example chart using the vulcanlink base library
+    digest: 8bc094a09db6ed40dd4525f4b43bc7a7ae0cf3227582874ea0f6939920f073c9
+    home: https://vulcan.link
+    icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+    keywords:
+    - web3-indexer
+    - helm
+    - Kubernetes
+    maintainers:
+    - email: leo@vulcan.link
+      name: Leo Vigna
+    name: web3-indexer
+    sources:
+    - https://github.com/vulcanlink/charts
+    type: application
+    urls:
+    - web3-indexer-0.0.15.tgz
+    version: 0.0.15
+generated: "2022-09-10T16:21:42.438388355+04:00"

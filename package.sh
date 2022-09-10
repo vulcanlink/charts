@@ -16,6 +16,9 @@ helm package matic-heimdall
 # Cluster API
 helm package cluster-api-hetzner
 
+# Vulcan
+helm package vulcan-web3-indexer
+
 # helm repo index
 helm repo index . 
 git add .
