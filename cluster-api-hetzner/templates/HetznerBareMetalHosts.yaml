@@ -1,0 +1,16 @@
+{{- range $idx, $value := .Values.HetznerBareMetalHosts }}
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: HetznerBareMetalHost
+metadata:
+  name: {{ $value.name }}
+  labels: 
+    {{ toYaml $value.labels | nindent 4 }}
+spec:
+  serverID: {{ $value.serverID }}
+  rootDeviceHints:
+    wwn: {{ $value.rootDeviceHints.wwn }}
+  maintenanceMode: {{ $value.maintenanceMode }}
+  description: {{ $value.description }}
+
+{{- end }}

@@ -1,0 +1,51 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name:  {{ .Values.Cluster.name }}
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+        - 10.244.0.0/16
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+    kind: KubeadmControlPlane
+    name:  {{ .Values.KubeadmControlPlane.name }}
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: HetznerCluster
+    name:  {{ .Values.Cluster.name }}
+
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: HetznerCluster
+metadata:
+  name: {{ .Values.Cluster.name }}
+  namespace: default
+spec:
+  controlPlaneEndpoint:
+    host: ""
+    port: 443
+  controlPlaneLoadBalancer:
+    region: fsn1
+  controlPlaneRegions:
+    - fsn1
+  hcloudNetwork:
+    enabled: false
+  hcloudPlacementGroups:
+    {{- toYaml .Values.HetznerCluster.hcloudPlacementGroups | nindent 4 }}
+  hetznerSecretRef:
+    key:
+      hcloudToken: hcloud
+      hetznerRobotPassword: robot-password
+      hetznerRobotUser: robot-user
+    name: {{ .Values.Cluster.name }}-hetzner
+  sshKeys:
+    hcloud:
+      - name: {{ .Values.secret.hcloudSSHKeyName }}
+    robotRescueSecretRef:
+      key:
+        name: sshkey-name
+        privateKey: ssh-privatekey
+        publicKey: ssh-publickey
+      name: {{ .Values.Cluster.name }}-robot-ssh

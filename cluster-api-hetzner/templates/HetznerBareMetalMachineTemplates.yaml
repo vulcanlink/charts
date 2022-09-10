@@ -1,0 +1,31 @@
+{{- range $idx, $value := .Values.HetznerBareMetalMachineTemplates }}
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: HetznerBareMetalMachineTemplate
+metadata:
+  name: {{ $value.name }}
+  labels: 
+    {{ toYaml $value.labels | nindent 4 }}
+spec:
+  template:
+    spec:
+      hostSelector:
+        matchLabels:
+          {{ toYaml $value.matchLabels | nindent 10 }}
+      installImage:
+        image:
+          path: /root/.oldroot/nfs/install/../images/Ubuntu-2004-focal-64-minimal-hwe.tar.gz
+        partitions:
+          {{ toYaml $value.partitions | nindent 10 }}
+        postInstallScript: |
+          {{ $value.postInstallScript | nindent 10 }}
+      sshSpec:
+        portAfterCloudInit: 22
+        portAfterInstallImage: 22
+        secretRef:
+          key:
+            name: sshkey-name
+            privateKey: ssh-privatekey
+            publicKey: ssh-publickey
+          name: {{ $.Values.Cluster.name }}-robot-ssh
+{{- end }}

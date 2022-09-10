@@ -1,0 +1,8 @@
+apiVersion: v1
+appVersion: "v0.1.0"
+description: A Helm chart for cluster-api-provider Hetzner
+home: https://github.com/syself/cluster-api-provider-hetzner
+name: cluster-api-provider-hetzner
+version: 0.1.0
+maintainers:
+  - name: leovigna

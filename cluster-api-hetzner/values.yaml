@@ -1,0 +1,121 @@
+secret:
+  # HCloud
+  hcloud: ""
+  hcloudSSHKeyName: ""
+  # Robot
+  robotUser: ""
+  robotPassword: ""
+  robotSSHKeyName: ""
+  robotSSHPublicKey: ""
+  robotSSHPrivateKey: ""
+
+Cluster:
+  name: dev
+
+HetznerCluster:
+  hcloudPlacementGroups: []
+
+KubeadmConfigTemplate:
+  name: dev-kubeadm-config
+
+KubeadmControlPlane:
+  name: dev-control-plane
+  replicas: 3
+  infrastructureRef:
+    kind: HCloudMachineTemplate
+    name: dev-control-plane
+  nodeStartupTimeout: 20m
+
+MachineDeployments:
+  - name: dev-cpx31
+    replicas: 3
+    failureDomain: fsn1
+    infrastructureRef:
+      kind: HCloudMachineTemplate
+      name: dev-cpx31
+    nodeStartupTimeout: 20m
+  - name: dev-worker-ax41
+    replicas: 0
+    infrastructureRef:
+      kind: HetznerBareMetalMachineTemplate
+      name: dev-ax41
+    nodeStartupTimeout: 60m
+
+HCloudMachineTemplates:
+  - name: dev-control-plane
+    imageName: ubuntu-20.04
+    placementGroupName: dev-control-plane
+    type: cpx31
+  - name: dev-cpx31
+    imageName: ubuntu-20.04
+    placementGroupName: dev-cpx31
+    type: cpx31
+
+HetznerBareMetalMachineTemplates:
+  - name: dev-ax41
+    matchLabels:
+      size: ax41
+    partitions:
+      #/dev/nvme0n1p1
+      - fileSystem: ext4
+        mount: /boot
+        size: 1024M
+      #/dev/nvme0n1p2
+      - fileSystem: ext4
+        mount: /
+        size: 20G
+      #/dev/nvme0n1p3
+      - fileSystem: ext4
+        mount: /home
+        size: 20G
+      #/dev/nvme0n1p4
+      - fileSystem: ext4
+        mount: /all
+        size: all
+    postInstallScript: |
+      #!/bin/bash
+      # Install deps
+      apt-get update;
+      apt-get install -y cloud-init apparmor apparmor-utils pciutils iptables lsof vim aria2 zfsutils-linux parted;
+
+      # Delete /all file mount
+      umount /dev/nvme0n1p4;
+      sed -i '$ d' /etc/fstab;
+      sed -i '$ d' /etc/fstab;
+      parted /dev/nvme0n1 rm 4; 
+      parted /dev/nvme0n1 rm 5;
+      parted /dev/nvme0n1 mkpart primary 85985280s 100% -s;
+
+      # Create Partition
+      dd if=/dev/zero of=/dev/nvme1n1 bs=1M count=1;
+      parted /dev/nvme1n1 mklabel GPT -s;
+      parted /dev/nvme1n1 mkpart primary 4096s 100% -s;
+      dd if=/dev/zero of=/dev/nvme1n1p1 bs=1M count=1;
+
+      # Sysctl
+      ulimit -n 1048576;
+      echo "
+        root              soft      nproc          1048576
+        root              hard      nproc          1048576
+        root              soft      nofile         1048576
+        root              hard      nofile         1048576
+        *                 soft      nproc          1048576
+        *                 hard      nproc          1048576
+        *                 soft      nofile         1048576
+        *                 hard      nofile         1048576" > /etc/security/limits.conf;
+      echo "session required pam_limits.so" >> /etc/pam.d/common-session;
+      echo "fs.file-max = 1048576" > /etc/sysctl.conf;
+      sysctl -p;
+
+HetznerBareMetalHosts:
+  []
+  # AX41
+  #- name: dev-ax41-0
+  #  serverID:
+  #  maintenanceMode: false
+  #  description: AX41 Machine 0
+  #  rootDeviceHints:
+  #    wwn:
+  #  labels:
+  #    size: ax41
+  #    failureDomain: fsn1

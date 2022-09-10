@@ -1,0 +1,13 @@
+{{- range $idx, $value := .Values.HCloudMachineTemplates }}
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: HCloudMachineTemplate
+metadata:
+  name: {{ $value.name }}
+spec:
+  template:
+    spec:
+      imageName: {{ $value.imageName }}
+      placementGroupName: {{ $value.placementGroupName }}
+      type: {{ $value.type }}
+{{- end }}
