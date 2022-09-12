@@ -1,0 +1,12 @@
+mode: chatops
+defaultBranch: master
+branchName: short
+autoCloseIssue: true
+openPR: false
+openDraftPR: true
+copyIssueDescriptionToPR: true
+copyIssueLabelsToPR: true
+copyIssueAssigneeToPR: true
+copyIssueMilestoneToPR: true
+copyIssueProjectsToPR: true
+commentMessage: "Branch ${branchName} created! Clone with:\n`git fetch && git checkout --track origin/${branchName}`\nRebase `master` branch changes with:\n`git checkout ${branchName} && git rebase master`"
