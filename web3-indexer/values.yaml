@@ -63,6 +63,6 @@ base:
 
   annotations: {}
   securityContext: {}
-  nodeSelector: []
+  nodeSelector: {}
   tolerations: []
   affinity: []
