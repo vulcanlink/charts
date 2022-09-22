@@ -1,0 +1,23 @@
+apiVersion: v2
+name: lighthouse_
+description: A Helm chart for Ethereum 2.0 Rust client Lighthouse
+type: application
+version: 3.1.0
+icon: https://vulcanlink.github.io/charts/assets/img/vulcan.svg
+keywords:
+  - lighthouse
+  - helm
+  - Kubernetes
+
+home: https://vulcan.link
+sources:
+  - https://github.com/vulcanlink/charts
+maintainers:
+  - name: Leo Vigna
+    email: leo@vulcan.link
+
+appVersion: 3.1.0
+dependencies:
+  - name: base
+    repository: file://../base
+    version: 1.x.x
