@@ -1,0 +1,91 @@
+nameOverride: "lighthouse"
+
+base:
+  replicaCount: 1
+  nameOverride: "lighthouse"
+  persistence:
+    storageClass: openebs-zfspv #ZFS Storage class
+  prometheus:
+    serviceMonitor:
+      enabled: false
+      path: /metrics
+      prefix: lighthouse_
+  containers:
+    - image:
+        repository: sigp/lighthouse
+        pullPolicy: IfNotPresent
+        tag: "v3.1.0-modern"
+        command: [tail]
+        args: [-f, /dev/null]
+        #command: ["lighthouse"]
+        #args:
+        #  [
+        #    "beacon",
+        #    "--network=mainnet",
+        #    "--execution-endpoint=http://geth-rpc.mainnet-ethereum-0.svc.cluster.local:8551",
+        #    "--execution-jwt=/root/files/jwtsecret",
+        #    "--http",
+        #    "--http-address=0.0.0.0",
+        #  ]
+      env:
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+      ports:
+        - name: http
+          containerPort: 5052
+        - name: prometheus
+          containerPort: 5064
+        - name: listener
+          containerPort: 9000
+        - name: discovery
+          containerPort: 9000
+      volumeMounts:
+        - name: files
+          mountPath: /root/files
+        - name: data
+          mountPath: /root/.lighthouse
+      resources:
+        requests:
+          memory: 16Gi
+          cpu: "4"
+
+  volumes:
+    - name: files
+      configMap:
+        name: "lighthouse-files"
+    - name: data
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        size: 256G
+
+  services:
+    - name: rpc
+      ports:
+        - name: http
+          port: 5052
+    - name: prometheus
+      ports:
+        - name: prometheus
+          port: 5064
+    - name: p2p
+      type: NodePort
+      ports:
+        - name: listener
+          port: 30900
+        - name: discovery
+          port: 30900
+          protocol: UDP
+
+  configmaps:
+    - name: "lighthouse-files"
+      data:
+        jwtsecret: ""
+
+  annotations: {}
+  securityContext: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
