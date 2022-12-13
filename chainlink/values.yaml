@@ -86,6 +86,7 @@ container:
   ports:
     http: 6688
     listener: 30668
+    listener2: 30669
 
 volumes:
   config:
@@ -98,6 +99,10 @@ service:
 serviceP2P:
   type: ClusterIP #Ignores, only created if NodePort
   listener: 30668
+
+serviceP2PV2:
+  type: ClusterIP #Ignores, only created if NodePort
+  listener2: 30669
 
 prometheus: false
 

@@ -44,6 +44,9 @@ spec:
             - name: listener
               containerPort: {{ .Values.container.ports.listener }}
               protocol: TCP
+            - name: listener2
+              containerPort: {{ .Values.container.ports.listener2 }}
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /

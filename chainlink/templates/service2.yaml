@@ -1,0 +1,18 @@
+{{- if (eq "NodePort" .Values.serviceP2PV2.type) -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "chainlink.fullname" . }}-p2pv2
+  labels:
+    {{- include "chainlink.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.serviceP2PV2.type }}
+  ports:
+    - port: {{ .Values.serviceP2PV2.listener2 }}
+      targetPort: listener2
+      protocol: TCP
+      name: listener2
+      nodePort: {{ .Values.serviceP2PV2.listener2 }}
+  selector:
+    {{- include "chainlink.selectorLabels" . | nindent 4 }}
+{{- end -}}
