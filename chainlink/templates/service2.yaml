@@ -7,6 +7,7 @@ metadata:
     {{- include "chainlink.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.serviceP2PV2.type }}
+  externalTrafficPolicy: Local
   ports:
     - port: {{ .Values.serviceP2PV2.listener2 }}
       targetPort: listener2

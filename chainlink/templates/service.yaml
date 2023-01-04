@@ -25,6 +25,7 @@ metadata:
     {{- include "chainlink.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.serviceP2P.type }}
+  externalTrafficPolicy: Local
   ports:
     - port: {{ .Values.serviceP2P.listener }}
       targetPort: listener
