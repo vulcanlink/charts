@@ -7,7 +7,7 @@ image:
   repository: smartcontract/chainlink
   pullPolicy: IfNotPresent
   command: ["chainlink", "local", "node"]
-  args: ["-a", "/etc/chainlink/api", "-p", "/etc/chainlink/password"]
+  args: ["-a", "/etc/chainlink/api", "-p", "/etc/chainlink/password", "-c", "/etc/chainlink/config.toml", "-s", "/etc/chainlink/secrets.toml"]
 config:
   # Login Info
   ROOT: /chainlink
@@ -21,7 +21,7 @@ config:
   CHAINLINK_PORT: "6688"
   CHAINLINK_TLS_PORT: "0"
   # Database
-  DATABASE_TIMEOUT: "0"
+  # DATABASE_TIMEOUT: "0"
   DATABASE_URL: postgresql://postgres@postgresql:5432/chainlink?sslmode=disable
   # Ethereum
   ETH_URL: ws://geth:8546
@@ -91,17 +91,21 @@ container:
 volumes:
   config:
     mountPath: /etc/chainlink
+  configToml:
+    mountPath: /etc/chainlink
+  secretsToml:
+    mountPath: /etc/chainlink
 
 service:
   type: ClusterIP
   http: 6688
 
 serviceP2P:
-  type: ClusterIP #Ignores, only created if NodePort
+  type: ClusterIP #Ignored, only created if NodePort
   listener: 30668
 
 serviceP2PV2:
-  type: ClusterIP #Ignores, only created if NodePort
+  type: ClusterIP #Ignored, only created if NodePort
   listener2: 30669
 
 prometheus: false
@@ -110,3 +114,6 @@ resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+configToml: ''
+secretsToml: ''

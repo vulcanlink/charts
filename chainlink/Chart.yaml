@@ -16,4 +16,8 @@ maintainers:
   - name: Leo Vigna
     email: leo@vulcan.link
 
-appVersion: 0.10.9
+appVersion: 0.11.0
+dependencies:
+  - name: base
+    repository: file://../base
+    version: 1.x.x
