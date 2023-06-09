@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name:  {{ include "chainlink.fullname" . }}-config-toml
 data:
-  value: {{- toYaml .Values.configToml }}
+  value: |
+    {{ .Values.configToml | nindent 4 }}

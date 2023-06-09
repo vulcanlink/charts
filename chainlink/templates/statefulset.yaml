@@ -70,10 +70,10 @@ spec:
           volumeMounts:
             - name: config
               mountPath: {{ .Values.volumes.config.mountPath }}
-            - name: configToml
-              mountPath: {{ .Values.volumes.configToml.mountPath }}
-            - name: secretsToml
-              mountPath: {{ .Values.volumes.secretsToml.mountPath }}
+            - name: configtoml
+              mountPath: {{ .Values.volumes.configtoml.mountPath }}
+            - name: secretstoml
+              mountPath: {{ .Values.volumes.secretstoml.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -97,14 +97,14 @@ spec:
               path: api
             - key: WALLET_PASSWORD
               path: password
-        - name: configToml
+        - name: configtoml
           configMap:
             name: {{ include "chainlink.fullname" . }}-config-toml
             items:
             - key: value
               path: config.toml
-        - name: secretsToml
-          secretsMap:
+        - name: secretstoml
+          configMap:
             name: {{ include "chainlink.fullname" . }}-secrets-toml
             items:
             - key: value
