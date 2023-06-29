@@ -27,6 +27,16 @@ spec:
       serviceAccountName: {{ include "chainlink.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers: 
+        - name: "change-ownership"
+          image: "busybox:1.36.0"
+          command: ["/bin/chown","-R","1000:1000", "{{ .Values.volumes.home.mountPath }}"]
+          securityContext:
+            runAsUser: 0
+            privileged: true
+          volumeMounts:
+            - name: home
+              mountPath: {{ .Values.volumes.home.mountPath }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -74,6 +84,8 @@ spec:
               mountPath: {{ .Values.volumes.configtoml.mountPath }}
             - name: secretstoml
               mountPath: {{ .Values.volumes.secretstoml.mountPath }}
+            - name: home
+              mountPath: {{ .Values.volumes.home.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -109,3 +121,6 @@ spec:
             items:
             - key: value
               path: secrets.toml
+        - name: home
+          emptyDir:
+            sizeLimit: 6Gi

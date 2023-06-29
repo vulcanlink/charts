@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=./values.schema.json
 # Default values for chainlink.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -10,7 +11,8 @@ image:
   # command: ["tail"]
   # args: ["-f", "/dev/null"]
   command: ["chainlink"]
-  args: ["--config", "/etc/chainlink-config/config.toml", "--secrets", "/etc/chainlink-secrets/secrets.toml", "node", "start", "-a", "/etc/chainlink/api", "-p", "/etc/chainlink/password"]
+  # args: ["--config", "/home/chainlink/chainlink-config/config.toml", "--secrets", "/home/chainlink/chainlink-secrets/secrets.toml", "node", "start", "-a", "/home/chainlink/chainlink/api", "-p", "/home/chainlink/chainlink/password"]
+  args: ["--config", "/chainlink/chainlink-config/config.toml", "--secrets", "/chainlink/chainlink-secrets/secrets.toml", "node", "start", "-a", "/chainlink/chainlink/api", "-p", "/chainlink/chainlink/password"]
 config:
   # Login Info
   # ROOT: /chainlink
@@ -82,8 +84,12 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
-securityContext: {}
+podSecurityContext:
+  fsGroup: 1000
+securityContext:
+  runAsUser: 1000
+    # NOTE: would work in a new version of kuberenetes
+    # fsGroup: 1000
 
 container:
   ports:
@@ -92,12 +98,20 @@ container:
     listener2: 30669
 
 volumes:
+  # config:
+  #   mountPath: /home/chainlink/chainlink
+  # configtoml:
+  #   mountPath: /home/chainlink/chainlink-config
+  # secretstoml:
+  #   mountPath: /home/chainlink/chainlink-secrets
   config:
-    mountPath: /etc/chainlink
+    mountPath: /chainlink/chainlink
   configtoml:
-    mountPath: /etc/chainlink-config
+    mountPath: /chainlink/chainlink-config
   secretstoml:
-    mountPath: /etc/chainlink-secrets
+    mountPath: /chainlink/chainlink-secrets
+  home:
+    mountPath: /home/.chainlink
 
 service:
   type: ClusterIP
