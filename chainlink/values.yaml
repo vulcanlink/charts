@@ -12,7 +12,19 @@ image:
   # args: ["-f", "/dev/null"]
   command: ["chainlink"]
   # args: ["--config", "/home/chainlink/chainlink-config/config.toml", "--secrets", "/home/chainlink/chainlink-secrets/secrets.toml", "node", "start", "-a", "/home/chainlink/chainlink/api", "-p", "/home/chainlink/chainlink/password"]
-  args: ["--config", "/chainlink/chainlink-config/config.toml", "--secrets", "/chainlink/chainlink-secrets/secrets.toml", "node", "start", "-a", "/chainlink/chainlink/api", "-p", "/chainlink/chainlink/password"]
+  args:
+    [
+      "--config",
+      "/chainlink/chainlink-config/config.toml",
+      "--secrets",
+      "/chainlink/chainlink-secrets/secrets.toml",
+      "node",
+      "start",
+      "-a",
+      "/chainlink/chainlink/api",
+      "-p",
+      "/chainlink/chainlink/password",
+    ]
 config:
   # Login Info
   # ROOT: /chainlink
@@ -85,11 +97,14 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext:
-  fsGroup: 1000
+  # user chainlink
+  fsGroup: 14933
 securityContext:
-  runAsUser: 1000
-    # NOTE: would work in a new version of kuberenetes
-    # fsGroup: 1000
+  # user chainlink
+  runAsUser: 14933
+  # user chainlink
+  # NOTE: would work in a new version of kuberenetes
+  # fsGroup: 14933
 
 container:
   ports:
@@ -132,5 +147,5 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
-configToml: ''
-secretsToml: ''
+configToml: ""
+secretsToml: ""
