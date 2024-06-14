@@ -58,14 +58,16 @@ spec:
             - name: listener2
               containerPort: {{ .Values.container.ports.listener2 }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          livenessProbe: null
+          readinessProbe: null
           env:
             - name: POD_NAME
               valueFrom:
