@@ -13,6 +13,13 @@ spec:
     - sourceLabels: [__name__]
       targetLabel: __name__
       replacement: chainlink_$1
+  - interval: 5s
+    path: /discovery
+    port: http
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      targetLabel: __name__
+      replacement: chainlink_discovery_$1
   namespaceSelector:
     matchNames:
     - {{ .Release.Namespace}}
