@@ -7,11 +7,7 @@ replicaCount: 1
 image:
   repository: smartcontract/chainlink
   pullPolicy: IfNotPresent
-  # command: ["chainlink", "local", "node"]
-  # command: ["tail"]
-  # args: ["-f", "/dev/null"]
   command: ["chainlink"]
-  # args: ["--config", "/home/chainlink/chainlink-config/config.toml", "--secrets", "/home/chainlink/chainlink-secrets/secrets.toml", "node", "start", "-a", "/home/chainlink/chainlink/api", "-p", "/home/chainlink/chainlink/password"]
   args:
     [
       "--config",
@@ -113,12 +109,6 @@ container:
     listener2: 30669
 
 volumes:
-  # config:
-  #   mountPath: /home/chainlink/chainlink
-  # configtoml:
-  #   mountPath: /home/chainlink/chainlink-config
-  # secretstoml:
-  #   mountPath: /home/chainlink/chainlink-secrets
   config:
     mountPath: /chainlink/chainlink
   configtoml:
